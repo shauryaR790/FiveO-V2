@@ -1,26 +1,172 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap");
+
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #000000;
+  --foreground: #f5f0e8;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-ink: #0a0a0a;
+  --color-cream: #f5f0e8;
+  --color-accent: #3d5eff;
+  --color-paper: #faf6f1;
+  --color-warm-surface: #f4ede2;
+  --color-cross: #e85a2a;
+  --color-manifesto: #2f4de0;
+  --font-sans: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
+  /* Condensed display (Anton-class) for all headings */
+  --font-heading: var(--font-anton), Impact, "Arial Narrow", ui-sans-serif, sans-serif;
+  /* Italic high-contrast serif for accent words inside headings */
+  --font-serif-accent: var(--font-instrument), ui-serif, Georgia, "Times New Roman",
+    serif;
+  --font-epoch-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-epoch-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+@keyframes manifesto-nebula-a {
+  0%,
+  100% {
+    transform: translate(0%, 0%) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate(5%, -4%) scale(1.12) rotate(4deg);
+  }
+}
+
+@keyframes manifesto-nebula-b {
+  0%,
+  100% {
+    transform: translate(0%, 0%) scale(1.05);
+  }
+  45% {
+    transform: translate(-6%, 4%) scale(1);
+  }
+}
+
+@keyframes manifesto-nebula-c {
+  0%,
+  100% {
+    transform: translate(0%, 0%) rotate(0deg);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translate(3%, 2%) rotate(-3deg);
+    opacity: 0.85;
+  }
+}
+
+@keyframes manifesto-starfield {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .manifesto-drift-a,
+  .manifesto-drift-b,
+  .manifesto-drift-c,
+  .manifesto-star-slow {
+    animation: none !important;
+  }
+}
+
+@keyframes epoch-marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.epoch-marquee-track {
+  animation: epoch-marquee-scroll 45s linear infinite;
+}
+
+.epoch-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes work-marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.work-marquee-track {
+  animation: work-marquee-scroll 75s linear infinite;
+}
+
+.work-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .epoch-marquee-track {
+    animation: none;
+  }
+
+  .work-marquee-track {
+    animation: none;
+  }
+}
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+
+  /* Keep accent / italic words in source casing (not forced caps) */
+  h1 :where(em, i, .italic, .font-serif-accent),
+  h2 :where(em, i, .italic, .font-serif-accent),
+  h3 :where(em, i, .italic, .font-serif-accent),
+  h4 :where(em, i, .italic, .font-serif-accent),
+  h5 :where(em, i, .italic, .font-serif-accent),
+  h6 :where(em, i, .italic, .font-serif-accent) {
+    text-transform: none;
+  }
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }
