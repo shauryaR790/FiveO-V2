@@ -10,25 +10,20 @@ export function AgencyScrollShowcase() {
   return (
     <section
       aria-labelledby="scroll-showcase-heading"
-      className="border-t border-white/10 bg-black pb-[30px] text-cream"
+      className="scroll-mt-28 border-t border-white/10 bg-black pb-[30px] text-cream"
     >
-      <ContainerScroll
-        titleComponent={
-          <h2
-            id="scroll-showcase-heading"
-            className="text-balance uppercase text-cream [word-spacing:-0.08em]"
-          >
-            <span className="block text-sm font-bold tracking-[0.22em] text-cream md:text-base">
-              FiveO — design, build, ship
-            </span>
-            <span className="mt-3 block font-heading text-[clamp(3rem,8.5vw,6.5rem)] font-normal leading-[0.92] tracking-[-0.04em] text-cream md:mt-4">
-              <span className="block">Your web</span>
-              <span className="block">development</span>
-              <span className="block">agency</span>
-            </span>
-          </h2>
-        }
-      >
+      <div className="mx-auto max-w-[1400px] px-6 pt-16 md:px-10 md:pt-24">
+        <h2
+          id="scroll-showcase-heading"
+          className="max-w-6xl font-heading text-[clamp(2.85rem,7.5vw,5.75rem)] font-normal leading-[1.02] tracking-[-0.035em] text-cream xl:text-[clamp(3.25rem,6.5vw,6.25rem)]"
+        >
+          Your{" "}
+          <span className="font-serif-accent font-normal italic text-cream">web development</span> agency
+          for teams that design, build, and ship premium products
+        </h2>
+      </div>
+
+      <ContainerScroll>
         <Image
           src={SHOWCASE_IMAGE}
           alt="Recent web project delivered by FiveO"

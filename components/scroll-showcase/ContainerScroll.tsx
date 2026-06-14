@@ -16,7 +16,7 @@ export function ContainerScroll({
   children,
   className,
 }: {
-  titleComponent: React.ReactNode;
+  titleComponent?: React.ReactNode;
   children: React.ReactNode;
   className?: string;
 }) {
@@ -59,7 +59,9 @@ export function ContainerScroll({
         className="relative w-full pt-2 pb-5 md:pt-3 md:pb-8"
         style={{ perspective: reduceMotion ? undefined : "1000px" }}
       >
-        <ScrollHeader translate={translate} titleComponent={titleComponent} reduceMotion={!!reduceMotion} />
+        {titleComponent ? (
+          <ScrollHeader translate={translate} titleComponent={titleComponent} reduceMotion={!!reduceMotion} />
+        ) : null}
         <ScrollCard rotate={rotate} scale={scale} reduceMotion={!!reduceMotion}>
           {children}
         </ScrollCard>
