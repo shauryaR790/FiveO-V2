@@ -349,7 +349,7 @@ export function DeliveryGrid() {
   return (
     <section
       ref={sectionRef}
-      id="services"
+      id="capabilities"
       className="scroll-mt-28 border-t border-white/10 bg-black px-6 py-16 text-cream md:px-10 md:py-24"
       aria-labelledby="delivery-heading"
     >
