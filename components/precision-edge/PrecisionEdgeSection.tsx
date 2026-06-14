@@ -24,7 +24,7 @@ export function PrecisionEdgeSection() {
       </div>
 
       <div className="relative z-20 flex min-h-[100svh] flex-col items-center justify-start px-5 pt-14 pb-16 text-center sm:px-8 md:px-10 md:pt-20 md:pb-20 lg:pt-24 lg:pb-24">
-        <h1 className="max-w-4xl font-heading text-[clamp(2.1rem,5.75vw,3.5rem)] font-bold leading-[1.08] tracking-[-0.01em] [word-spacing:0.18em] text-cream sm:[word-spacing:0.22em] xl:text-[clamp(2.35rem,6vw,3.85rem)]">
+        <h1 className="section-title max-w-4xl font-heading text-[clamp(2.1rem,5.75vw,3.5rem)] font-bold leading-[1.08] tracking-[-0.01em] [word-spacing:0.18em] text-cream sm:[word-spacing:0.22em] xl:text-[clamp(2.35rem,6vw,3.85rem)]">
           From crisp UX flows
           <br className="hidden sm:block" /> to resilient production systems
         </h1>

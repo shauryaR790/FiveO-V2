@@ -29,16 +29,16 @@ export function EpochHero() {
         </video>
       </div>
 
-      {/* Dark left scrim so cream type stays legible on the video */}
+      {/* Scrim so cream type stays legible on the video */}
       <div
         className={cn(
-          "pointer-events-none absolute inset-y-0 left-0 z-10 w-[min(100%,52rem)]",
-          "bg-gradient-to-r from-black from-0% via-black/88 via-42% to-transparent to-100%",
+          "pointer-events-none absolute inset-0 z-10",
+          "bg-gradient-to-b from-black/80 via-black/55 to-black/70",
         )}
         aria-hidden
       />
 
-      <div className="relative z-20 flex flex-1 flex-col items-start px-8 pt-12 md:px-16 md:pt-16">
+      <div className="relative z-20 flex flex-1 flex-col items-center justify-center px-8 text-center md:px-16">
         <motion.div
           className="max-w-2xl"
           initial={{ opacity: 0, y: 22 }}
@@ -56,7 +56,7 @@ export function EpochHero() {
           </h1>
           <p
             className={cn(
-              "font-epoch-sans mt-5 max-w-xl text-[14px] font-extrabold leading-relaxed text-cream/80 md:text-[15px]",
+              "font-epoch-sans mx-auto mt-5 max-w-xl text-[14px] font-extrabold leading-relaxed text-cream/80 md:text-[15px]",
             )}
           >
             We design and ship production websites, customer-facing apps, backend services, and LLM-backed

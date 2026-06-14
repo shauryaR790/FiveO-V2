@@ -97,7 +97,7 @@ export function TrustComparisonSection() {
         <header className="mx-auto max-w-4xl text-center">
           <h2
             id="trust-comparison-heading"
-            className="font-heading text-[clamp(2.25rem,5.5vw,4rem)] font-normal leading-[1.05] tracking-[-0.03em] text-cream"
+            className="section-title font-heading text-[clamp(2.25rem,5.5vw,4rem)] font-normal leading-[1.05] tracking-[-0.03em] text-cream"
           >
             Stop relying on{" "}
             <span className="font-serif-accent font-normal italic text-cream">fragmented vendors</span>

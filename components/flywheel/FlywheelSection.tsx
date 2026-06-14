@@ -27,15 +27,15 @@ export function FlywheelSection() {
     >
       <div className="mx-auto max-w-[1200px]">
         {/* Top: headline + optional right blurb */}
-        <div className="grid gap-10 md:grid-cols-2 md:items-end md:gap-12 lg:gap-20">
+        <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
           <h2
             id="flywheel-heading"
-            className="max-w-6xl font-heading text-[clamp(2.85rem,7.5vw,5.75rem)] font-normal leading-[1.02] tracking-[-0.035em] text-ink xl:text-[clamp(3.25rem,6.5vw,6.25rem)]"
+            className="section-title font-heading text-[clamp(2.85rem,7.5vw,5.75rem)] font-normal leading-[1.02] tracking-[-0.035em] text-ink xl:text-[clamp(3.25rem,6.5vw,6.25rem)]"
           >
             A flywheel. not a{" "}
             <span className="font-serif-accent font-normal italic text-ink">funnel</span>
           </h2>
-          <p className="max-w-md font-sans text-base leading-relaxed text-ink md:justify-self-end md:text-left md:text-lg lg:max-w-lg lg:text-xl">
+          <p className="mt-6 max-w-2xl font-sans text-base leading-relaxed text-ink md:text-lg lg:max-w-lg lg:text-xl">
             Discovery, build, and ship stay connected—each release feeds data and insight back into the next
             sprint instead of freezing the product in a one-and-done handoff.
           </p>

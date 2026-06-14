@@ -356,7 +356,7 @@ export function DeliveryGrid() {
       <div className="mx-auto max-w-[1200px]">
         <h2
           id="delivery-heading"
-          className="delivery-grid-title max-w-6xl text-[clamp(2.85rem,7.5vw,5.75rem)] font-normal leading-[1.02] tracking-[-0.035em] text-cream will-change-transform xl:text-[clamp(3.25rem,6.5vw,6.25rem)]"
+          className="delivery-grid-title section-title text-[clamp(2.85rem,7.5vw,5.75rem)] font-normal leading-[1.02] tracking-[-0.035em] text-cream will-change-transform xl:text-[clamp(3.25rem,6.5vw,6.25rem)]"
         >
           Your stack is ambitious. Your{" "}
           <span className="font-serif-accent font-normal italic text-cream">shipping rhythm</span> isn&apos;t.

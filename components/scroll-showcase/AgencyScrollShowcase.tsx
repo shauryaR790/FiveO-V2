@@ -15,7 +15,7 @@ export function AgencyScrollShowcase() {
       <div className="mx-auto max-w-[1400px] px-6 pt-16 md:px-10 md:pt-24">
         <h2
           id="scroll-showcase-heading"
-          className="max-w-6xl font-heading text-[clamp(2.85rem,7.5vw,5.75rem)] font-normal leading-[1.02] tracking-[-0.035em] text-cream xl:text-[clamp(3.25rem,6.5vw,6.25rem)]"
+          className="section-title font-heading text-[clamp(2.85rem,7.5vw,5.75rem)] font-normal leading-[1.02] tracking-[-0.035em] text-cream xl:text-[clamp(3.25rem,6.5vw,6.25rem)]"
         >
           Your{" "}
           <span className="font-serif-accent font-normal italic text-cream">web development</span> agency

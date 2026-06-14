@@ -99,14 +99,14 @@ export function SelectedWorkSection({ projects = DEFAULT_PROJECTS }: SelectedWor
       aria-labelledby="selected-work-heading"
     >
       <div className="mx-auto max-w-[1400px] px-6 md:px-10">
-        <header className="grid gap-8 pb-10 md:grid-cols-2 md:items-end md:gap-12 lg:pb-14">
+        <header className="mx-auto flex max-w-3xl flex-col items-center pb-10 text-center lg:pb-14">
           <h2
             id="selected-work-heading"
-            className="font-heading text-[clamp(2.85rem,7.5vw,5.75rem)] font-normal leading-[1.02] tracking-[-0.035em] text-cream xl:text-[clamp(3.25rem,6.5vw,6.25rem)]"
+            className="section-title font-heading text-[clamp(2.85rem,7.5vw,5.75rem)] font-normal leading-[1.02] tracking-[-0.035em] text-cream xl:text-[clamp(3.25rem,6.5vw,6.25rem)]"
           >
             Selected <span className="font-serif-accent font-normal italic text-cream">work</span>
           </h2>
-          <p className="max-w-md font-sans text-base leading-relaxed text-cream/65 md:justify-self-end md:text-left md:text-lg lg:text-xl">
+          <p className="mt-6 max-w-2xl font-sans text-base leading-relaxed text-cream/65 md:text-lg lg:text-xl">
             Marketing sites, dashboards, native clients, and LLM copilots we have shipped with founders and
             internal product teams.
           </p>

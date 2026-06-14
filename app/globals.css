@@ -158,6 +158,12 @@ body {
   animation: tech-marquee-right 48s linear infinite;
 }
 
+@layer utilities {
+  .section-title {
+    @apply mx-auto max-w-6xl text-center;
+  }
+}
+
 @layer base {
   h1,
   h2,
