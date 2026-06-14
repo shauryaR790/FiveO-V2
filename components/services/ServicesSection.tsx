@@ -77,7 +77,7 @@ export function ServicesSection() {
           <span className="font-serif-accent font-normal italic text-cream">long-term support</span>
         </h2>
 
-        <ServicesBentoGrid className="mt-12 lg:mt-16" />
+        <ServicesBentoGrid className="mt-12 lg:mt-14" />
       </div>
     </section>
   );
