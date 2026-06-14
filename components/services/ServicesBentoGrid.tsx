@@ -21,7 +21,7 @@ export const SERVICE_BENTO_ITEMS: ServiceBentoItem[] = [
     title: "Web development & product builds",
     meta: "React · Next.js · TypeScript",
     description:
-      "From marketing sites to complex apps—we architect, build, and ship fast, accessible experiences your team can own and extend.",
+      "From marketing sites to complex apps—we architect, build, and ship fast, accessible experiences your team can own and extend. We work in your repo with typed components, sensible CI, and preview deploys so every merge is reviewable. That means cleaner handoffs, fewer regressions, and a codebase that still makes sense six months after launch—not a black box you are afraid to touch.",
     icon: <Code2 className="size-5 text-sky-500 md:size-6" aria-hidden />,
     status: "Core",
     tags: ["Engineering", "Performance", "A11y"],
@@ -43,7 +43,7 @@ export const SERVICE_BENTO_ITEMS: ServiceBentoItem[] = [
     title: "Technical consulting",
     meta: "Audits · workshops",
     description:
-      "Code reviews, stack decisions, and roadmap sessions—we help you de-risk launches, tighten architecture, and plan hiring.",
+      "Code reviews, stack decisions, and roadmap sessions—we help you de-risk launches, tighten architecture, and plan hiring. We map integration seams early, flag performance and security debt before it blocks a release, and translate trade-offs into choices your team can act on. Whether you need a pre-launch audit or a standing technical partner, you get clear recommendations—not slide decks that never ship.",
     icon: <MessagesSquare className="size-5 text-amber-500 md:size-6" aria-hidden />,
     status: "Advisory",
     tags: ["Architecture", "CTO-for-hire"],
