@@ -19,7 +19,7 @@ function MarqueeTrack({
   children: React.ReactNode;
 }) {
   return (
-    <div className="relative w-full overflow-hidden border-y border-white/10 bg-black py-1">
+    <div className="relative w-full overflow-hidden bg-black py-2">
       <div
         className={cn(
           "flex w-max will-change-transform backface-hidden",
