@@ -10,7 +10,7 @@ const headlinePieces: { text: string; serif?: boolean }[] = [
   { text: "ship" },
   { text: "premium" },
   { text: "web", serif: true },
-  { text: "apps" },
+  { text: "apps", serif: true },
   { text: "and" },
   { text: "AI" },
   { text: "products" },
