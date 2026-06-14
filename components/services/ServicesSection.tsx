@@ -69,13 +69,15 @@ export function ServicesSection() {
       aria-labelledby="services-heading"
     >
       <div className="mx-auto max-w-[1400px]">
-        <h2
-          id="services-heading"
-          className="services-section-title max-w-6xl font-heading text-[clamp(2.85rem,7.5vw,5.75rem)] font-normal leading-[1.02] tracking-[-0.035em] text-cream will-change-transform xl:text-[clamp(3.25rem,6.5vw,6.25rem)]"
-        >
-          FiveO as your web partner—from first sketch to{" "}
-          <span className="font-serif-accent font-normal italic text-cream">long-term support</span>
-        </h2>
+        <div className="mx-auto max-w-[1200px]">
+          <h2
+            id="services-heading"
+            className="services-section-title max-w-6xl font-heading text-[clamp(2.85rem,7.5vw,5.75rem)] font-normal leading-[1.02] tracking-[-0.035em] text-cream will-change-transform xl:text-[clamp(3.25rem,6.5vw,6.25rem)]"
+          >
+            FiveO ships web products{" "}
+            <span className="font-serif-accent font-normal italic text-cream">and AI</span>
+          </h2>
+        </div>
 
         <ServicesBentoGrid className="mt-12 lg:mt-14" />
       </div>
