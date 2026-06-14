@@ -56,7 +56,7 @@ export function ContainerScroll({
       )}
     >
       <div
-        className="relative w-full pt-2 pb-5 md:pt-3 md:pb-8"
+        className="relative w-full pb-2 md:pb-4"
         style={{ perspective: reduceMotion ? undefined : "1000px" }}
       >
         {titleComponent ? (
