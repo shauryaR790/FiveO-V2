@@ -22,12 +22,12 @@ export function ServicesSection() {
 
       if (reduce) {
         gsap.set(".services-section-title", { opacity: 1, y: 0, clearProps: "all" });
-        gsap.set("[data-service-card]", { opacity: 1, y: 0, clearProps: "all" });
+        gsap.set("[data-bento-card]", { opacity: 1, y: 0, clearProps: "all" });
         return;
       }
 
       gsap.set(".services-section-title", { opacity: 0, y: 48 });
-      gsap.set("[data-service-card]", { opacity: 0, y: 56 });
+      gsap.set("[data-bento-card]", { opacity: 0, y: 56 });
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -43,7 +43,7 @@ export function ServicesSection() {
         y: 0,
         duration: 0.95,
       }).to(
-        "[data-service-card]",
+        "[data-bento-card]",
         {
           opacity: 1,
           y: 0,
