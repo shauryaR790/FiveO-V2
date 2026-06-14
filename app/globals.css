@@ -124,6 +124,38 @@ body {
   .work-marquee-track {
     animation: none;
   }
+
+  .tech-marquee--left,
+  .tech-marquee--right {
+    animation: none;
+    transform: none;
+  }
+}
+
+@keyframes tech-marquee-left {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(calc(-100% / 6), 0, 0);
+  }
+}
+
+@keyframes tech-marquee-right {
+  from {
+    transform: translate3d(calc(-100% / 6), 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.tech-marquee--left {
+  animation: tech-marquee-left 56s linear infinite;
+}
+
+.tech-marquee--right {
+  animation: tech-marquee-right 48s linear infinite;
 }
 
 @layer base {
