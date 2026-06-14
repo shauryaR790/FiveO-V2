@@ -12,13 +12,15 @@ gsap.registerPlugin(ScrollTrigger);
 
 export function ServicesSection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
   const reduce = reduceMotion === true;
 
   useGSAP(
     () => {
       const el = sectionRef.current;
-      if (!el) return;
+      const grid = gridRef.current;
+      if (!el || !grid) return;
 
       if (reduce) {
         gsap.set(".services-section-title", { opacity: 1, y: 0, clearProps: "all" });
@@ -29,33 +31,42 @@ export function ServicesSection() {
       gsap.set(".services-section-title", { opacity: 0, y: 48 });
       gsap.set("[data-bento-card]", { opacity: 0, y: 56 });
 
-      const tl = gsap.timeline({
+      const titleTl = gsap.timeline({
         scrollTrigger: {
           trigger: el,
-          start: "top 82%",
+          start: "top 92%",
           toggleActions: "play none none reverse",
         },
         defaults: { ease: "power3.out" },
       });
 
-      tl.to(".services-section-title", {
+      titleTl.to(".services-section-title", {
         opacity: 1,
         y: 0,
         duration: 0.95,
-      }).to(
-        "[data-bento-card]",
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.82,
-          stagger: 0.11,
+      });
+
+      const cardsTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: grid,
+          start: "top 96%",
+          toggleActions: "play none none reverse",
         },
-        "-=0.48",
-      );
+        defaults: { ease: "power3.out" },
+      });
+
+      cardsTl.to("[data-bento-card]", {
+        opacity: 1,
+        y: 0,
+        duration: 0.82,
+        stagger: 0.09,
+      });
 
       return () => {
-        tl.scrollTrigger?.kill();
-        tl.kill();
+        titleTl.scrollTrigger?.kill();
+        titleTl.kill();
+        cardsTl.scrollTrigger?.kill();
+        cardsTl.kill();
       };
     },
     { scope: sectionRef, dependencies: [reduce] },
@@ -77,7 +88,9 @@ export function ServicesSection() {
           <span className="font-serif-accent font-normal italic text-cream">web products</span> and AI
         </h2>
 
-        <ServicesBentoGrid className="mt-12 lg:mt-14" />
+        <div ref={gridRef}>
+          <ServicesBentoGrid className="mt-12 lg:mt-14" />
+        </div>
       </div>
     </section>
   );
