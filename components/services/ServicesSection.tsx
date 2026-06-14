@@ -65,19 +65,17 @@ export function ServicesSection() {
     <section
       ref={sectionRef}
       id="services"
-      className="scroll-mt-28 border-t border-white/10 bg-black px-6 py-16 text-cream md:px-10 md:py-24"
+      className="scroll-mt-28 border-t border-white/10 bg-black py-16 text-cream md:py-24"
       aria-labelledby="services-heading"
     >
-      <div className="mx-auto max-w-[1400px]">
-        <div className="mx-auto max-w-[1200px]">
-          <h2
-            id="services-heading"
-            className="services-section-title max-w-6xl font-heading text-[clamp(2.85rem,7.5vw,5.75rem)] font-normal leading-[1.02] tracking-[-0.035em] text-cream will-change-transform xl:text-[clamp(3.25rem,6.5vw,6.25rem)]"
-          >
-            FiveO ships web products{" "}
-            <span className="font-serif-accent font-normal italic text-cream">and AI</span>
-          </h2>
-        </div>
+      <div className="mx-auto max-w-[1400px] px-6 md:px-10">
+        <h2
+          id="services-heading"
+          className="services-section-title max-w-6xl font-heading text-[clamp(2.85rem,7.5vw,5.75rem)] font-normal leading-[1.02] tracking-[-0.035em] text-cream will-change-transform xl:text-[clamp(3.25rem,6.5vw,6.25rem)]"
+        >
+          FiveO ships{" "}
+          <span className="font-serif-accent font-normal italic text-cream">web products</span> and AI
+        </h2>
 
         <ServicesBentoGrid className="mt-12 lg:mt-14" />
       </div>
