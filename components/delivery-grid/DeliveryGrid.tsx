@@ -4,8 +4,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { useReducedMotion } from "framer-motion";
-import Image from "next/image";
 import { useRef } from "react";
+import { LogoMark } from "@/components/hero/LogoMark";
 import { cn } from "@/lib/utils";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -58,7 +58,7 @@ function ManifestoCardPattern() {
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
       <div
-        className="absolute inset-0 bg-[radial-gradient(ellipse_120%_80%_at_20%_0%,rgba(255,255,255,0.14)_0%,transparent_55%),radial-gradient(ellipse_90%_70%_at_95%_100%,rgba(255,255,255,0.08)_0%,transparent_50%),linear-gradient(145deg,#0a0a0a_0%,#171717_42%,#050505_100%)]"
+        className="absolute inset-0 bg-[radial-gradient(ellipse_120%_80%_at_20%_0%,rgba(147,112,219,0.35)_0%,transparent_55%),radial-gradient(ellipse_90%_70%_at_95%_100%,rgba(56,189,248,0.22)_0%,transparent_50%),linear-gradient(145deg,#120a3a_0%,#1e2a9e_42%,#0f1548_100%)]"
         aria-hidden
       />
       <div
@@ -67,12 +67,12 @@ function ManifestoCardPattern() {
       />
 
       <div
-        className="manifesto-drift-a absolute -left-[40%] top-[15%] h-[min(140%,42rem)] w-[min(140%,42rem)] rounded-full bg-[radial-gradient(closest-side,rgba(255,255,255,0.28),rgba(160,160,160,0.1)_42%,transparent_72%)] blur-3xl"
+        className="manifesto-drift-a absolute -left-[40%] top-[15%] h-[min(140%,42rem)] w-[min(140%,42rem)] rounded-full bg-[radial-gradient(closest-side,rgba(196,181,253,0.5),rgba(99,102,241,0.15)_42%,transparent_72%)] blur-3xl"
         style={{ animation: "manifesto-nebula-a 24s ease-in-out infinite" }}
         aria-hidden
       />
       <div
-        className="manifesto-drift-b absolute -right-[35%] bottom-[5%] h-[min(130%,36rem)] w-[min(130%,38rem)] rounded-full bg-[radial-gradient(closest-side,rgba(220,220,220,0.22),rgba(120,120,120,0.08)_48%,transparent_74%)] blur-3xl"
+        className="manifesto-drift-b absolute -right-[35%] bottom-[5%] h-[min(130%,36rem)] w-[min(130%,38rem)] rounded-full bg-[radial-gradient(closest-side,rgba(56,189,248,0.45),rgba(59,130,246,0.12)_48%,transparent_74%)] blur-3xl"
         style={{ animation: "manifesto-nebula-b 28s ease-in-out infinite" }}
         aria-hidden
       />
@@ -91,7 +91,7 @@ function ManifestoCardPattern() {
         className="absolute inset-0 opacity-40 mix-blend-screen"
         style={{
           background:
-            "linear-gradient(118deg, transparent 0%, rgba(255,255,255,0.07) 42%, rgba(255,255,255,0.05) 52%, transparent 72%)",
+            "linear-gradient(118deg, transparent 0%, rgba(255,255,255,0.07) 42%, rgba(147,197,253,0.12) 52%, transparent 72%)",
         }}
         aria-hidden
       />
@@ -112,16 +112,6 @@ function ManifestoCardPattern() {
           ].join(", "),
           backgroundSize: "120% 120%",
         }}
-        aria-hidden
-      />
-
-      <Image
-        src="/manifesto-star.png"
-        alt=""
-        width={415}
-        height={492}
-        className="absolute left-1/2 top-[42%] h-[min(88%,20rem)] w-[min(88%,17rem)] -translate-x-1/2 -translate-y-1/2 object-contain opacity-95 drop-shadow-[0_0_40px_rgba(255,255,255,0.18)]"
-        draggable={false}
         aria-hidden
       />
 
@@ -268,11 +258,24 @@ function ManifestoCard({ className = "" }: { className?: string }) {
   return (
     <article
       className={cn(
-        "relative flex min-h-full flex-col overflow-hidden rounded-2xl bg-zinc-950 p-8 text-white shadow-lg shadow-black/40 ring-1 ring-white/20 md:min-h-[280px]",
+        "relative flex min-h-full flex-col overflow-hidden rounded-2xl bg-manifesto p-8 text-white shadow-lg shadow-indigo-950/25 ring-1 ring-white/20 md:min-h-[280px]",
         className,
       )}
     >
       <ManifestoCardPattern />
+
+      <div className="relative z-10 shrink-0">
+        <div className="relative inline-flex">
+          <span
+            className="absolute inset-0 -m-3 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.45)_0%,transparent_65%)] blur-md"
+            aria-hidden
+          />
+          <LogoMark
+            className="relative text-white drop-shadow-[0_0_22px_rgba(255,255,255,0.65),0_0_48px_rgba(147,197,253,0.45)]"
+            size={24}
+          />
+        </div>
+      </div>
 
       <div className="relative z-10 mt-auto flex flex-col pt-10">
         <h3 className="max-w-[20ch] text-2xl font-normal leading-[1.08] tracking-[-0.02em] drop-shadow-sm md:text-3xl md:leading-tight lg:text-4xl">
@@ -280,9 +283,9 @@ function ManifestoCard({ className = "" }: { className?: string }) {
         </h3>
         <a
           href="#manifesto"
-          className="mt-8 inline-flex w-fit items-center gap-3 rounded-lg bg-white px-5 py-4 text-base font-semibold tracking-tight text-ink shadow-[0_8px_28px_rgba(0,0,0,0.18)] ring-1 ring-black/5 transition-[transform,box-shadow] hover:-translate-y-px hover:shadow-[0_12px_32px_rgba(0,0,0,0.22)] md:text-lg"
+          className="mt-8 inline-flex w-fit items-center gap-3 rounded-lg bg-white px-5 py-4 text-base font-semibold tracking-tight text-manifesto shadow-[0_8px_28px_rgba(0,0,0,0.18)] ring-1 ring-black/5 transition-[transform,box-shadow] hover:-translate-y-px hover:shadow-[0_12px_32px_rgba(0,0,0,0.22)] md:text-lg"
         >
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded bg-ink text-xl font-light leading-none text-white md:h-10 md:w-10 md:text-2xl">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded bg-manifesto text-xl font-light leading-none text-white md:h-10 md:w-10 md:text-2xl">
             +
           </span>
           Read our approach
