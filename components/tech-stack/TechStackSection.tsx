@@ -15,9 +15,9 @@ export function TechStackSection() {
           Technologies we{" "}
           <span className="font-serif-accent font-normal italic text-cream">work with</span>
         </h2>
-      </div>
 
-      <AnimatedTechGrid className="mt-10 md:mt-12" />
+        <AnimatedTechGrid className="mt-10 md:mt-12" />
+      </div>
     </section>
   );
 }

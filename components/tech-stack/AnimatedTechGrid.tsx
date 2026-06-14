@@ -175,12 +175,22 @@ export function AnimatedTechGrid({ className }: AnimatedTechGridProps) {
 
   return (
     <div ref={scopeRef} className={cn("w-full space-y-0", className)}>
-      <MarqueeTrack direction="right">
-        <TechMarqueeCells items={rowTop} rowKey="top" />
-      </MarqueeTrack>
-      <MarqueeTrack direction="left">
-        <TechMarqueeCells items={rowBottom} rowKey="bottom" />
-      </MarqueeTrack>
+      <div
+        className="relative overflow-hidden"
+        style={{
+          maskImage:
+            "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
+          WebkitMaskImage:
+            "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
+        }}
+      >
+        <MarqueeTrack direction="right">
+          <TechMarqueeCells items={rowTop} rowKey="top" />
+        </MarqueeTrack>
+        <MarqueeTrack direction="left">
+          <TechMarqueeCells items={rowBottom} rowKey="bottom" />
+        </MarqueeTrack>
+      </div>
     </div>
   );
 }
