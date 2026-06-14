@@ -52,11 +52,11 @@ function TechMarqueeCells({
         <button
           type="button"
           data-tech-inner
-          className="flex size-[4.25rem] cursor-pointer items-center justify-center border border-white/12 bg-black transition-colors hover:border-white/35 sm:size-[5rem]"
+          className="flex cursor-pointer items-center justify-center p-2 sm:p-3"
           aria-label={item.name}
         >
           <Icon
-            className={cn("size-7 sm:size-8", item.colorClass)}
+            className={cn("size-8 drop-shadow-sm sm:size-10", item.colorClass)}
             aria-hidden
           />
         </button>

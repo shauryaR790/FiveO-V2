@@ -15,7 +15,7 @@ export function TechStackSection() {
             </p>
             <h2
               id="tech-stack-heading"
-              className="mt-3 font-heading text-[clamp(1.75rem,4.5vw,3rem)] font-normal leading-[0.95] tracking-[-0.03em] text-cream"
+              className="mt-3 max-w-4xl font-heading text-[clamp(2.85rem,7.5vw,5.75rem)] font-normal leading-[1.02] tracking-[-0.035em] text-cream xl:text-[clamp(3.25rem,6.5vw,6.25rem)]"
             >
               Technologies we work with
             </h2>
