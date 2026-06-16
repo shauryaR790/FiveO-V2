@@ -19,7 +19,7 @@ function MarqueeTrack({
   children: React.ReactNode;
 }) {
   return (
-    <div className="relative w-full overflow-hidden bg-black py-2">
+    <div className="relative w-full overflow-hidden py-2">
       <div
         className={cn(
           "flex w-max will-change-transform backface-hidden",
@@ -52,11 +52,11 @@ function TechMarqueeCells({
         <button
           type="button"
           data-tech-inner
-          className="flex cursor-pointer items-center justify-center p-2 sm:p-3"
+          className="group flex cursor-pointer items-center justify-center p-2 sm:p-3"
           aria-label={item.name}
         >
           <Icon
-            className={cn("size-8 drop-shadow-sm sm:size-10", item.colorClass)}
+            className="size-8 text-cream transition-colors duration-300 group-hover:text-white sm:size-10"
             aria-hidden
           />
         </button>

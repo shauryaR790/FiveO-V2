@@ -1,4 +1,5 @@
 import { AgencyScrollShowcase } from "@/components/scroll-showcase/AgencyScrollShowcase";
+import { ContactSection } from "@/components/contact/ContactSection";
 import { DeliveryGrid } from "@/components/delivery-grid/DeliveryGrid";
 import { FlywheelSection } from "@/components/flywheel/FlywheelSection";
 import { Hero } from "@/components/hero/Hero";
@@ -23,7 +24,7 @@ export default function Home() {
       <WebDevCraftSection />
       <SelectedWorkSection />
       <FlywheelSection />
-      <section id="contact" className="min-h-[1px] scroll-mt-28 bg-black" aria-label="Start a project" />
+      <ContactSection />
     </>
   );
 }

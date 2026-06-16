@@ -362,17 +362,17 @@ export function DeliveryGrid() {
           <span className="font-serif-accent font-normal italic text-cream">shipping rhythm</span> isn&apos;t.
         </h2>
 
-        <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3 lg:gap-6">
+        <div className="mt-12 grid grid-cols-2 gap-3 sm:gap-5 lg:mt-16 lg:grid-cols-3 lg:gap-6">
           {PAIN_CARDS.map((card) => (
             <article
               key={card.title}
-              className="delivery-grid-card flex flex-col rounded-xl bg-zinc-900 p-8 ring-1 ring-white/10 will-change-transform"
+              className="delivery-grid-card flex flex-col rounded-xl bg-zinc-900 p-5 ring-1 ring-white/10 will-change-transform sm:p-8"
             >
               <PainCrossIcon />
-              <h3 className="text-2xl font-normal leading-snug tracking-[-0.02em] text-cream md:text-3xl lg:text-[2rem]">
+              <h3 className="text-base font-normal leading-snug tracking-[-0.02em] text-cream sm:text-2xl md:text-3xl lg:text-[2rem]">
                 {card.title}
               </h3>
-              <p className="copy-accent mt-4 text-[1.125rem] text-cream/68 md:text-xl md:leading-[1.68]">
+              <p className="copy-accent mt-3 text-sm text-cream/68 sm:mt-4 sm:text-[1.125rem] md:text-xl md:leading-[1.68]">
                 {card.body}
               </p>
             </article>

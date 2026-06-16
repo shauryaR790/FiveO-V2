@@ -21,7 +21,7 @@ export function AgencyScrollShowcase() {
         </h2>
       </div>
 
-      <ContainerScroll className="h-[38rem] pt-4 pb-0 md:h-[44rem] md:pt-6">
+      <ContainerScroll className="h-[26rem] pt-4 pb-0 md:h-[40rem] md:pt-6">
         <Image
           src={SHOWCASE_IMAGE}
           alt="Recent web project delivered by FiveO"
