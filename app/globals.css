@@ -18,11 +18,12 @@
   --color-cross: #e85a2a;
   --color-manifesto: #2f4de0;
   --font-sans: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
+  /* Body / sub-copy (Instrument Serif) */
+  --font-body: var(--font-instrument), ui-serif, Georgia, "Times New Roman", serif;
   /* Condensed display (Anton-class) for all headings */
   --font-heading: var(--font-anton), Impact, "Arial Narrow", ui-sans-serif, sans-serif;
   /* Italic high-contrast serif for accent words inside headings */
-  --font-serif-accent: var(--font-instrument), ui-serif, Georgia, "Times New Roman",
-    serif;
+  --font-serif-accent: var(--font-body);
   --font-epoch-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-epoch-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
 }
@@ -30,6 +31,22 @@
 body {
   background: var(--background);
   color: var(--foreground);
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html {
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 @keyframes manifesto-nebula-a {
@@ -109,7 +126,7 @@ body {
 }
 
 .work-marquee-track {
-  animation: work-marquee-scroll 75s linear infinite;
+  animation: work-marquee-scroll 140s linear infinite;
 }
 
 .work-marquee-track:hover {
@@ -164,13 +181,25 @@ body {
   }
 
   .copy-accent {
-    font-family: var(--font-serif-accent);
+    font-family: var(--font-body);
+    letter-spacing: 0.012em;
+    line-height: 1.65;
+  }
+
+  .font-body {
+    font-family: var(--font-body);
     letter-spacing: 0.012em;
     line-height: 1.65;
   }
 }
 
 @layer base {
+  p {
+    font-family: var(--font-body);
+    letter-spacing: 0.012em;
+    line-height: 1.65;
+  }
+
   h1,
   h2,
   h3,

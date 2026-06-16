@@ -26,7 +26,7 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative min-h-[100dvh] overflow-hidden bg-black text-cream"
+      className="relative min-h-[100dvh] overflow-x-clip bg-black text-cream"
     >
       <AnimatedGrid />
 
@@ -37,26 +37,34 @@ export function Hero() {
 
       <HeroNavbar />
 
-      <div className="relative z-10 mx-auto min-h-0 max-w-[1400px] px-6 pb-20 pt-32 md:px-10 lg:grid lg:grid-cols-12 lg:gap-x-8 lg:gap-y-12 lg:pb-28 lg:pt-28">
-        {/* Headline */}
-        <div className="relative z-20 min-w-0 max-w-3xl md:max-w-5xl lg:col-span-7 lg:max-w-none xl:col-span-7">
-          <SplitHeadline />
+      {/* Desktop orbit — anchored to the right edge, grows left (won't clip off-screen) */}
+      <motion.div
+        initial={reduce ? false : { opacity: 0, scale: 0.98 }}
+        animate={reduce ? undefined : { opacity: 1, scale: 1 }}
+        transition={{ delay: 0.3, duration: 1, ease: [0.22, 1, 0.36, 1] as const }}
+        className="pointer-events-none absolute inset-y-0 right-0 z-[8] hidden items-center justify-end pr-4 sm:pr-6 md:pr-8 lg:flex xl:pr-10"
+      >
+        <div className="aspect-square w-[min(80vw,52rem)] shrink-0 xl:w-[min(74vw,60rem)] 2xl:w-[min(68vw,68rem)]">
+          <OrbitalGraphic />
         </div>
+      </motion.div>
 
-        {/* Orbit: centered in hero, large; absolute on lg+ so it sits in the middle of the section */}
-        <motion.div
-          initial={reduce ? false : { opacity: 0, y: 16 }}
-          animate={reduce ? undefined : { opacity: 1, y: 0 }}
-          transition={{ delay: 0.35, duration: 1, ease: [0.22, 1, 0.36, 1] as const }}
-          className="mt-10 flex min-w-0 justify-center sm:mt-12 lg:pointer-events-none lg:absolute lg:inset-0 lg:z-[5] lg:mt-0 lg:items-center lg:justify-center lg:px-6 xl:px-10"
-        >
-          <div className="aspect-square w-full max-w-[min(100%,28rem)] sm:max-w-[34rem] md:max-w-[40rem] lg:max-w-none lg:w-[min(88vw,48rem)] lg:translate-x-[100px] xl:w-[min(82vw,56rem)] 2xl:w-[min(78vw,68rem)]">
-            <OrbitalGraphic />
-          </div>
-        </motion.div>
+      <div className="relative z-10 mx-auto min-h-[100dvh] max-w-[1400px] px-6 pb-20 pt-32 md:px-10 lg:pb-28 lg:pt-28">
+        <div className="flex max-w-3xl flex-col gap-10 sm:gap-12 md:max-w-5xl lg:max-w-[52%] xl:max-w-[48%]">
+          <SplitHeadline />
 
-        {/* CTAs */}
-        <div className="relative z-20 mt-10 flex max-w-3xl flex-col sm:mt-12 md:max-w-5xl lg:col-span-6 lg:mt-0 lg:max-w-none lg:pt-2 xl:col-span-7">
+          {/* Mobile / tablet orbit */}
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: 16 }}
+            animate={reduce ? undefined : { opacity: 1, y: 0 }}
+            transition={{ delay: 0.35, duration: 1, ease: [0.22, 1, 0.36, 1] as const }}
+            className="flex justify-center lg:hidden"
+          >
+            <div className="aspect-square w-full max-w-[min(100%,28rem)] sm:max-w-[34rem] md:max-w-[40rem]">
+              <OrbitalGraphic />
+            </div>
+          </motion.div>
+
           <motion.div
             custom={reduce ? 0 : 0.72}
             variants={fadeUp}

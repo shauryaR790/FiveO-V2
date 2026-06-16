@@ -1,6 +1,7 @@
 "use client";
 
 import Lenis from "lenis";
+import { useReducedMotion } from "framer-motion";
 import { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -14,26 +15,43 @@ type SmoothScrollProps = {
 };
 
 export function SmoothScroll({ children }: SmoothScrollProps) {
+  const reduceMotion = useReducedMotion() === true;
+
   useEffect(() => {
-    const root = document.documentElement;
-    root.classList.add("lenis");
+    if (reduceMotion) return;
 
     const lenis = new Lenis({
-      duration: 1.25,
+      duration: 1.2,
       smoothWheel: true,
+      syncTouch: true,
       touchMultiplier: 1.15,
-      autoRaf: true,
+      wheelMultiplier: 1,
+      autoRaf: false,
+      anchors: true,
     });
 
-    const unsubscribeLenisScroll = lenis.on("scroll", ScrollTrigger.update);
-    requestAnimationFrame(() => ScrollTrigger.refresh());
+    const onScroll = () => ScrollTrigger.update();
+    const unsubscribeScroll = lenis.on("scroll", onScroll);
+
+    const raf = (time: number) => {
+      lenis.raf(time * 1000);
+    };
+    gsap.ticker.add(raf);
+    gsap.ticker.lagSmoothing(0);
+
+    const refresh = () => ScrollTrigger.refresh();
+    requestAnimationFrame(refresh);
+    window.addEventListener("resize", refresh);
+    window.addEventListener("load", refresh);
 
     return () => {
-      unsubscribeLenisScroll();
-      root.classList.remove("lenis");
+      unsubscribeScroll();
+      gsap.ticker.remove(raf);
       lenis.destroy();
+      window.removeEventListener("resize", refresh);
+      window.removeEventListener("load", refresh);
     };
-  }, []);
+  }, [reduceMotion]);
 
   return <>{children}</>;
 }

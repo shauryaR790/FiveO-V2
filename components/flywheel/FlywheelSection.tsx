@@ -26,22 +26,20 @@ export function FlywheelSection() {
       aria-labelledby="flywheel-heading"
     >
       <div className="mx-auto max-w-[1200px]">
-        {/* Top: headline + optional right blurb */}
-        <div className="mx-auto flex max-w-6xl flex-col items-center text-center">
+        <div className="grid gap-10 md:grid-cols-2 md:items-end md:gap-12 lg:gap-20">
           <h2
             id="flywheel-heading"
-            className="section-title font-heading text-[clamp(2.85rem,7.5vw,5.75rem)] font-normal leading-[1.02] tracking-[-0.035em] text-ink xl:text-[clamp(3.25rem,6.5vw,6.25rem)]"
+            className="max-w-6xl font-heading text-[clamp(2.85rem,7.5vw,5.75rem)] font-normal leading-[1.02] tracking-[-0.035em] text-ink xl:text-[clamp(3.25rem,6.5vw,6.25rem)]"
           >
             A flywheel. not a{" "}
             <span className="font-serif-accent font-normal italic text-ink">funnel</span>
           </h2>
-          <p className="copy-accent mt-7 max-w-2xl text-[1.125rem] text-ink/72 md:mt-8 md:text-xl md:leading-[1.68] lg:max-w-3xl">
-            Discovery, build, and ship stay connected — each release feeds data and insight back into the
-            next sprint instead of freezing the product in a one-and-done handoff.
+          <p className="max-w-md text-base text-ink md:justify-self-end md:text-left md:text-lg lg:max-w-lg lg:text-xl">
+            Discovery, build, and ship stay connected—each release feeds data and insight back into the next
+            sprint instead of freezing the product in a one-and-done handoff.
           </p>
         </div>
 
-        {/* Full-width horizontal rule; vertical lines run from here between columns */}
         <div className="mt-10 border-t border-black/10 md:mt-14 lg:mt-16">
           <div className="grid grid-cols-1 divide-y divide-black/10 md:grid-cols-3 md:divide-x md:divide-y-0 md:divide-black/10">
             {STEPS.map((step, i) => (
@@ -62,9 +60,7 @@ export function FlywheelSection() {
                     {step.title}
                   </h3>
                 </div>
-                <p className="copy-accent mt-6 text-[1.125rem] text-ink/72 md:text-xl md:leading-[1.68]">
-                  {step.body}
-                </p>
+                <p className="mt-6 text-lg text-ink md:text-xl">{step.body}</p>
               </div>
             ))}
           </div>

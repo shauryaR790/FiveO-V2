@@ -8,7 +8,7 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
-import { useCallback, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const CENTER = { x: 350, y: 350 };
 
@@ -18,7 +18,7 @@ const RING_STEP = 102;
 /** First orbit radius — leaves a large clear band around the center star. */
 const R_INNER = 118;
 
-/** Three circular radii: evenly stepped so bands don’t crowd. */
+/** Three circular radii: evenly stepped so bands don't crowd. */
 const RADII = [
   R_INNER,
   R_INNER + RING_STEP,
@@ -58,30 +58,20 @@ function OrbitDot({
   phase: number;
   reduce: boolean;
 }) {
-  const cx = useMotionValue(0);
-  const cy = useMotionValue(0);
+  const [pos, setPos] = useState(() => circleXY(phase, r));
 
   useEffect(() => {
-    const { x, y } = circleXY(phase, r);
-    cx.set(x);
-    cy.set(y);
-  }, [cx, cy, phase, r]);
+    setPos(circleXY(phase, r));
+  }, [phase, r]);
 
-  const onFrame = useCallback(
-    (t: number) => {
-      if (reduce) return;
-      const secs = t / 1000;
-      const θ = (secs * (2 * Math.PI)) / periodSec + phase;
-      const p = circleXY(θ, r);
-      cx.set(p.x);
-      cy.set(p.y);
-    },
-    [reduce, periodSec, phase, r, cx, cy],
-  );
+  useAnimationFrame((t) => {
+    if (reduce) return;
+    const secs = t / 1000;
+    const θ = (secs * (2 * Math.PI)) / periodSec + phase;
+    setPos(circleXY(θ, r));
+  });
 
-  useAnimationFrame(onFrame);
-
-  return <motion.circle r={5} fill="currentColor" cx={cx} cy={cy} />;
+  return <circle r={5} fill="currentColor" cx={pos.x} cy={pos.y} />;
 }
 
 export function OrbitalGraphic() {
@@ -107,7 +97,6 @@ export function OrbitalGraphic() {
   const sprX = useSpring(mx, { stiffness: 40, damping: 18, mass: 0.7 });
   const sprY = useSpring(my, { stiffness: 40, damping: 18, mass: 0.7 });
 
-  /* Subtle parallax — reference is flat circles; keep tilt light so rings stay round. */
   const tiltX = useTransform(sprY, [-1, 1], [6, -6]);
   const tiltY = useTransform(sprX, [-1, 1], [-7, 7]);
   const liftX = useTransform(sprX, [-1, 1], [-12, 12]);
@@ -115,7 +104,7 @@ export function OrbitalGraphic() {
 
   return (
     <motion.div
-      className="relative mx-auto aspect-square w-full max-w-full text-cream/85"
+      className="relative mx-auto aspect-square h-full w-full text-cream/85"
       style={{
         rotateX: reduce ? 0 : tiltX,
         rotateY: reduce ? 0 : tiltY,
@@ -123,9 +112,6 @@ export function OrbitalGraphic() {
         y: reduce ? 0 : liftY,
         transformPerspective: 900,
       }}
-      initial={{ opacity: 0, scale: 0.96 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay: 0.25, duration: 1.1, ease: [0.22, 1, 0.36, 1] as const }}
     >
       <svg
         viewBox="0 0 700 700"

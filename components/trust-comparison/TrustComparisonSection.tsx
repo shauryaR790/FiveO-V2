@@ -102,7 +102,7 @@ export function TrustComparisonSection() {
             Stop relying on{" "}
             <span className="font-serif-accent font-normal italic text-cream">fragmented vendors</span>
           </h2>
-          <p className="mx-auto mt-6 max-w-3xl font-sans text-lg leading-relaxed text-cream/60 md:text-xl">
+          <p className="mx-auto mt-6 max-w-3xl text-lg text-cream/60 md:text-xl">
             You will not ship a cohesive product when websites, apps, APIs, and AI experiments are owned
             by teams that never share context. Integrated delivery is what turns roadmaps into releases.
           </p>
@@ -115,7 +115,7 @@ export function TrustComparisonSection() {
               <h3 className="font-heading text-2xl font-normal tracking-[-0.02em] text-cream md:text-3xl">
                 Fragmented delivery
               </h3>
-              <p className="mt-2 font-sans text-base leading-snug text-cream/50 md:text-lg">
+              <p className="mt-2 text-base leading-snug text-cream/50 md:text-lg">
                 Freelancers vs. offshore tickets vs. disconnected specialists
               </p>
             </div>
@@ -124,7 +124,7 @@ export function TrustComparisonSection() {
                 <li key={text}>
                   <article className="flex gap-4 rounded-lg bg-zinc-900 p-5 ring-1 ring-white/10 md:p-6">
                     <IsolatedBadge />
-                    <p className="font-sans text-[15px] leading-relaxed text-cream/85 md:text-base">{text}</p>
+                    <p className="text-[15px] text-cream/85 md:text-base">{text}</p>
                   </article>
                 </li>
               ))}
@@ -137,7 +137,7 @@ export function TrustComparisonSection() {
               <h3 className="font-heading text-2xl font-normal tracking-[-0.02em] text-cream md:text-3xl">
                 FiveO full-stack pod
               </h3>
-              <p className="mt-2 font-sans text-base leading-snug text-cream/50 md:text-lg">
+              <p className="mt-2 text-base leading-snug text-cream/50 md:text-lg">
                 One partner for web, apps, cloud, and LLM-powered features
               </p>
             </div>
@@ -146,7 +146,7 @@ export function TrustComparisonSection() {
                 <li key={text}>
                   <article className="flex gap-4 rounded-lg bg-zinc-900 p-5 ring-1 ring-white/10 md:p-6">
                     <TrustEngineBadge />
-                    <p className="font-sans text-[15px] leading-relaxed text-cream/85 md:text-base">{text}</p>
+                    <p className="text-[15px] text-cream/85 md:text-base">{text}</p>
                   </article>
                 </li>
               ))}

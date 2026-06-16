@@ -125,14 +125,14 @@ export function ServicesBentoGrid({
               <h3 className="text-xl font-medium leading-snug tracking-tight text-cream md:text-2xl md:leading-snug">
                 {item.title}
                 {item.meta ? (
-                  <span className="ml-2 text-sm font-normal text-cream/45 md:ml-3 md:text-base">
+                  <span className="ml-2 font-body text-sm font-normal text-cream/45 md:ml-3 md:text-base">
                     {item.meta}
                   </span>
                 ) : null}
               </h3>
 
               {/* 4 — description */}
-              <p className="text-base leading-relaxed text-cream/50 md:text-lg md:leading-relaxed">
+              <p className="text-base text-cream/50 md:text-lg">
                 {item.description}
               </p>
             </div>

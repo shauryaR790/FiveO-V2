@@ -1,89 +1,138 @@
-import { LogoMark } from "@/components/hero/LogoMark";
-import { SITE_NAV_LINKS } from "@/lib/site-nav";
+"use client";
 
-export function SiteFooter() {
+import type { ReactNode } from "react";
+import Link from "next/link";
+
+import { CircularRevealHeading } from "@/components/ui/circular-reveal-heading";
+import { cn } from "@/lib/utils";
+
+const REVEAL_ITEMS = [
+  {
+    text: "STRATEGY",
+    image:
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?w=900&auto=format&fit=crop&q=80",
+  },
+  {
+    text: "DESIGN",
+    image:
+      "https://images.unsplash.com/photo-1561070791-36c11767b862?w=900&auto=format&fit=crop&q=80",
+  },
+  {
+    text: "BUILD",
+    image:
+      "https://images.unsplash.com/photo-1556155092-8707de31f9c4?w=900&auto=format&fit=crop&q=80",
+  },
+  {
+    text: "SCALE",
+    image:
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&auto=format&fit=crop&q=80",
+  },
+] as const;
+
+const footerLinkClass = "text-sm text-zinc-500 transition-colors hover:text-zinc-200";
+
+function FooterColumn({
+  title,
+  children,
+  className,
+}: {
+  title: string;
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={cn("space-y-4", className)}>
+      <p className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-zinc-500">
+        {title}
+      </p>
+      <div className="flex flex-col gap-2.5">{children}</div>
+    </div>
+  );
+}
+
+export function SiteFooter({ className }: { className?: string }) {
   return (
     <footer
-      className="relative border-t border-white/10 bg-black text-cream"
+      id="footer-contact"
+      className={cn("border-t border-zinc-800 bg-black text-zinc-100", className)}
       aria-labelledby="site-footer-heading"
     >
-      <div className="mx-auto max-w-[1400px] px-6 py-20 md:px-10 md:py-28 lg:py-36">
-        <div className="flex flex-col gap-16 lg:gap-24">
-          <div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
-            <div className="min-w-0 space-y-6">
-              <p className="flex items-center gap-3 text-cream/45">
-                <LogoMark className="text-cream" size={22} />
-                <span className="font-sans text-sm font-medium uppercase tracking-[0.22em] md:text-base">
-                  Studio
-                </span>
-              </p>
-              <h2
-                id="site-footer-heading"
-                className="font-heading text-[clamp(4rem,18vw,13.5rem)] font-normal leading-[0.8] tracking-[-0.045em] text-cream"
-              >
-                Five
-                <span className="font-serif-accent relative inline-block translate-y-[0.02em] text-[0.92em] font-normal italic tracking-tight text-cream">
-                  O
-                </span>
-              </h2>
-              <p className="max-w-2xl font-serif-accent text-[clamp(1.15rem,2.4vw,1.85rem)] italic leading-snug text-cream/55">
-                Web, mobile, cloud APIs, and LLM-backed products—designed, built, and shipped with one
-                team.
-              </p>
-            </div>
-
-            <a
-              href="#contact"
-              className="inline-flex w-fit shrink-0 items-center gap-2 rounded-md bg-accent px-6 py-4 text-base font-semibold tracking-tight text-white shadow-[0_0_36px_rgba(61,94,255,0.4)] transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_52px_rgba(61,94,255,0.55)] md:px-8 md:py-5 md:text-lg"
+      <div className="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2">
+        <div className="flex flex-col gap-12 border-b border-zinc-800 px-6 py-14 sm:px-10 lg:border-b-0 lg:border-r lg:py-16">
+          <div className="space-y-6">
+            <h2
+              id="site-footer-heading"
+              className="max-w-xl font-heading text-[clamp(2.85rem,7.5vw,5.75rem)] font-normal leading-[1.02] tracking-[-0.035em] text-cream xl:text-[clamp(3.25rem,6.5vw,6.25rem)]"
             >
-              <span className="text-xl leading-none md:text-2xl">+</span>
-              Start a project
-            </a>
+              Sites that feel inevitable.
+            </h2>
+            <p className="max-w-md text-pretty text-sm leading-relaxed text-zinc-400">
+              FIVEO is a web development agency for teams that want sites and products that feel
+              inevitable—crisp UX, resilient code, and launches your engineers can own.
+            </p>
           </div>
 
-          <div className="grid gap-12 border-t border-white/10 pt-14 md:grid-cols-2 lg:grid-cols-12 lg:gap-10 lg:pt-16">
-            <nav className="lg:col-span-5" aria-label="Footer">
-              <p className="mb-6 font-heading text-[clamp(1.5rem,3.8vw,2.5rem)] font-normal tracking-[-0.02em] text-cream">
-                Explore
-              </p>
-              <ul className="flex flex-col gap-4 md:gap-5" role="list">
-                {SITE_NAV_LINKS.map((link) => (
-                  <li key={link.label}>
-                    <a
-                      href={link.href}
-                      className="group inline-flex items-center gap-2 font-heading text-[clamp(1.25rem,2.8vw,2rem)] font-normal tracking-[-0.02em] text-cream/75 transition-colors hover:text-cream"
-                    >
-                      <span className="text-cream/30 transition-colors group-hover:text-accent">—</span>
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
+          <div className="grid grid-cols-2 gap-10 sm:grid-cols-3">
+            <FooterColumn title="Work">
+              <Link href="#capabilities" className={footerLinkClass}>
+                Capabilities
+              </Link>
+              <Link href="#contact" className={footerLinkClass}>
+                Waitlist
+              </Link>
+              <Link href="#cases" className={footerLinkClass}>
+                Case studies
+              </Link>
+            </FooterColumn>
+            <FooterColumn title="Studio">
+              <Link href="#manifesto" className={footerLinkClass}>
+                About
+              </Link>
+              <Link href="#contact" className={footerLinkClass}>
+                Careers
+              </Link>
+              <Link href="#footer-contact" className={footerLinkClass}>
+                Contact
+              </Link>
+            </FooterColumn>
+            <FooterColumn title="Legal" className="col-span-2 sm:col-span-1">
+              <Link href="#contact" className={footerLinkClass}>
+                Privacy
+              </Link>
+              <Link href="#contact" className={footerLinkClass}>
+                Terms
+              </Link>
+            </FooterColumn>
+          </div>
+        </div>
 
-            <div className="flex flex-col justify-between gap-10 lg:col-span-7 lg:flex-row lg:gap-16">
-              <div className="min-w-0">
-                <p className="mb-6 font-heading text-[clamp(1.5rem,3.8vw,2.5rem)] font-normal tracking-[-0.02em] text-cream">
-                  Contact
+        <div className="flex flex-col items-center justify-center gap-8 border-b border-zinc-800 px-6 py-14 sm:px-10 lg:border-b-0 lg:py-16">
+          <div className="text-center">
+            <p className="mx-auto max-w-xs font-heading text-base uppercase leading-tight tracking-[-0.02em] text-zinc-400 sm:text-lg">
+              Hover the ring — each lane is how we ship.
+            </p>
+          </div>
+          <CircularRevealHeading
+            items={[...REVEAL_ITEMS]}
+            size="md"
+            className="h-[320px] w-[320px] sm:h-[380px] sm:w-[380px]"
+            centerText={
+              <div className="text-center">
+                <p className="font-heading text-3xl font-normal uppercase leading-none tracking-[-0.03em] text-white not-italic sm:text-4xl">
+                  FiveO
                 </p>
-                <a
-                  href="#top"
-                  className="font-serif-accent text-xl italic text-cream/70 underline decoration-white/20 underline-offset-8 transition-colors hover:text-cream md:text-2xl"
-                >
-                  Back to top
-                </a>
               </div>
-              <p className="max-w-sm self-end font-sans text-base leading-relaxed text-cream/45 lg:max-w-[30ch] lg:text-lg lg:leading-relaxed">
-                FiveO partners with product teams who need memorable interfaces, solid architecture, and
-                AI features that survive real users.
-              </p>
-            </div>
-          </div>
+            }
+          />
+        </div>
+      </div>
 
-          <div className="flex flex-col justify-between gap-6 border-t border-white/10 pt-10 text-sm text-cream/40 md:flex-row md:items-center md:text-base">
-            <span>© {new Date().getFullYear()} FiveO. All rights reserved.</span>
-            <span className="font-medium tracking-tight text-cream/55">Engineering studio</span>
-          </div>
+      <div className="border-t border-zinc-800">
+        <div className="mx-auto flex max-w-7xl flex-col gap-2 px-6 py-6 text-xs text-zinc-600 sm:flex-row sm:items-center sm:justify-between sm:px-10">
+          <span>© {new Date().getFullYear()} FIVEO. All rights reserved.</span>
+          <span className="text-zinc-700">
+            Web development agency — strategy, UI, and production code.
+          </span>
         </div>
       </div>
     </footer>

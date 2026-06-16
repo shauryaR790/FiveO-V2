@@ -6,6 +6,7 @@ import { PrecisionEdgeSection } from "@/components/precision-edge/PrecisionEdgeS
 import { SelectedWorkSection } from "@/components/selected-work/SelectedWorkSection";
 import { ServicesSection } from "@/components/services/ServicesSection";
 import { TechStackSection } from "@/components/tech-stack/TechStackSection";
+import { TechVideoSection } from "@/components/tech-video/TechVideoSection";
 import { WebDevCraftSection } from "@/components/web-dev-craft/WebDevCraftSection";
 
 export default function Home() {
@@ -13,14 +14,15 @@ export default function Home() {
     <>
       <Hero />
       <TechStackSection />
+      <TechVideoSection />
       <ServicesSection />
       <DeliveryGrid />
       <AgencyScrollShowcase />
       <section id="manifesto" className="min-h-[1px] scroll-mt-28 bg-black" aria-label="Approach" />
       <PrecisionEdgeSection />
       <WebDevCraftSection />
-      <FlywheelSection />
       <SelectedWorkSection />
+      <FlywheelSection />
       <section id="contact" className="min-h-[1px] scroll-mt-28 bg-black" aria-label="Start a project" />
     </>
   );

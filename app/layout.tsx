@@ -40,7 +40,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${anton.variable} ${syne.variable} ${instrumentSerif.variable} h-full scroll-smooth antialiased`}
+      className={`${anton.variable} ${syne.variable} ${instrumentSerif.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body

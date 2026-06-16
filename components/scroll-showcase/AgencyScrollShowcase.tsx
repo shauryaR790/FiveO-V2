@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import { ContainerScroll } from "@/components/scroll-showcase/ContainerScroll";
 
-const SHOWCASE_IMAGE = "/websites-built/12.png";
+const SHOWCASE_IMAGE = "/websites-built/agency-showcase.png";
 
 export function AgencyScrollShowcase() {
   return (
