@@ -1,6 +1,9 @@
 "use client";
 
+import gsap from "gsap";
 import { Download, Shield, Users } from "lucide-react";
+import { useReducedMotion } from "framer-motion";
+import { useId, useLayoutEffect, useRef } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -9,6 +12,75 @@ const AVATARS = [
   "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=128&h=128&q=80",
   "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=128&h=128&q=80",
 ] as const;
+
+const SPARKLINE_BASE: readonly [number, number][] = [
+  [3, 75],
+  [45, 92],
+  [78, 28],
+  [120, 48],
+  [162, 68],
+  [190, 22],
+  [230, 40],
+  [270, 58],
+  [310, 18],
+  [350, 35],
+  [375, 45],
+  [383, 28],
+];
+
+const DASHBOARD_BASE: readonly [number, number][] = [
+  [4, 100],
+  [24, 88],
+  [48, 95],
+  [72, 62],
+  [96, 78],
+  [120, 52],
+  [148, 68],
+  [176, 38],
+  [200, 55],
+  [228, 42],
+  [252, 60],
+  [276, 35],
+  [300, 48],
+  [324, 28],
+  [356, 40],
+];
+
+function linePath(points: readonly [number, number][]) {
+  return points.map(([x, y], i) => `${i === 0 ? "M" : "L"}${x} ${y}`).join(" ");
+}
+
+function areaPath(points: readonly [number, number][], floor: number) {
+  const last = points[points.length - 1];
+  const first = points[0];
+  return `${linePath(points)} V${floor} H${first[0]} Z`;
+}
+
+function wavePoints(
+  base: readonly [number, number][],
+  time: number,
+  amplitude: number,
+  phaseStep: number,
+) {
+  return base.map(([x, y], i) => {
+    const wobble =
+      Math.sin(time * 1.15 + i * phaseStep) * amplitude +
+      Math.sin(time * 0.62 + i * (phaseStep * 0.55)) * (amplitude * 0.35);
+    return [x, y + wobble] as [number, number];
+  });
+}
+
+function samplePathPoint(points: readonly [number, number][], t: number) {
+  const clamped = Math.max(0, Math.min(1, t));
+  const idx = clamped * (points.length - 1);
+  const i = Math.floor(idx);
+  const j = Math.min(points.length - 1, i + 1);
+  const f = idx - i;
+  return {
+    x: points[i][0] + (points[j][0] - points[i][0]) * f,
+    y: points[i][1] + (points[j][1] - points[i][1]) * f,
+  };
+}
 
 function CraftCard({
   className,
@@ -31,14 +103,78 @@ function CraftCard({
 }
 
 function SparklineDownloadCard() {
+  const uid = useId().replace(/:/g, "");
+  const reduce = useReducedMotion() === true;
+  const shellRef = useRef<HTMLDivElement>(null);
+  const mbpsRef = useRef<HTMLSpanElement>(null);
+  const bgPathRef = useRef<SVGPathElement>(null);
+  const fillPathRef = useRef<SVGPathElement>(null);
+  const glowPathRef = useRef<SVGPathElement>(null);
+  const pulseRef = useRef<SVGCircleElement>(null);
+  const state = useRef({ t: 0, pulse: 0 });
+
+  useLayoutEffect(() => {
+    const shell = shellRef.current;
+    if (!shell || reduce) return;
+
+    const tick = () => {
+      state.current.t += 0.045;
+      state.current.pulse = (state.current.pulse + 0.012) % 1;
+      const pts = wavePoints(SPARKLINE_BASE, state.current.t, 9, 0.72);
+      const d = linePath(pts);
+      bgPathRef.current?.setAttribute("d", d);
+      fillPathRef.current?.setAttribute("d", areaPath(pts, 100));
+      glowPathRef.current?.setAttribute("d", d);
+
+      const tip = samplePathPoint(pts, state.current.pulse);
+      pulseRef.current?.setAttribute("cx", String(tip.x));
+      pulseRef.current?.setAttribute("cy", String(tip.y));
+    };
+
+    gsap.ticker.add(tick);
+
+    const counter = { val: 14.34 };
+    const mbpsTween = gsap.to(counter, {
+      val: 16.02,
+      duration: 3.6,
+      ease: "sine.inOut",
+      repeat: -1,
+      yoyo: true,
+      onUpdate: () => {
+        if (mbpsRef.current) {
+          mbpsRef.current.textContent = `${counter.val.toFixed(2)} mbps`;
+        }
+      },
+    });
+
+    gsap.fromTo(
+      glowPathRef.current,
+      { opacity: 0.65 },
+      { opacity: 1, duration: 1.4, ease: "sine.inOut", repeat: -1, yoyo: true },
+    );
+
+    return () => {
+      gsap.ticker.remove(tick);
+      mbpsTween.kill();
+    };
+  }, [reduce]);
+
+  const fillId = `craftLineFill-${uid}`;
+  const glowId = `craftLineGlow-${uid}`;
+
   return (
-    <div className="rounded-xl border border-white/10 bg-zinc-950/80 p-4">
+    <div ref={shellRef} className="rounded-xl border border-white/10 bg-zinc-950/80 p-4">
       <div className="mb-4 flex items-center justify-between gap-3">
         <div className="flex items-center gap-2 text-zinc-400">
           <Download className="size-4 shrink-0" strokeWidth={1.5} />
           <span className="text-xs font-medium tracking-wide">Download</span>
         </div>
-        <span className="font-mono text-xs font-medium tabular-nums text-white">14.34 mbps</span>
+        <span
+          ref={mbpsRef}
+          className="font-mono text-xs font-medium tabular-nums text-white"
+        >
+          14.34 mbps
+        </span>
       </div>
       <svg
         className="w-full overflow-visible"
@@ -48,11 +184,11 @@ function SparklineDownloadCard() {
         aria-hidden
       >
         <defs>
-          <linearGradient id="craftLineFill" x1="3" y1="50" x2="3" y2="100" gradientUnits="userSpaceOnUse">
+          <linearGradient id={fillId} x1="3" y1="50" x2="3" y2="100" gradientUnits="userSpaceOnUse">
             <stop stopColor="white" stopOpacity="0.14" />
             <stop offset="1" stopColor="white" stopOpacity="0" />
           </linearGradient>
-          <filter id="craftLineGlow" x="-20%" y="-20%" width="140%" height="140%">
+          <filter id={glowId} x="-20%" y="-20%" width="140%" height="140%">
             <feGaussianBlur stdDeviation="1.5" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
@@ -61,33 +197,99 @@ function SparklineDownloadCard() {
           </filter>
         </defs>
         <path
-          d="M3 75C45 92 78 28 120 48C162 68 190 22 230 40C270 58 310 18 350 35C375 45 383 28 383 28"
+          ref={bgPathRef}
+          d={linePath(SPARKLINE_BASE)}
           stroke="white"
           strokeOpacity="0.35"
           strokeWidth="1.5"
           fill="none"
         />
+        <path ref={fillPathRef} d={areaPath(SPARKLINE_BASE, 100)} fill={`url(#${fillId})`} />
         <path
-          d="M3 75C45 92 78 28 120 48C162 68 190 22 230 40C270 58 310 18 350 35C375 45 383 28 383 28V100H3V75Z"
-          fill="url(#craftLineFill)"
-        />
-        <path
-          filter="url(#craftLineGlow)"
-          d="M3 75C45 92 78 28 120 48C162 68 190 22 230 40C270 58 310 18 350 35C375 45 383 28 383 28"
+          ref={glowPathRef}
+          filter={`url(#${glowId})`}
+          d={linePath(SPARKLINE_BASE)}
           stroke="white"
           strokeWidth="2.5"
           strokeLinecap="round"
           strokeLinejoin="round"
           fill="none"
         />
+        {!reduce ? (
+          <circle ref={pulseRef} r="3.5" fill="white" opacity="0.95">
+            <animate attributeName="r" values="3;4.5;3" dur="1.6s" repeatCount="indefinite" />
+          </circle>
+        ) : null}
       </svg>
     </div>
   );
 }
 
 function DashboardLineChart() {
+  const uid = useId().replace(/:/g, "");
+  const reduce = useReducedMotion() === true;
+  const shellRef = useRef<HTMLDivElement>(null);
+  const baseLineRef = useRef<SVGPathElement>(null);
+  const fillPathRef = useRef<SVGPathElement>(null);
+  const accentLineRef = useRef<SVGPathElement>(null);
+  const scanRef = useRef<SVGRectElement>(null);
+  const state = useRef({ t: 0 });
+
+  useLayoutEffect(() => {
+    const shell = shellRef.current;
+    const accent = accentLineRef.current;
+    if (!shell || !accent || reduce) return;
+
+    const len = accent.getTotalLength();
+    gsap.set(accent, { strokeDasharray: len, strokeDashoffset: len });
+    gsap.to(accent, {
+      strokeDashoffset: 0,
+      duration: 1.8,
+      ease: "power2.out",
+      delay: 0.15,
+      onComplete: () => {
+        gsap.set(accent, { clearProps: "strokeDasharray,strokeDashoffset" });
+      },
+    });
+
+    gsap.fromTo(
+      fillPathRef.current,
+      { opacity: 0.15 },
+      { opacity: 1, duration: 1.2, ease: "power2.out", delay: 0.35 },
+    );
+
+    gsap.to(scanRef.current, {
+      attr: { x: 356 },
+      duration: 2.8,
+      ease: "none",
+      repeat: -1,
+      yoyo: true,
+    });
+
+    const tick = () => {
+      state.current.t += 0.038;
+      const pts = wavePoints(DASHBOARD_BASE, state.current.t, 6.5, 0.58);
+      const d = linePath(pts);
+      baseLineRef.current?.setAttribute("d", d);
+      fillPathRef.current?.setAttribute("d", areaPath(pts, 140));
+      accent.setAttribute("d", d);
+    };
+
+    gsap.ticker.add(tick);
+
+    return () => {
+      gsap.ticker.remove(tick);
+    };
+  }, [reduce]);
+
+  const fillId = `craftDashFill-${uid}`;
+  const scanId = `craftDashScan-${uid}`;
+
   return (
-    <div className="relative -mb-6 -mr-6 mt-2 h-fit overflow-hidden rounded-tl-2xl border-l border-t border-white/10 bg-zinc-950/60 p-5 pt-8 sm:ml-4">
+    <div
+      ref={shellRef}
+      className="relative -mb-6 -mr-6 mt-2 h-fit overflow-hidden rounded-tl-2xl border-l border-t border-white/10 bg-zinc-950/60 p-5 pt-8 sm:ml-4"
+    >
       <div className="absolute left-3 top-3 flex gap-1.5">
         <span className="block size-2 rounded-full bg-white/20" />
         <span className="block size-2 rounded-full bg-white/20" />
@@ -101,31 +303,44 @@ function DashboardLineChart() {
         aria-hidden
       >
         <defs>
-          <linearGradient id="craftDashFill" x1="0" y1="0" x2="0" y2="1">
+          <linearGradient id={fillId} x1="0" y1="0" x2="0" y2="1">
             <stop stopColor="rgb(139 92 246)" stopOpacity="0.25" />
             <stop offset="1" stopColor="rgb(139 92 246)" stopOpacity="0" />
           </linearGradient>
+          <linearGradient id={scanId} x1="0" y1="0" x2="1" y2="0">
+            <stop stopColor="white" stopOpacity="0" />
+            <stop offset="0.5" stopColor="white" stopOpacity="0.16" />
+            <stop offset="1" stopColor="white" stopOpacity="0" />
+          </linearGradient>
         </defs>
         <path
-          d="M4 100 L24 88 L48 95 L72 62 L96 78 L120 52 L148 68 L176 38 L200 55 L228 42 L252 60 L276 35 L300 48 L324 28 L356 40"
+          ref={baseLineRef}
+          d={linePath(DASHBOARD_BASE)}
           stroke="rgba(255,255,255,0.85)"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
           fill="none"
         />
+        <path ref={fillPathRef} d={areaPath(DASHBOARD_BASE, 140)} fill={`url(#${fillId})`} />
         <path
-          d="M4 100 L24 88 L48 95 L72 62 L96 78 L120 52 L148 68 L176 38 L200 55 L228 42 L252 60 L276 35 L300 48 L324 28 L356 40 V140 H4 Z"
-          fill="url(#craftDashFill)"
-        />
-        <path
-          d="M4 100 L24 88 L48 95 L72 62 L96 78 L120 52 L148 68 L176 38 L200 55 L228 42 L252 60 L276 35 L300 48 L324 28 L356 40"
+          ref={accentLineRef}
+          d={linePath(DASHBOARD_BASE)}
           stroke="rgb(167 139 250)"
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
           fill="none"
           opacity="0.9"
+        />
+        <rect
+          ref={scanRef}
+          x="0"
+          y="0"
+          width="48"
+          height="140"
+          fill={`url(#${scanId})`}
+          opacity="0.85"
         />
       </svg>
     </div>
@@ -216,7 +431,9 @@ export function WebDevCraftGrid() {
         <div className="flex flex-col px-6 pb-8 pt-8">
           <SparklineDownloadCard />
           <div className="mt-8 space-y-3 text-center">
-            <h3 className="text-lg font-semibold text-white">Faster than light</h3>
+            <h3 className="text-center font-heading text-xl font-normal leading-snug tracking-[-0.02em] text-cream md:text-2xl">
+              Faster than light
+            </h3>
             <p className="text-pretty text-sm leading-relaxed text-zinc-400">
               Lean bundles, caching that makes sense, and real-user metrics so every release stays quick
               in production.
@@ -232,7 +449,9 @@ export function WebDevCraftGrid() {
               <Shield className="m-auto size-5 text-zinc-200" strokeWidth={1.25} />
             </div>
             <div className="space-y-3">
-              <h3 className="text-lg font-semibold text-white">Performance you can see</h3>
+              <h3 className="font-heading text-xl font-normal leading-snug tracking-[-0.02em] text-cream md:text-2xl">
+                Performance you can see
+              </h3>
               <p className="text-pretty text-sm leading-relaxed text-zinc-400">
                 Observable systems, clear SLIs, and dashboards your stakeholders actually understand—no
                 black-box hosting.
@@ -250,7 +469,9 @@ export function WebDevCraftGrid() {
               <Users className="m-auto size-6 text-zinc-200" strokeWidth={1.25} />
             </div>
             <div className="space-y-3">
-              <h3 className="text-lg font-semibold text-white">Your team, extended</h3>
+              <h3 className="font-heading text-xl font-normal leading-snug tracking-[-0.02em] text-cream md:text-2xl">
+                Your team, extended
+              </h3>
               <p className="text-pretty text-sm leading-relaxed text-zinc-400">
                 We embed in your rituals—Slack, Linear, reviews—so strategy and execution stay in sync
                 across time zones.
