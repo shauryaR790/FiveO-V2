@@ -83,9 +83,10 @@ export function WebDevCraftSection() {
         </p>
         <h2
           id="craft-heading"
-          className="craft-section-title mx-auto mb-14 max-w-4xl text-center text-balance text-2xl font-semibold uppercase tracking-tighter text-white will-change-transform md:text-3xl [word-spacing:-0.06em]"
+          className="craft-section-title section-title mb-14 max-w-6xl font-heading text-[clamp(2.85rem,7.5vw,5.75rem)] font-normal leading-[1.02] tracking-[-0.035em] text-cream will-change-transform xl:text-[clamp(3.25rem,6.5vw,6.25rem)]"
         >
-          Web development craft—from strategy to shippable UI
+          <span className="font-serif-accent font-normal italic text-cream">Web development craft</span>—from
+          strategy to <span className="font-serif-accent font-normal italic text-cream">shippable UI</span>
         </h2>
         <div ref={gridRef} className="relative">
           <WebDevCraftGrid />
