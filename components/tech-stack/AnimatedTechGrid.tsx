@@ -112,9 +112,11 @@ export function AnimatedTechGrid({ className }: AnimatedTechGridProps) {
       gsap.set(cells, { opacity: 0, y: 28 });
       gsap.set(inners, { transformOrigin: "50% 50%" });
 
+      const triggerEl = root.closest("section") ?? root;
+
       ScrollTrigger.create({
-        trigger: root,
-        start: "top bottom",
+        trigger: triggerEl,
+        start: "top 96%",
         once: true,
         onEnter: () => {
           gsap.to(cells, {
