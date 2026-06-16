@@ -56,30 +56,86 @@ function areaPath(points: readonly [number, number][], floor: number) {
   return `${linePath(points)} V${floor} H${first[0]} Z`;
 }
 
-function wavePoints(
-  base: readonly [number, number][],
-  time: number,
-  amplitude: number,
-  phaseStep: number,
-) {
-  return base.map(([x, y], i) => {
-    const wobble =
-      Math.sin(time * 1.15 + i * phaseStep) * amplitude +
-      Math.sin(time * 0.62 + i * (phaseStep * 0.55)) * (amplitude * 0.35);
-    return [x, y + wobble] as [number, number];
-  });
+function shiftPoints(base: readonly [number, number][], deltas: readonly number[]) {
+  return base.map(([x, y], i) => [x, y + (deltas[i] ?? 0)] as [number, number]);
 }
 
-function samplePathPoint(points: readonly [number, number][], t: number) {
-  const clamped = Math.max(0, Math.min(1, t));
-  const idx = clamped * (points.length - 1);
-  const i = Math.floor(idx);
-  const j = Math.min(points.length - 1, i + 1);
-  const f = idx - i;
-  return {
-    x: points[i][0] + (points[j][0] - points[i][0]) * f,
-    y: points[i][1] + (points[j][1] - points[i][1]) * f,
-  };
+function lerpPoints(
+  a: readonly [number, number][],
+  b: readonly [number, number][],
+  t: number,
+) {
+  return a.map(([x, ya], i) => [x, ya + (b[i][1] - ya) * t] as [number, number]);
+}
+
+const SPARKLINE_FRAMES = [
+  SPARKLINE_BASE,
+  shiftPoints(SPARKLINE_BASE, [0, 8, -22, 14, -10, 18, -14, 10, -24, 8, -12, 6]),
+  shiftPoints(SPARKLINE_BASE, [0, -12, 16, -18, 12, -24, 14, -8, 20, -10, 14, -6]),
+] as const;
+
+const DASHBOARD_FRAMES = [
+  DASHBOARD_BASE,
+  shiftPoints(DASHBOARD_BASE, [0, 10, -12, 16, -14, 18, -8, 22, -16, 12, -14, 10, -18, 14, -10]),
+  shiftPoints(DASHBOARD_BASE, [0, -10, 14, -16, 10, -20, 12, -22, 16, -10, 18, -12, 10, -14, 8]),
+] as const;
+
+function setSparkPaths(
+  pts: readonly [number, number][],
+  refs: {
+    bg: SVGPathElement | null;
+    fill: SVGPathElement | null;
+    glow: SVGPathElement | null;
+  },
+) {
+  const d = linePath(pts);
+  refs.bg?.setAttribute("d", d);
+  refs.fill?.setAttribute("d", areaPath(pts, 100));
+  refs.glow?.setAttribute("d", d);
+}
+
+function setDashboardPaths(
+  pts: readonly [number, number][],
+  refs: {
+    base: SVGPathElement | null;
+    fill: SVGPathElement | null;
+    accent: SVGPathElement | null;
+  },
+) {
+  const d = linePath(pts);
+  refs.base?.setAttribute("d", d);
+  refs.fill?.setAttribute("d", areaPath(pts, 140));
+  refs.accent?.setAttribute("d", d);
+}
+
+function chartMbpsFromPoints(pts: readonly [number, number][]) {
+  const avgY = pts.reduce((sum, [, y]) => sum + y, 0) / pts.length;
+  return Math.max(11.5, Math.min(17.8, 17.6 - avgY * 0.045));
+}
+
+function cycleChartFrames(
+  frames: readonly (readonly [number, number][])[],
+  onUpdate: (points: readonly [number, number][]) => void,
+  segmentDuration = 6,
+) {
+  const tl = gsap.timeline({ repeat: -1 });
+
+  for (let i = 0; i < frames.length; i++) {
+    const from = frames[i];
+    const to = frames[(i + 1) % frames.length];
+    const mix = { t: 0 };
+
+    tl.to(mix, {
+      t: 1,
+      duration: segmentDuration,
+      ease: "sine.inOut",
+      onUpdate: () => {
+        onUpdate(lerpPoints(from, to, mix.t));
+      },
+    });
+  }
+
+  return tl;
 }
 
 function CraftCard({
@@ -105,57 +161,29 @@ function CraftCard({
 function SparklineDownloadCard() {
   const uid = useId().replace(/:/g, "");
   const reduce = useReducedMotion() === true;
-  const shellRef = useRef<HTMLDivElement>(null);
   const mbpsRef = useRef<HTMLSpanElement>(null);
   const bgPathRef = useRef<SVGPathElement>(null);
   const fillPathRef = useRef<SVGPathElement>(null);
   const glowPathRef = useRef<SVGPathElement>(null);
-  const pulseRef = useRef<SVGCircleElement>(null);
-  const state = useRef({ t: 0, pulse: 0 });
 
   useLayoutEffect(() => {
-    const shell = shellRef.current;
-    if (!shell || reduce) return;
+    if (reduce) return;
 
-    const tick = () => {
-      state.current.t += 0.045;
-      state.current.pulse = (state.current.pulse + 0.012) % 1;
-      const pts = wavePoints(SPARKLINE_BASE, state.current.t, 9, 0.72);
-      const d = linePath(pts);
-      bgPathRef.current?.setAttribute("d", d);
-      fillPathRef.current?.setAttribute("d", areaPath(pts, 100));
-      glowPathRef.current?.setAttribute("d", d);
-
-      const tip = samplePathPoint(pts, state.current.pulse);
-      pulseRef.current?.setAttribute("cx", String(tip.x));
-      pulseRef.current?.setAttribute("cy", String(tip.y));
+    const refs = {
+      bg: bgPathRef.current,
+      fill: fillPathRef.current,
+      glow: glowPathRef.current,
     };
 
-    gsap.ticker.add(tick);
-
-    const counter = { val: 14.34 };
-    const mbpsTween = gsap.to(counter, {
-      val: 16.02,
-      duration: 3.6,
-      ease: "sine.inOut",
-      repeat: -1,
-      yoyo: true,
-      onUpdate: () => {
-        if (mbpsRef.current) {
-          mbpsRef.current.textContent = `${counter.val.toFixed(2)} mbps`;
-        }
-      },
-    });
-
-    gsap.fromTo(
-      glowPathRef.current,
-      { opacity: 0.65 },
-      { opacity: 1, duration: 1.4, ease: "sine.inOut", repeat: -1, yoyo: true },
-    );
+    const tl = cycleChartFrames(SPARKLINE_FRAMES, (pts) => {
+      setSparkPaths(pts, refs);
+      if (mbpsRef.current) {
+        mbpsRef.current.textContent = `${chartMbpsFromPoints(pts).toFixed(2)} mbps`;
+      }
+    }, 7);
 
     return () => {
-      gsap.ticker.remove(tick);
-      mbpsTween.kill();
+      tl.kill();
     };
   }, [reduce]);
 
@@ -163,7 +191,7 @@ function SparklineDownloadCard() {
   const glowId = `craftLineGlow-${uid}`;
 
   return (
-    <div ref={shellRef} className="rounded-xl border border-white/10 bg-zinc-950/80 p-4">
+    <div className="rounded-xl border border-white/10 bg-zinc-950/80 p-4">
       <div className="mb-4 flex items-center justify-between gap-3">
         <div className="flex items-center gap-2 text-zinc-400">
           <Download className="size-4 shrink-0" strokeWidth={1.5} />
@@ -215,11 +243,6 @@ function SparklineDownloadCard() {
           strokeLinejoin="round"
           fill="none"
         />
-        {!reduce ? (
-          <circle ref={pulseRef} r="3.5" fill="white" opacity="0.95">
-            <animate attributeName="r" values="3;4.5;3" dur="1.6s" repeatCount="indefinite" />
-          </circle>
-        ) : null}
       </svg>
     </div>
   );
@@ -228,68 +251,34 @@ function SparklineDownloadCard() {
 function DashboardLineChart() {
   const uid = useId().replace(/:/g, "");
   const reduce = useReducedMotion() === true;
-  const shellRef = useRef<HTMLDivElement>(null);
   const baseLineRef = useRef<SVGPathElement>(null);
   const fillPathRef = useRef<SVGPathElement>(null);
   const accentLineRef = useRef<SVGPathElement>(null);
-  const scanRef = useRef<SVGRectElement>(null);
-  const state = useRef({ t: 0 });
 
   useLayoutEffect(() => {
-    const shell = shellRef.current;
-    const accent = accentLineRef.current;
-    if (!shell || !accent || reduce) return;
+    if (reduce) return;
 
-    const len = accent.getTotalLength();
-    gsap.set(accent, { strokeDasharray: len, strokeDashoffset: len });
-    gsap.to(accent, {
-      strokeDashoffset: 0,
-      duration: 1.8,
-      ease: "power2.out",
-      delay: 0.15,
-      onComplete: () => {
-        gsap.set(accent, { clearProps: "strokeDasharray,strokeDashoffset" });
-      },
-    });
-
-    gsap.fromTo(
-      fillPathRef.current,
-      { opacity: 0.15 },
-      { opacity: 1, duration: 1.2, ease: "power2.out", delay: 0.35 },
-    );
-
-    gsap.to(scanRef.current, {
-      attr: { x: 356 },
-      duration: 2.8,
-      ease: "none",
-      repeat: -1,
-      yoyo: true,
-    });
-
-    const tick = () => {
-      state.current.t += 0.038;
-      const pts = wavePoints(DASHBOARD_BASE, state.current.t, 6.5, 0.58);
-      const d = linePath(pts);
-      baseLineRef.current?.setAttribute("d", d);
-      fillPathRef.current?.setAttribute("d", areaPath(pts, 140));
-      accent.setAttribute("d", d);
+    const refs = {
+      base: baseLineRef.current,
+      fill: fillPathRef.current,
+      accent: accentLineRef.current,
     };
 
-    gsap.ticker.add(tick);
+    gsap.fromTo(fillPathRef.current, { opacity: 0.35 }, { opacity: 1, duration: 1.4, ease: "power2.out" });
+
+    const tl = cycleChartFrames(DASHBOARD_FRAMES, (pts) => {
+      setDashboardPaths(pts, refs);
+    }, 8);
 
     return () => {
-      gsap.ticker.remove(tick);
+      tl.kill();
     };
   }, [reduce]);
 
   const fillId = `craftDashFill-${uid}`;
-  const scanId = `craftDashScan-${uid}`;
 
   return (
-    <div
-      ref={shellRef}
-      className="relative -mb-6 -mr-6 mt-2 h-fit overflow-hidden rounded-tl-2xl border-l border-t border-white/10 bg-zinc-950/60 p-5 pt-8 sm:ml-4"
-    >
+    <div className="relative -mb-6 -mr-6 mt-2 h-fit overflow-hidden rounded-tl-2xl border-l border-t border-white/10 bg-zinc-950/60 p-5 pt-8 sm:ml-4">
       <div className="absolute left-3 top-3 flex gap-1.5">
         <span className="block size-2 rounded-full bg-white/20" />
         <span className="block size-2 rounded-full bg-white/20" />
@@ -306,11 +295,6 @@ function DashboardLineChart() {
           <linearGradient id={fillId} x1="0" y1="0" x2="0" y2="1">
             <stop stopColor="rgb(139 92 246)" stopOpacity="0.25" />
             <stop offset="1" stopColor="rgb(139 92 246)" stopOpacity="0" />
-          </linearGradient>
-          <linearGradient id={scanId} x1="0" y1="0" x2="1" y2="0">
-            <stop stopColor="white" stopOpacity="0" />
-            <stop offset="0.5" stopColor="white" stopOpacity="0.16" />
-            <stop offset="1" stopColor="white" stopOpacity="0" />
           </linearGradient>
         </defs>
         <path
@@ -332,15 +316,6 @@ function DashboardLineChart() {
           strokeLinejoin="round"
           fill="none"
           opacity="0.9"
-        />
-        <rect
-          ref={scanRef}
-          x="0"
-          y="0"
-          width="48"
-          height="140"
-          fill={`url(#${scanId})`}
-          opacity="0.85"
         />
       </svg>
     </div>
