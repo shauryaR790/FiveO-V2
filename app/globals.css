@@ -162,6 +162,12 @@ body {
   .section-title {
     @apply mx-auto max-w-6xl text-center;
   }
+
+  .copy-accent {
+    font-family: var(--font-serif-accent);
+    letter-spacing: 0.012em;
+    line-height: 1.65;
+  }
 }
 
 @layer base {

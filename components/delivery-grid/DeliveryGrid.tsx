@@ -372,7 +372,7 @@ export function DeliveryGrid() {
               <h3 className="text-2xl font-normal leading-snug tracking-[-0.02em] text-cream md:text-3xl lg:text-[2rem]">
                 {card.title}
               </h3>
-              <p className="mt-4 text-lg leading-relaxed text-cream/65 md:text-xl md:leading-relaxed">
+              <p className="copy-accent mt-4 text-[1.125rem] text-cream/68 md:text-xl md:leading-[1.68]">
                 {card.body}
               </p>
             </article>

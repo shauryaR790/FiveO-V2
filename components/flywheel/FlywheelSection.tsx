@@ -27,7 +27,7 @@ export function FlywheelSection() {
     >
       <div className="mx-auto max-w-[1200px]">
         {/* Top: headline + optional right blurb */}
-        <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
+        <div className="mx-auto flex max-w-6xl flex-col items-center text-center">
           <h2
             id="flywheel-heading"
             className="section-title font-heading text-[clamp(2.85rem,7.5vw,5.75rem)] font-normal leading-[1.02] tracking-[-0.035em] text-ink xl:text-[clamp(3.25rem,6.5vw,6.25rem)]"
@@ -35,9 +35,9 @@ export function FlywheelSection() {
             A flywheel. not a{" "}
             <span className="font-serif-accent font-normal italic text-ink">funnel</span>
           </h2>
-          <p className="mt-6 max-w-2xl font-sans text-base leading-relaxed text-ink md:text-lg lg:max-w-lg lg:text-xl">
-            Discovery, build, and ship stay connected—each release feeds data and insight back into the next
-            sprint instead of freezing the product in a one-and-done handoff.
+          <p className="copy-accent mt-7 max-w-2xl text-[1.125rem] text-ink/72 md:mt-8 md:text-xl md:leading-[1.68] lg:max-w-3xl">
+            Discovery, build, and ship stay connected — each release feeds data and insight back into the
+            next sprint instead of freezing the product in a one-and-done handoff.
           </p>
         </div>
 
@@ -62,7 +62,7 @@ export function FlywheelSection() {
                     {step.title}
                   </h3>
                 </div>
-                <p className="mt-6 font-sans text-lg leading-relaxed text-ink md:text-xl md:leading-relaxed">
+                <p className="copy-accent mt-6 text-[1.125rem] text-ink/72 md:text-xl md:leading-[1.68]">
                   {step.body}
                 </p>
               </div>

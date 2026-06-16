@@ -24,14 +24,14 @@ export function PrecisionEdgeSection() {
       </div>
 
       <div className="relative z-20 flex min-h-[100svh] flex-col items-center justify-start px-5 pt-10 pb-16 text-center sm:px-8 md:px-10 md:pt-14 md:pb-20 lg:pt-16 lg:pb-24">
-        <h1 className="section-title max-w-4xl font-heading text-[clamp(2.1rem,5.75vw,3.5rem)] font-bold leading-[1.08] tracking-[-0.01em] [word-spacing:0.18em] text-cream sm:[word-spacing:0.22em] xl:text-[clamp(2.35rem,6vw,3.85rem)]">
-          From crisp UX flows
-          <br className="hidden sm:block" /> to resilient production systems
+        <h1 className="section-title max-w-6xl font-heading text-[clamp(2.85rem,7.5vw,5.75rem)] font-normal leading-[1.02] tracking-[-0.035em] text-cream xl:text-[clamp(3.25rem,6.5vw,6.25rem)]">
+          From crisp UX flows to resilient{" "}
+          <span className="font-serif-accent font-normal italic text-cream">production systems</span>
         </h1>
 
-        <p className="mt-6 max-w-3xl font-heading text-[clamp(0.8rem,2.4vw,1.05rem)] font-bold uppercase leading-relaxed tracking-[0.2em] [word-spacing:0.28em] text-cream/70 sm:max-w-2xl md:mt-7 md:tracking-[0.24em] md:text-base md:[word-spacing:0.34em] lg:text-lg">
-          Web · mobile · cloud APIs · LLM features —
-          <br className="hidden sm:block" /> one continuous build discipline
+        <p className="copy-accent mt-7 max-w-2xl text-[1.125rem] text-cream/72 md:mt-8 md:text-xl md:leading-[1.68]">
+          Web, mobile, cloud APIs, and LLM features — one continuous build discipline from first prototype
+          through production hardening.
         </p>
       </div>
     </section>
