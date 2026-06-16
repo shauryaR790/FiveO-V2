@@ -2,7 +2,7 @@ const BG_VIDEO =
   "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260508_155101_f2540600-6fe9-433e-8e48-b3f4b72f0727.mp4";
 
 /**
- * Full-viewport video interlude (no nav/footer). Sits after DeliveryGrid, before EpochBlock.
+ * Full-viewport video interlude (no nav/footer). Sits before FlywheelSection.
  */
 export function PrecisionEdgeSection() {
   return (
