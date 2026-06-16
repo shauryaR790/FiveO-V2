@@ -154,7 +154,9 @@ export function WebDevCraftGrid() {
               100%
             </span>
           </div>
-          <h3 className="mt-8 text-center text-3xl font-semibold text-white md:text-[2rem]">Customizable</h3>
+          <h3 className="mt-8 text-center font-heading text-2xl font-normal leading-[1.05] tracking-[-0.02em] text-cream md:text-3xl">
+            Customizable
+          </h3>
           <p className="mt-4 max-w-[20rem] text-center text-sm leading-relaxed text-zinc-400">
             Tailor layouts, tokens, and components to your product—not a rigid template that fights your
             brand.
@@ -199,7 +201,9 @@ export function WebDevCraftGrid() {
             </div>
           </div>
           <div className="mt-8 space-y-3 text-center">
-            <h3 className="text-lg font-semibold text-white">Secure by default</h3>
+            <h3 className="text-center font-heading text-xl font-normal leading-snug tracking-[-0.02em] text-cream md:text-2xl">
+              Secure by default
+            </h3>
             <p className="text-pretty text-sm leading-relaxed text-zinc-400">
               Sensible auth, dependency hygiene, and accessible UI so security and inclusivity are part
               of the foundation—not a pre-launch scramble.
