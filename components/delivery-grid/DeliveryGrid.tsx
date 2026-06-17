@@ -258,13 +258,13 @@ function ManifestoCard({ className = "" }: { className?: string }) {
   return (
     <article
       className={cn(
-        "relative flex min-h-full flex-col overflow-hidden rounded-2xl bg-manifesto p-8 text-white shadow-lg shadow-indigo-950/25 ring-1 ring-white/20 md:min-h-[280px]",
+        "relative flex min-h-[min(72vw,320px)] flex-col overflow-hidden rounded-2xl bg-manifesto p-5 text-white shadow-lg shadow-indigo-950/25 ring-1 ring-white/20 sm:min-h-full sm:p-8 md:min-h-[280px]",
         className,
       )}
     >
       <ManifestoCardPattern />
 
-      <div className="relative z-10 shrink-0">
+      <div className="relative z-10 flex shrink-0 items-start justify-between gap-4">
         <div className="relative inline-flex">
           <span
             className="absolute inset-0 -m-3 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.45)_0%,transparent_65%)] blur-md"
@@ -275,17 +275,37 @@ function ManifestoCard({ className = "" }: { className?: string }) {
             size={24}
           />
         </div>
+
+        <svg
+          className="manifesto-flywheel-orbit mt-1 h-14 w-14 shrink-0 text-white/35 sm:hidden"
+          viewBox="0 0 64 64"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden
+        >
+          <circle cx="32" cy="32" r="26" stroke="currentColor" strokeWidth="1" strokeDasharray="3 9" />
+          <circle cx="32" cy="32" r="18" stroke="currentColor" strokeWidth="0.75" strokeDasharray="18 30" opacity="0.7" />
+          <circle cx="32" cy="32" r="10" stroke="currentColor" strokeWidth="0.75" strokeDasharray="10 18" opacity="0.5" />
+          <circle cx="32" cy="6" r="2" fill="currentColor" opacity="0.9" />
+          <circle cx="54" cy="38" r="1.5" fill="currentColor" opacity="0.65" />
+        </svg>
       </div>
 
-      <div className="relative z-10 mt-auto flex flex-col pt-10">
-        <h3 className="max-w-[20ch] text-2xl font-normal leading-[1.08] tracking-[-0.02em] drop-shadow-sm md:text-3xl md:leading-tight lg:text-4xl">
-          Sound familiar? Here&apos;s our build philosophy.
+      <div className="relative z-10 mt-auto flex flex-col pt-6 sm:pt-10">
+        <h3 className="font-heading text-[clamp(1.85rem,9vw,2.35rem)] uppercase leading-[0.95] tracking-[-0.02em] drop-shadow-sm sm:max-w-[20ch] sm:text-2xl sm:font-normal sm:normal-case sm:leading-[1.08] md:text-3xl md:leading-tight lg:text-4xl">
+          <span className="sm:hidden">
+            <span className="block">A flywheel</span>
+            <span className="mt-1 block">Not a funnel</span>
+          </span>
+          <span className="hidden sm:inline">
+            Sound familiar? Here&apos;s our build philosophy.
+          </span>
         </h3>
         <a
           href="#manifesto"
-          className="mt-8 inline-flex w-fit items-center gap-3 rounded-lg bg-white px-5 py-4 text-base font-semibold tracking-tight text-manifesto shadow-[0_8px_28px_rgba(0,0,0,0.18)] ring-1 ring-black/5 transition-[transform,box-shadow] hover:-translate-y-px hover:shadow-[0_12px_32px_rgba(0,0,0,0.22)] md:text-lg"
+          className="mt-6 inline-flex w-full items-center gap-3 rounded-lg bg-white px-4 py-3.5 text-sm font-semibold tracking-tight text-manifesto shadow-[0_8px_28px_rgba(0,0,0,0.18)] ring-1 ring-black/5 transition-[transform,box-shadow] hover:-translate-y-px hover:shadow-[0_12px_32px_rgba(0,0,0,0.22)] sm:mt-8 sm:w-fit sm:px-5 sm:py-4 sm:text-base md:text-lg"
         >
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded bg-manifesto text-xl font-light leading-none text-white md:h-10 md:w-10 md:text-2xl">
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded bg-manifesto text-lg font-light leading-none text-white sm:h-9 sm:w-9 sm:text-xl md:h-10 md:w-10 md:text-2xl">
             +
           </span>
           Read our approach
@@ -362,7 +382,7 @@ export function DeliveryGrid() {
           <span className="font-serif-accent font-normal italic text-cream">shipping rhythm</span> isn&apos;t.
         </h2>
 
-        <div className="mt-12 grid grid-cols-2 gap-3 sm:gap-5 lg:mt-16 lg:grid-cols-3 lg:gap-6">
+        <div className="mt-12 grid grid-cols-1 gap-3 min-[480px]:grid-cols-2 sm:gap-5 lg:mt-16 lg:grid-cols-3 lg:gap-6">
           {PAIN_CARDS.map((card) => (
             <article
               key={card.title}

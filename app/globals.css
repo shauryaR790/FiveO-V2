@@ -90,11 +90,27 @@ body::-webkit-scrollbar {
   }
 }
 
+@keyframes manifesto-flywheel-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.manifesto-flywheel-orbit {
+  animation: manifesto-flywheel-spin 28s linear infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .manifesto-drift-a,
   .manifesto-drift-b,
   .manifesto-drift-c,
-  .manifesto-star-slow {
+  .manifesto-star-slow,
+  .manifesto-flywheel-orbit {
     animation: none !important;
   }
 }
@@ -147,6 +163,11 @@ body::-webkit-scrollbar {
     animation: none;
     transform: none;
   }
+
+  .studio-marquee-track,
+  .studio-orbit-ring {
+    animation: none !important;
+  }
 }
 
 @keyframes tech-marquee-left {
@@ -173,6 +194,45 @@ body::-webkit-scrollbar {
 
 .tech-marquee--right {
   animation: tech-marquee-right 48s linear infinite;
+}
+
+@keyframes studio-marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.studio-marquee-track {
+  animation: studio-marquee-scroll 52s linear infinite;
+}
+
+.studio-marquee-track--reverse {
+  animation-direction: reverse;
+}
+
+.studio-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes studio-orbit-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.studio-orbit-ring {
+  animation: studio-orbit-spin 22s linear infinite;
+}
+
+.studio-orbit-ring--reverse {
+  animation-direction: reverse;
+  animation-duration: 34s;
 }
 
 @layer utilities {

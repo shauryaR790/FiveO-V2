@@ -1,5 +1,13 @@
 import type { Metadata } from "next";
-import { Anton, Instrument_Serif, Syne } from "next/font/google";
+import {
+  Anton,
+  EB_Garamond,
+  Instrument_Serif,
+  Oswald,
+  Space_Mono,
+  Syne,
+  VT323,
+} from "next/font/google";
 import { SiteFooter } from "@/components/footer/SiteFooter";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import "./globals.css";
@@ -26,6 +34,35 @@ const instrumentSerif = Instrument_Serif({
   display: "swap",
 });
 
+const ebGaramond = EB_Garamond({
+  subsets: ["latin"],
+  variable: "--font-eb-garamond",
+  weight: ["400", "600"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
+const oswald = Oswald({
+  subsets: ["latin"],
+  variable: "--font-oswald",
+  weight: ["400", "500", "600"],
+  display: "swap",
+});
+
+const vt323 = VT323({
+  subsets: ["latin"],
+  variable: "--font-vt323",
+  weight: "400",
+  display: "swap",
+});
+
+const spaceMono = Space_Mono({
+  subsets: ["latin"],
+  variable: "--font-space-mono",
+  weight: ["400", "700"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "FiveO — Web, apps & AI engineering for product teams",
   description:
@@ -40,7 +77,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${anton.variable} ${syne.variable} ${instrumentSerif.variable} h-full antialiased`}
+      className={`${anton.variable} ${syne.variable} ${instrumentSerif.variable} ${ebGaramond.variable} ${oswald.variable} ${vt323.variable} ${spaceMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body

@@ -1,6 +1,8 @@
 import { AgencyScrollShowcase } from "@/components/scroll-showcase/AgencyScrollShowcase";
 import { ContactSection } from "@/components/contact/ContactSection";
 import { DeliveryGrid } from "@/components/delivery-grid/DeliveryGrid";
+import { DottedSurfaceSection } from "@/components/dotted-surface/DottedSurfaceSection";
+import { FigmintSection } from "@/components/fiveo-identity/FigmintSection";
 import { FlywheelSection } from "@/components/flywheel/FlywheelSection";
 import { Hero } from "@/components/hero/Hero";
 import { PrecisionEdgeSection } from "@/components/precision-edge/PrecisionEdgeSection";
@@ -15,7 +17,9 @@ export default function Home() {
     <>
       <Hero />
       <TechStackSection />
+      <DottedSurfaceSection />
       <TechVideoSection />
+      <FigmintSection />
       <ServicesSection />
       <DeliveryGrid />
       <AgencyScrollShowcase />
