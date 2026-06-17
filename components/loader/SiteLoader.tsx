@@ -130,12 +130,6 @@ export function SiteLoader() {
           }}
         >
           <div className="site-loader__veil" />
-          <motion.div
-            className="site-loader__grid"
-            initial={{ scale: 1 }}
-            animate={{ scale: phase === "exit" ? 1.12 : 1 }}
-            transition={{ duration: 1, ease: EASE_IN_OUT }}
-          />
           <div className="site-loader__glow" />
           <div className="site-loader__grain" />
 
