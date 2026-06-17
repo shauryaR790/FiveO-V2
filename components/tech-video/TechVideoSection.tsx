@@ -1,4 +1,4 @@
-const TECH_VIDEO_SRC = "/videos/tech-showcase.mp4";
+const TECH_VIDEO_SRC = "/videos/fiveo-showcase.mp4";
 
 export function TechVideoSection() {
   return (
