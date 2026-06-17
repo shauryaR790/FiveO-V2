@@ -19,10 +19,6 @@ export function DottedSurfaceSection() {
             <span className="dotted__line">ship it live</span>
           </h2>
         </blockquote>
-        <cite className="dotted__cite">FIVEO · Full Stack · Web · AI · Remote</cite>
-        <a href="#contact" className="dotted__cta">
-          Start transmission →
-        </a>
       </div>
     </section>
   );
