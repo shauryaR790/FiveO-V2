@@ -9,6 +9,7 @@ import {
   VT323,
 } from "next/font/google";
 import { SiteFooter } from "@/components/footer/SiteFooter";
+import { SiteLoader } from "@/components/loader/SiteLoader";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import "./globals.css";
 
@@ -84,6 +85,7 @@ export default function RootLayout({
         className="min-h-full bg-black font-sans text-cream"
         suppressHydrationWarning
       >
+        <SiteLoader />
         <SmoothScroll>
           {children}
           <SiteFooter />
