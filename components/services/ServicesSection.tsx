@@ -76,7 +76,7 @@ export function ServicesSection() {
     <section
       ref={sectionRef}
       id="services"
-      className="scroll-mt-28 border-t border-white/10 bg-black py-16 text-cream md:py-24"
+      className="scroll-mt-28 bg-black py-16 text-cream md:py-24"
       aria-labelledby="services-heading"
     >
       <div className="mx-auto max-w-[1400px] px-6 md:px-10">

@@ -7,6 +7,7 @@ export function DottedSurfaceSection() {
     <section className="dotted scroll-mt-28" id="signal" aria-labelledby="dotted-heading">
       <DottedSurfaceCanvas />
       <div className="dotted__glow" aria-hidden />
+      <div className="dotted__rule" aria-hidden />
 
       <div className="dotted__content">
         <p className="dotted__label">Operator signal · FIVEO</p>

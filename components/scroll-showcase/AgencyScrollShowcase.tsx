@@ -10,7 +10,7 @@ export function AgencyScrollShowcase() {
   return (
     <section
       aria-labelledby="scroll-showcase-heading"
-      className="scroll-mt-28 border-t border-white/10 bg-black pb-0 text-cream"
+      className="scroll-mt-28 bg-black pb-0 text-cream"
     >
       <div className="mx-auto max-w-[1400px] px-6 pt-10 md:px-10 md:pt-14">
         <h2

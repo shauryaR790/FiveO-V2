@@ -15,9 +15,27 @@
   max-width: 100%;
   background: var(--dt-bg);
   color: var(--dt-ink);
-  border-top: var(--dt-border-w) solid var(--dt-border);
   overflow: hidden;
   isolation: isolate;
+}
+
+.dotted__rule {
+  position: absolute;
+  top: clamp(1.25rem, 3vw, 2rem);
+  left: 50%;
+  z-index: 3;
+  width: min(88%, 1100px);
+  height: 1.5px;
+  transform: translateX(-50%);
+  border-radius: 9999px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--dt-border) 12%,
+    var(--dt-border) 88%,
+    transparent 100%
+  );
+  pointer-events: none;
 }
 
 .dotted__canvas {

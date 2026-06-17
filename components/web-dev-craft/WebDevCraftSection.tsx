@@ -74,7 +74,7 @@ export function WebDevCraftSection() {
     <section
       ref={sectionRef}
       id="craft"
-      className="scroll-mt-28 border-t border-white/10 bg-black py-16 text-cream md:py-32"
+      className="scroll-mt-28 bg-black py-16 text-cream md:py-32"
       aria-labelledby="craft-heading"
     >
       <div className="mx-auto max-w-5xl px-6 lg:max-w-7xl xl:px-8">

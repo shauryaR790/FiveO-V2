@@ -370,7 +370,7 @@ export function DeliveryGrid() {
     <section
       ref={sectionRef}
       id="capabilities"
-      className="scroll-mt-28 border-t border-white/10 bg-black px-6 pt-16 pb-10 text-cream md:px-10 md:pt-24 md:pb-14"
+      className="scroll-mt-28 bg-black px-6 pt-16 pb-10 text-cream md:px-10 md:pt-24 md:pb-14"
       aria-labelledby="delivery-heading"
     >
       <div className="mx-auto max-w-[1200px]">
