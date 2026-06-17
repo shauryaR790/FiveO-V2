@@ -82,16 +82,16 @@ body.site-loader-active {
   margin-bottom: clamp(1rem, 3vw, 1.75rem);
 }
 
-/* FIVE + O lockup — oversized, fills the screen */
+/* FIVEO lockup — oversized, fills the screen */
 .site-loader__word {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(0.02em, 0.3vw, 0.06em);
+  gap: 0;
   font-family: var(--loader-display);
-  font-size: min(26vw, 42vh);
+  font-size: min(21vw, 54vh);
   line-height: 0.78;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   text-transform: uppercase;
   width: 100%;
 }
@@ -107,29 +107,6 @@ body.site-loader-active {
   display: inline-block;
   will-change: transform;
   color: var(--loader-ink);
-}
-
-/* The orbital "O" sits inline as the final glyph */
-.site-loader__o {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 0.9em;
-  height: 0.9em;
-  margin-left: 0.02em;
-  color: var(--loader-ink);
-}
-
-.site-loader__o svg {
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
-
-.site-loader__ring {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 3.5;
 }
 
 .site-loader__role {

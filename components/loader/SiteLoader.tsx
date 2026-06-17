@@ -18,14 +18,7 @@ const MAX_MS = 4800;
 const EASE_OUT = [0.22, 1, 0.36, 1] as const;
 const EASE_IN_OUT = [0.76, 0, 0.24, 1] as const;
 
-const LETTERS = ["F", "I", "V", "E"] as const;
-
-/** Concentric orbit rings that form the "O" of FiveO. */
-const RINGS = [
-  { r: 26, opacity: 0.4, duration: 7 },
-  { r: 40, opacity: 0.55, duration: 10 },
-  { r: 54, opacity: 0.7, duration: 13.5 },
-] as const;
+const LETTERS = ["F", "I", "V", "E", "O"] as const;
 
 const letterVariants: Variants = {
   hidden: { y: "120%" },
@@ -34,67 +27,6 @@ const letterVariants: Variants = {
     transition: { delay: 0.1 + i * 0.09, duration: 1, ease: EASE_OUT },
   }),
 };
-
-function OrbitDot({ r, duration, delay }: { r: number; duration: number; delay: number }) {
-  return (
-    <motion.g
-      initial={{ rotate: -40 }}
-      animate={{ rotate: 320 }}
-      transition={{ duration, repeat: Infinity, ease: "linear", delay }}
-      style={{ transformOrigin: "70px 70px" }}
-    >
-      <circle cx={70 + r} cy={70} r={2.6} fill="currentColor" />
-    </motion.g>
-  );
-}
-
-/** The orbital "O" — three drawing rings, orbiting dots and the FiveO star. */
-function OrbitalO({ pulse }: { pulse: boolean }) {
-  return (
-    <span className="site-loader__o" aria-hidden>
-      <motion.svg
-        viewBox="0 0 140 140"
-        fill="none"
-        initial={{ scale: 0.4, opacity: 0 }}
-        animate={{
-          scale: pulse ? 1.18 : 1,
-          opacity: 1,
-        }}
-        transition={{
-          scale: { duration: pulse ? 0.7 : 0.9, ease: EASE_OUT, delay: pulse ? 0 : 0.25 },
-          opacity: { duration: 0.6, delay: 0.25 },
-        }}
-      >
-        {RINGS.map((ring, i) => (
-          <motion.circle
-            key={ring.r}
-            className="site-loader__ring"
-            cx={70}
-            cy={70}
-            r={ring.r}
-            strokeOpacity={ring.opacity}
-            initial={{ pathLength: 0, rotate: -90 }}
-            animate={{ pathLength: 1, rotate: -90 }}
-            transition={{ duration: 1.2, delay: 0.3 + i * 0.13, ease: EASE_OUT }}
-            style={{ transformOrigin: "70px 70px" }}
-          />
-        ))}
-        {RINGS.map((ring, ri) => (
-          <OrbitDot key={`dot-${ring.r}`} r={ring.r} duration={ring.duration} delay={ri * 0.3} />
-        ))}
-        <motion.path
-          d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"
-          fill="currentColor"
-          transform="translate(58 58) scale(1.0)"
-          initial={{ scale: 0.4, opacity: 0, rotate: -60 }}
-          animate={{ scale: 1, opacity: 1, rotate: 0 }}
-          transition={{ duration: 0.9, delay: 0.5, ease: EASE_OUT }}
-          style={{ transformOrigin: "70px 70px" }}
-        />
-      </motion.svg>
-    </span>
-  );
-}
 
 export function SiteLoader() {
   const reduceMotion = useReducedMotion() === true;
@@ -238,7 +170,6 @@ export function SiteLoader() {
                   </motion.span>
                 </span>
               ))}
-              <OrbitalO pulse={phase !== "intro"} />
             </div>
 
             <motion.p
