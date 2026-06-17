@@ -82,48 +82,31 @@ body.site-loader-active {
   margin-bottom: clamp(1rem, 3vw, 1.75rem);
 }
 
-/* FIVE + O lockup */
+/* FIVE + O lockup — oversized, fills the screen */
 .site-loader__word {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(0.04em, 0.4vw, 0.1em);
+  gap: clamp(0.02em, 0.3vw, 0.06em);
   font-family: var(--loader-display);
-  font-size: clamp(4rem, 16vw, 11rem);
-  line-height: 0.82;
+  font-size: min(26vw, 42vh);
+  line-height: 0.78;
+  letter-spacing: -0.02em;
   text-transform: uppercase;
+  width: 100%;
 }
 
 .site-loader__letter-mask {
   display: inline-block;
   overflow: hidden;
   vertical-align: bottom;
-  line-height: 0.82;
+  line-height: 0.78;
 }
 
 .site-loader__letter {
   display: inline-block;
   will-change: transform;
-  background: linear-gradient(
-    100deg,
-    rgba(245, 240, 232, 0.45) 0%,
-    var(--loader-ink) 30%,
-    #ffffff 50%,
-    var(--loader-ink) 70%,
-    rgba(245, 240, 232, 0.45) 100%
-  );
-  background-size: 220% 100%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  animation: loader-sheen 3s linear infinite;
-}
-
-@keyframes loader-sheen {
-  to {
-    background-position: -220% 0;
-  }
+  color: var(--loader-ink);
 }
 
 /* The orbital "O" sits inline as the final glyph */
@@ -131,9 +114,9 @@ body.site-loader-active {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 0.92em;
-  height: 0.92em;
-  margin-left: 0.04em;
+  width: 0.9em;
+  height: 0.9em;
+  margin-left: 0.02em;
   color: var(--loader-ink);
 }
 
@@ -146,7 +129,7 @@ body.site-loader-active {
 .site-loader__ring {
   fill: none;
   stroke: currentColor;
-  stroke-width: 2;
+  stroke-width: 3.5;
 }
 
 .site-loader__role {
