@@ -7,41 +7,64 @@ import {
   useReducedMotion,
   useSpring,
   useTransform,
+  type Variants,
 } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
 import "./loader.css";
 
-const TARGET = "FIVEO";
-const POOL = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#@$%&";
-const SHUTTER_COUNT = 11;
 const MIN_MS = 2600;
 const MAX_MS = 4800;
 
 const EASE_OUT = [0.22, 1, 0.36, 1] as const;
-const EASE_SHUTTER = [0.76, 0, 0.24, 1] as const;
+const EASE_IN_OUT = [0.76, 0, 0.24, 1] as const;
 
+const LETTERS = ["F", "I", "V", "E"] as const;
+
+/** Concentric orbit rings that form the "O" of FiveO. */
 const RINGS = [
-  { r: 38, opacity: 0.35, duration: 8 },
-  { r: 52, opacity: 0.5, duration: 11 },
-  { r: 66, opacity: 0.65, duration: 14 },
+  { r: 26, opacity: 0.4, duration: 7 },
+  { r: 40, opacity: 0.55, duration: 10 },
+  { r: 54, opacity: 0.7, duration: 13.5 },
 ] as const;
+
+const letterVariants: Variants = {
+  hidden: { y: "120%" },
+  show: (i: number) => ({
+    y: "0%",
+    transition: { delay: 0.1 + i * 0.09, duration: 1, ease: EASE_OUT },
+  }),
+};
 
 function OrbitDot({ r, duration, delay }: { r: number; duration: number; delay: number }) {
   return (
     <motion.g
-      animate={{ rotate: 360 }}
+      initial={{ rotate: -40 }}
+      animate={{ rotate: 320 }}
       transition={{ duration, repeat: Infinity, ease: "linear", delay }}
       style={{ transformOrigin: "70px 70px" }}
     >
-      <circle cx={70 + r} cy={70} r={2.8} fill="currentColor" />
+      <circle cx={70 + r} cy={70} r={2.6} fill="currentColor" />
     </motion.g>
   );
 }
 
-function LoaderOrbit() {
+/** The orbital "O" — three drawing rings, orbiting dots and the FiveO star. */
+function OrbitalO({ pulse }: { pulse: boolean }) {
   return (
-    <div className="site-loader__orbit" aria-hidden>
-      <svg viewBox="0 0 140 140" fill="none">
+    <span className="site-loader__o" aria-hidden>
+      <motion.svg
+        viewBox="0 0 140 140"
+        fill="none"
+        initial={{ scale: 0.4, opacity: 0 }}
+        animate={{
+          scale: pulse ? 1.18 : 1,
+          opacity: 1,
+        }}
+        transition={{
+          scale: { duration: pulse ? 0.7 : 0.9, ease: EASE_OUT, delay: pulse ? 0 : 0.25 },
+          opacity: { duration: 0.6, delay: 0.25 },
+        }}
+      >
         {RINGS.map((ring, i) => (
           <motion.circle
             key={ring.r}
@@ -50,58 +73,49 @@ function LoaderOrbit() {
             cy={70}
             r={ring.r}
             strokeOpacity={ring.opacity}
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            transition={{
-              duration: 1.1,
-              delay: 0.15 + i * 0.12,
-              ease: EASE_OUT,
-            }}
+            initial={{ pathLength: 0, rotate: -90 }}
+            animate={{ pathLength: 1, rotate: -90 }}
+            transition={{ duration: 1.2, delay: 0.3 + i * 0.13, ease: EASE_OUT }}
+            style={{ transformOrigin: "70px 70px" }}
           />
         ))}
         {RINGS.map((ring, ri) => (
-          <OrbitDot key={`dot-${ring.r}`} r={ring.r} duration={ring.duration} delay={ri * 0.35} />
+          <OrbitDot key={`dot-${ring.r}`} r={ring.r} duration={ring.duration} delay={ri * 0.3} />
         ))}
         <motion.path
           d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"
           fill="currentColor"
-          transform="translate(58 58) scale(1.05)"
-          initial={{ scale: 0.6, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.7, ease: EASE_OUT }}
+          transform="translate(58 58) scale(1.0)"
+          initial={{ scale: 0.4, opacity: 0, rotate: -60 }}
+          animate={{ scale: 1, opacity: 1, rotate: 0 }}
+          transition={{ duration: 0.9, delay: 0.5, ease: EASE_OUT }}
           style={{ transformOrigin: "70px 70px" }}
         />
-      </svg>
-    </div>
+      </motion.svg>
+    </span>
   );
 }
 
 export function SiteLoader() {
   const reduceMotion = useReducedMotion() === true;
   const [visible, setVisible] = useState(!reduceMotion);
-  const [phase, setPhase] = useState<"load" | "scan" | "exit" | "done">("load");
-  const [decode, setDecode] = useState("");
-  const [locked, setLocked] = useState(false);
-  const [roleVisible, setRoleVisible] = useState(false);
-  const [stampVisible, setStampVisible] = useState(false);
-  const [progressLabel, setProgressLabel] = useState(0);
+  const [phase, setPhase] = useState<"intro" | "lock" | "exit">("intro");
+  const [count, setCount] = useState(0);
 
   const loadedRef = useRef(false);
   const finishedRef = useRef(false);
-  const decodedRef = useRef(false);
-  const scrambleFrame = useRef(0);
   const startRef = useRef(0);
 
   const progress = useMotionValue(0);
-  const smoothProgress = useSpring(progress, { stiffness: 42, damping: 18, mass: 0.8 });
-  const progressScale = useTransform(smoothProgress, (v) => v / 100);
+  const smoothProgress = useSpring(progress, { stiffness: 38, damping: 20, mass: 0.9 });
+  const barScale = useTransform(smoothProgress, (v) => v / 100);
 
   const lockBody = useCallback((lock: boolean) => {
     document.body.classList.toggle("site-loader-active", lock);
   }, []);
 
   const finish = useCallback(() => {
-    if (finishedRef.current || !loadedRef.current || !decodedRef.current) return;
+    if (finishedRef.current || !loadedRef.current) return;
 
     const elapsed = performance.now() - startRef.current;
     if (elapsed < MIN_MS) {
@@ -110,15 +124,16 @@ export function SiteLoader() {
     }
 
     finishedRef.current = true;
-    setPhase("scan");
-    window.setTimeout(() => setStampVisible(true), 380);
-    window.setTimeout(() => setPhase("exit"), 720);
+    progress.set(100);
+    setCount(100);
+    setPhase("lock");
+    // brief beat on the locked logo, then iris out through the O
+    window.setTimeout(() => setPhase("exit"), 620);
     window.setTimeout(() => {
       setVisible(false);
-      setPhase("done");
       lockBody(false);
-    }, 1500);
-  }, [lockBody]);
+    }, 620 + 1050);
+  }, [lockBody, progress]);
 
   useEffect(() => {
     if (reduceMotion) return;
@@ -142,39 +157,21 @@ export function SiteLoader() {
       finish();
     }, MAX_MS);
 
+    // Animate the counter toward a moving target so it always feels alive.
     let raf = 0;
-    const scramble = () => {
+    const tick = () => {
       if (finishedRef.current) return;
-
-      const frame = scrambleFrame.current;
-      if (frame > 52) {
-        setDecode(TARGET);
-        setLocked(true);
-        setRoleVisible(true);
-        decodedRef.current = true;
-        progress.set(100);
-        setProgressLabel(100);
-        loadedRef.current = true;
-        finish();
-        return;
-      }
-
-      setDecode(
-        TARGET.split("")
-          .map((char, i) => {
-            if (frame > i * 3 + 10) return char;
-            return POOL[Math.floor(Math.random() * POOL.length)];
-          })
-          .join(""),
-      );
-
-      progress.set(Math.min(92, 12 + frame * 1.55));
-      setProgressLabel(Math.min(92, Math.round(12 + frame * 1.55)));
-      scrambleFrame.current += 1;
-      raf = requestAnimationFrame(scramble);
+      const elapsed = performance.now() - startRef.current;
+      // ease toward 90% across MIN_MS, then hold until load completes
+      const target = Math.min(90, (elapsed / MIN_MS) * 90);
+      setCount((prev) => {
+        const next = prev + (target - prev) * 0.12;
+        progress.set(next);
+        return next;
+      });
+      raf = requestAnimationFrame(tick);
     };
-
-    raf = requestAnimationFrame(scramble);
+    raf = requestAnimationFrame(tick);
 
     return () => {
       cancelAnimationFrame(raf);
@@ -194,88 +191,79 @@ export function SiteLoader() {
           role="status"
           aria-live="polite"
           aria-label="Loading FiveO"
-          initial={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
+          initial={{ clipPath: "circle(150% at 50% 46%)" }}
+          exit={{
+            clipPath: "circle(0% at 50% 46%)",
+            transition: { duration: 1.0, ease: EASE_IN_OUT },
+          }}
         >
           <div className="site-loader__veil" />
-          <div className="site-loader__grid" />
+          <motion.div
+            className="site-loader__grid"
+            initial={{ scale: 1 }}
+            animate={{ scale: phase === "exit" ? 1.12 : 1 }}
+            transition={{ duration: 1, ease: EASE_IN_OUT }}
+          />
+          <div className="site-loader__glow" />
           <div className="site-loader__grain" />
 
           <motion.div
             className="site-loader__content absolute inset-0"
-            animate={{ opacity: phase === "exit" ? 0 : 1 }}
-            transition={{ duration: 0.35, ease: EASE_OUT }}
+            animate={{
+              scale: phase === "exit" ? 1.16 : 1,
+              opacity: phase === "exit" ? 0 : 1,
+            }}
+            transition={{ duration: 1, ease: EASE_IN_OUT }}
           >
-            <LoaderOrbit />
+            <motion.p
+              className="site-loader__meta"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.15, ease: EASE_OUT }}
+            >
+              Studio online
+            </motion.p>
 
-            <p className="site-loader__meta">Studio online · FiveO</p>
-
-            <h1 className={`site-loader__decode${locked ? " is-locked" : ""}`}>
-              {decode || "\u00A0"}
-            </h1>
+            <div className="site-loader__word">
+              {LETTERS.map((letter, i) => (
+                <span key={letter} className="site-loader__letter-mask">
+                  <motion.span
+                    className="site-loader__letter"
+                    custom={i}
+                    variants={letterVariants}
+                    initial="hidden"
+                    animate="show"
+                  >
+                    {letter}
+                  </motion.span>
+                </span>
+              ))}
+              <OrbitalO pulse={phase !== "intro"} />
+            </div>
 
             <motion.p
               className="site-loader__role"
-              initial={{ opacity: 0, y: 8 }}
-              animate={roleVisible ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.55, ease: EASE_OUT }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.65, ease: EASE_OUT }}
             >
-              Web · Apps · AI engineering
+              Web&nbsp;·&nbsp;Apps&nbsp;·&nbsp;AI&nbsp;engineering
             </motion.p>
 
-            <div className="site-loader__progress" aria-hidden>
-              <motion.div
-                className="site-loader__progress-fill"
-                style={{ scaleX: progressScale }}
-              />
-            </div>
-            <motion.p className="site-loader__progress-label" style={{ opacity: roleVisible ? 1 : 0 }}>
-              {progressLabel}%
-            </motion.p>
-
-            <AnimatePresence>
-              {(phase === "scan" || phase === "exit") && (
-                <motion.div
-                  className="site-loader__scan"
-                  initial={{ top: "14%", opacity: 0 }}
-                  animate={{ top: "86%", opacity: [0, 1, 1, 0.6] }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.95, ease: EASE_OUT }}
-                />
-              )}
-            </AnimatePresence>
-
-            <AnimatePresence>
-              {stampVisible && (
-                <motion.div
-                  className="site-loader__stamp"
-                  initial={{ opacity: 0, scale: 1.8, rotate: -16, x: "-50%", y: "-50%" }}
-                  animate={{ opacity: 1, scale: 1, rotate: -6, x: "-50%", y: "-50%" }}
-                  exit={{ opacity: 0, scale: 0.92 }}
-                  transition={{ duration: 0.45, ease: EASE_OUT }}
-                >
-                  Live
-                </motion.div>
-              )}
-            </AnimatePresence>
+            <motion.div
+              className="site-loader__footer"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+            >
+              <div className="site-loader__bar" aria-hidden>
+                <motion.span className="site-loader__bar-fill" style={{ scaleX: barScale }} />
+              </div>
+              <span className="site-loader__count">
+                {String(Math.round(count)).padStart(3, "0")}
+              </span>
+            </motion.div>
           </motion.div>
-
-          <div className="site-loader__shutters" aria-hidden>
-            {Array.from({ length: SHUTTER_COUNT }, (_, i) => (
-              <motion.div
-                key={i}
-                className="site-loader__shutter"
-                initial={{ y: "0%" }}
-                animate={{ y: phase === "exit" ? "-108%" : "0%" }}
-                transition={{
-                  duration: 0.72,
-                  delay: phase === "exit" ? Math.abs(i - (SHUTTER_COUNT - 1) / 2) * 0.038 : 0,
-                  ease: EASE_SHUTTER,
-                }}
-              />
-            ))}
-          </div>
         </motion.div>
       )}
     </AnimatePresence>
