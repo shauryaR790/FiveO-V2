@@ -272,15 +272,24 @@ body::-webkit-scrollbar {
     text-transform: uppercase;
   }
 
-  /* Keep accent / italic words in source casing (not forced caps) */
-  h1 :where(em, i, .italic, .font-serif-accent),
-  h2 :where(em, i, .italic, .font-serif-accent),
-  h3 :where(em, i, .italic, .font-serif-accent),
-  h4 :where(em, i, .italic, .font-serif-accent),
-  h5 :where(em, i, .italic, .font-serif-accent),
-  h6 :where(em, i, .italic, .font-serif-accent) {
-    text-transform: none;
-  }
+}
+
+/*
+ * Headings: no italics or serif accents anywhere.
+ * Accent words now use the thick display heading font (Anton), uppercase.
+ * Unlayered so it beats Tailwind's `italic` / `font-serif-accent` utilities.
+ */
+h1 :where(em, i, .italic, .font-serif-accent),
+h2 :where(em, i, .italic, .font-serif-accent),
+h3 :where(em, i, .italic, .font-serif-accent),
+h4 :where(em, i, .italic, .font-serif-accent),
+h5 :where(em, i, .italic, .font-serif-accent),
+h6 :where(em, i, .italic, .font-serif-accent) {
+  font-family: var(--font-heading);
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
 }
 
 html.lenis,
