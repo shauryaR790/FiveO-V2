@@ -313,10 +313,9 @@ html.lenis body {
   pointer-events: none;
 }
 
-/* Services hero title — keep the full phrase on one line */
+/* Services hero title — same scale as other section titles, one line */
 .services-section-title {
   white-space: nowrap;
   max-width: none !important;
   width: 100%;
-  overflow-x: clip;
 }
