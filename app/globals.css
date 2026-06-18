@@ -312,3 +312,11 @@ html.lenis body {
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
 }
+
+/* Services hero title — keep the full phrase on one line */
+.services-section-title {
+  white-space: nowrap;
+  max-width: none !important;
+  width: 100%;
+  overflow-x: clip;
+}

@@ -82,11 +82,11 @@ export function ServicesSection() {
       <div className="mx-auto max-w-[1400px] px-6 md:px-10">
         <h2
           id="services-heading"
-          className="services-section-title section-title font-heading text-[clamp(2.85rem,7.5vw,5.75rem)] font-normal leading-[1.02] tracking-[-0.035em] text-cream will-change-transform xl:text-[clamp(3.25rem,6.5vw,6.25rem)]"
+          className="services-section-title mx-auto w-full max-w-none text-center font-heading text-[clamp(1.75rem,3.6vw,4.75rem)] font-normal leading-[1.02] tracking-[-0.035em] text-cream will-change-transform md:text-[clamp(2rem,3.4vw,5.25rem)] lg:text-[clamp(2.25rem,3.2vw,5.5rem)]"
         >
-          FiveO ships{" "}
-          <span className="text-cream">web products</span>{" "}
-          <span className="whitespace-nowrap">and AI</span>
+          <span className="inline-block whitespace-nowrap">
+            FiveO ships <span className="text-cream">web products</span> and AI
+          </span>
         </h2>
 
         <div ref={gridRef}>
