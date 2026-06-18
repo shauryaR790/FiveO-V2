@@ -8,7 +8,11 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
-import { useEffect, useState } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { useEffect, useRef, useState } from "react";
+
+import { whenLoaderDone } from "@/lib/loaderReady";
 
 const CENTER = { x: 350, y: 350 };
 
@@ -79,6 +83,46 @@ export function OrbitalGraphic() {
   const reduce = reduceMotion === true;
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
+  const svgRef = useRef<SVGSVGElement>(null);
+
+  useGSAP(
+    () => {
+      const svg = svgRef.current;
+      if (!svg) return;
+
+      const rings = svg.querySelectorAll<SVGCircleElement>("[data-orbit-ring]");
+
+      if (reduce) {
+        gsap.set(svg, { autoAlpha: 1 });
+        return;
+      }
+
+      // Hidden until the loader hands off, then the system scales/spins into
+      // place with the rings blooming outward.
+      gsap.set(svg, { autoAlpha: 0, scale: 0.85, rotate: -8, transformOrigin: "50% 50%" });
+      gsap.set(rings, { scale: 0, transformOrigin: "50% 50%" });
+
+      const tl = gsap.timeline({
+        paused: true,
+        defaults: { ease: "power3.out" },
+      });
+
+      tl.to(svg, { autoAlpha: 1, scale: 1, rotate: 0, duration: 1.3 }).to(
+        rings,
+        { scale: 1, duration: 1.05, stagger: 0.14 },
+        0.12,
+      );
+
+      const release = whenLoaderDone(() => tl.play());
+
+      return () => {
+        release();
+        tl.kill();
+        gsap.set([svg, rings], { clearProps: "all" });
+      };
+    },
+    { dependencies: [reduce] },
+  );
 
   useEffect(() => {
     if (reduce) return;
@@ -114,6 +158,7 @@ export function OrbitalGraphic() {
       }}
     >
       <svg
+        ref={svgRef}
         viewBox="0 0 700 700"
         className="h-full w-full overflow-visible"
         fill="none"
@@ -124,6 +169,7 @@ export function OrbitalGraphic() {
           {RINGS.map((ring, i) => (
             <circle
               key={`ring-${ring.r}`}
+              data-orbit-ring
               r={ring.r}
               stroke="currentColor"
               strokeWidth={1.12 - i * 0.04}

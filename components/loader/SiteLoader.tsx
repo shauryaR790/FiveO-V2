@@ -10,6 +10,7 @@ import {
   type Variants,
 } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { notifyLoaderDone } from "@/lib/loaderReady";
 import "./loader.css";
 
 const MIN_MS = 2600;
@@ -59,8 +60,12 @@ export function SiteLoader() {
     progress.set(100);
     setCount(100);
     setPhase("lock");
-    // brief beat on the locked logo, then iris out through the O
-    window.setTimeout(() => setPhase("exit"), 620);
+    // brief beat on the locked logo, then iris out through the O — hero
+    // animations are released as the page is revealed.
+    window.setTimeout(() => {
+      setPhase("exit");
+      notifyLoaderDone();
+    }, 620);
     window.setTimeout(() => {
       setVisible(false);
       lockBody(false);
@@ -68,7 +73,11 @@ export function SiteLoader() {
   }, [lockBody, progress]);
 
   useEffect(() => {
-    if (reduceMotion) return;
+    if (reduceMotion) {
+      // No loader is shown — let hero animations run right away.
+      notifyLoaderDone();
+      return;
+    }
 
     startRef.current = performance.now();
     lockBody(true);

@@ -1,11 +1,13 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { AnimatedGrid } from "./AnimatedGrid";
 import { HeroNavbar } from "./HeroNavbar";
 import { MagneticButton } from "./MagneticButton";
 import { OrbitalGraphic } from "./OrbitalGraphic";
 import { SplitHeadline } from "./SplitHeadline";
+import { whenLoaderDone } from "@/lib/loaderReady";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
@@ -22,6 +24,9 @@ const fadeUp = {
 
 export function Hero() {
   const reduce = useReducedMotion() === true;
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => whenLoaderDone(() => setReady(true)), []);
 
   return (
     <section
@@ -66,10 +71,10 @@ export function Hero() {
           </motion.div>
 
           <motion.div
-            custom={reduce ? 0 : 0.72}
+            custom={reduce ? 0 : 0.45}
             variants={fadeUp}
             initial="hidden"
-            animate="show"
+            animate={reduce || ready ? "show" : "hidden"}
             className="flex flex-wrap gap-4"
           >
             <MagneticButton href="#cases" variant="solid" aria-label="View selected work">

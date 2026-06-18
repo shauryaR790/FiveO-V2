@@ -53,7 +53,10 @@
 
 .figmint h2.figmint-title .italic {
   font-style: normal;
-  font-family: inherit;
+  /* Match the rest of the title exactly (a global heading rule otherwise
+     forces this accent word to Anton at weight 400). */
+  font-family: var(--fm-display);
+  font-weight: 600;
   white-space: nowrap;
 }
 
@@ -96,12 +99,15 @@
 }
 
 .figmint .price-tag {
+  display: inline-block;
   font-family: var(--fm-mono);
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: bold;
   border: var(--fm-border) solid var(--fm-fg);
-  padding: 0.5rem 0.85rem;
+  padding: 1rem 2rem;
   color: var(--fm-fg);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .figmint .specs-grid {
