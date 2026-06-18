@@ -64,11 +64,11 @@ export function SiteLoader() {
     // animations are released as the page is revealed.
     window.setTimeout(() => {
       setPhase("exit");
-      notifyLoaderDone();
     }, 620);
     window.setTimeout(() => {
       setVisible(false);
       lockBody(false);
+      notifyLoaderDone();
     }, 620 + 1050);
   }, [lockBody, progress]);
 

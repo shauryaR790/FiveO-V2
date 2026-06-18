@@ -83,45 +83,86 @@ export function OrbitalGraphic() {
   const reduce = reduceMotion === true;
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
+  const rootRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
 
   useGSAP(
     () => {
+      const root = rootRef.current;
       const svg = svgRef.current;
-      if (!svg) return;
+      if (!root || !svg) return;
 
       const rings = svg.querySelectorAll<SVGCircleElement>("[data-orbit-ring]");
+      const star = svg.querySelector<SVGElement>("[data-orbit-star]");
 
       if (reduce) {
-        gsap.set(svg, { autoAlpha: 1 });
+        gsap.set([root, rings, star], { clearProps: "all", autoAlpha: 1, scale: 1 });
         return;
       }
 
-      // Hidden until the loader hands off, then the system scales/spins into
-      // place with the rings blooming outward.
-      gsap.set(svg, { autoAlpha: 0, scale: 0.85, rotate: -8, transformOrigin: "50% 50%" });
-      gsap.set(rings, { scale: 0, transformOrigin: "50% 50%" });
+      gsap.set(root, {
+        autoAlpha: 0,
+        scale: 0.78,
+        rotate: -12,
+        transformOrigin: "50% 50%",
+      });
+      gsap.set(rings, {
+        scale: 0,
+        autoAlpha: 0,
+        transformOrigin: "50% 50%",
+        transformBox: "fill-box",
+      });
+      if (star) {
+        gsap.set(star, {
+          scale: 0,
+          autoAlpha: 0,
+          transformOrigin: "50% 50%",
+          transformBox: "fill-box",
+        });
+      }
 
       const tl = gsap.timeline({
         paused: true,
         defaults: { ease: "power3.out" },
       });
 
-      tl.to(svg, { autoAlpha: 1, scale: 1, rotate: 0, duration: 1.3 }).to(
-        rings,
-        { scale: 1, duration: 1.05, stagger: 0.14 },
-        0.12,
-      );
+      tl.to(root, {
+        autoAlpha: 1,
+        scale: 1,
+        rotate: 0,
+        duration: 1.35,
+      })
+        .to(
+          rings,
+          {
+            scale: 1,
+            autoAlpha: 1,
+            duration: 1.05,
+            stagger: 0.14,
+            ease: "power2.out",
+          },
+          0.12,
+        )
+        .to(
+          star,
+          {
+            scale: 1,
+            autoAlpha: 1,
+            duration: 0.65,
+            ease: "back.out(1.8)",
+          },
+          0.45,
+        );
 
       const release = whenLoaderDone(() => tl.play());
 
       return () => {
         release();
         tl.kill();
-        gsap.set([svg, rings], { clearProps: "all" });
+        gsap.set([root, rings, star], { clearProps: "all" });
       };
     },
-    { dependencies: [reduce] },
+    { scope: rootRef, dependencies: [reduce] },
   );
 
   useEffect(() => {
@@ -148,7 +189,8 @@ export function OrbitalGraphic() {
 
   return (
     <motion.div
-      className="relative mx-auto aspect-square h-full w-full text-cream/85"
+      ref={rootRef}
+      className="hero-orbit relative mx-auto aspect-square h-full w-full text-cream/85 opacity-0"
       style={{
         rotateX: reduce ? 0 : tiltX,
         rotateY: reduce ? 0 : tiltY,
@@ -188,7 +230,7 @@ export function OrbitalGraphic() {
             )),
           )}
         </g>
-        <g transform="translate(338 338)">
+        <g transform="translate(338 338)" data-orbit-star>
           <path
             d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"
             fill="currentColor"

@@ -42,36 +42,26 @@ export function Hero() {
 
       <HeroNavbar />
 
-      {/* Desktop orbit — anchored to the right edge, grows left (won't clip off-screen) */}
-      <motion.div
-        initial={reduce ? false : { opacity: 0, scale: 0.98 }}
-        animate={reduce ? undefined : { opacity: 1, scale: 1 }}
-        transition={{ delay: 0.3, duration: 1, ease: [0.22, 1, 0.36, 1] as const }}
-        className="pointer-events-none absolute inset-y-0 right-0 z-[8] hidden items-center justify-end pr-4 sm:pr-6 md:pr-8 lg:flex xl:pr-10"
-      >
+      {/* Desktop orbit — GSAP entrance after loader */}
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-[8] hidden items-center justify-end pr-4 sm:pr-6 md:pr-8 lg:flex xl:pr-10">
         <div className="aspect-square w-[min(80vw,52rem)] shrink-0 xl:w-[min(74vw,60rem)] 2xl:w-[min(68vw,68rem)]">
           <OrbitalGraphic />
         </div>
-      </motion.div>
+      </div>
 
       <div className="relative z-10 mx-auto min-h-[100dvh] max-w-[1400px] px-6 pb-20 pt-32 md:px-10 lg:pb-28 lg:pt-28">
         <div className="flex max-w-3xl flex-col gap-10 sm:gap-12 md:max-w-5xl lg:max-w-[52%] xl:max-w-[48%]">
           <SplitHeadline />
 
           {/* Mobile / tablet orbit */}
-          <motion.div
-            initial={reduce ? false : { opacity: 0, y: 16 }}
-            animate={reduce ? undefined : { opacity: 1, y: 0 }}
-            transition={{ delay: 0.35, duration: 1, ease: [0.22, 1, 0.36, 1] as const }}
-            className="flex justify-center lg:hidden"
-          >
+          <div className="flex justify-center lg:hidden">
             <div className="aspect-square w-full max-w-[min(100%,28rem)] sm:max-w-[34rem] md:max-w-[40rem]">
               <OrbitalGraphic />
             </div>
-          </motion.div>
+          </div>
 
           <motion.div
-            custom={reduce ? 0 : 0.45}
+            custom={reduce ? 0 : 0.35}
             variants={fadeUp}
             initial="hidden"
             animate={reduce || ready ? "show" : "hidden"}

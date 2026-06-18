@@ -21,17 +21,20 @@ export function SplitHeadline() {
 
   useGSAP(
     () => {
-      const lines = gsap.utils.toArray<HTMLElement>(".headline-line");
+      const root = wrapRef.current;
+      if (!root) return;
+
+      const lines = gsap.utils.toArray<HTMLElement>(
+        root.querySelectorAll(".headline-line"),
+      );
       if (!lines.length) return;
 
       if (reduce) {
-        gsap.set(lines, { xPercent: 0, autoAlpha: 1, clearProps: "all" });
+        gsap.set(lines, { x: 0, autoAlpha: 1, clearProps: "all" });
         return;
       }
 
-      // Each line is held off to the left, then slides in one after another
-      // once the site loader has finished revealing the page.
-      gsap.set(lines, { xPercent: -16, autoAlpha: 0 });
+      gsap.set(lines, { x: -120, autoAlpha: 0 });
 
       const tl = gsap.timeline({
         paused: true,
@@ -39,10 +42,10 @@ export function SplitHeadline() {
       });
 
       tl.to(lines, {
-        xPercent: 0,
+        x: 0,
         autoAlpha: 1,
-        duration: 1.05,
-        stagger: 0.16,
+        duration: 1.15,
+        stagger: 0.18,
       });
 
       const release = whenLoaderDone(() => tl.play());
@@ -59,12 +62,12 @@ export function SplitHeadline() {
   return (
     <h1
       ref={wrapRef}
-      className="max-w-[min(100%,32ch)] font-heading text-[clamp(3.75rem,11vw,9rem)] font-normal leading-[0.9] tracking-[-0.03em] text-cream md:max-w-[min(100%,36ch)] lg:max-w-[min(100%,40ch)]"
+      className="max-w-[min(100%,32ch)] overflow-hidden font-heading text-[clamp(3.75rem,11vw,9rem)] font-normal leading-[0.9] tracking-[-0.03em] text-cream md:max-w-[min(100%,36ch)] lg:max-w-[min(100%,40ch)]"
     >
       {headlineLines.map((line, lineIdx) => (
         <span
           key={`line-${lineIdx}`}
-          className="headline-line block whitespace-nowrap will-change-transform"
+          className="headline-line block whitespace-nowrap opacity-0 will-change-transform"
         >
           {line.map((piece, idx) => (
             <Fragment key={`${piece.text}-${lineIdx}-${idx}`}>
