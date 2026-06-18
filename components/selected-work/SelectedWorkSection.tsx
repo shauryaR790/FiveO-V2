@@ -75,7 +75,7 @@ export function SelectedWorkSection({ projects = SITE_SHOWCASE }: SelectedWorkSe
             className="section-title font-heading text-[clamp(2.85rem,7.5vw,5.75rem)] font-normal leading-[1.02] tracking-[-0.035em] text-cream xl:text-[clamp(3.25rem,6.5vw,6.25rem)]"
           >
             Marketing sites, SaaS dashboards, and product launches we have{" "}
-            <span className="font-serif-accent font-normal italic text-cream">designed, built,</span> and shipped
+            <span className="text-cream">designed, built,</span> and shipped
           </h2>
           <p className="mt-6 max-w-3xl text-base text-cream/65 md:text-lg lg:text-xl">
             A live scroll through fourteen recent websites and digital products — the interfaces and

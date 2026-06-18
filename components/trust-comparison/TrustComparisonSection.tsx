@@ -100,7 +100,7 @@ export function TrustComparisonSection() {
             className="section-title font-heading text-[clamp(2.25rem,5.5vw,4rem)] font-normal leading-[1.05] tracking-[-0.03em] text-cream"
           >
             Stop relying on{" "}
-            <span className="font-serif-accent font-normal italic text-cream">fragmented vendors</span>
+            <span className="text-cream">fragmented vendors</span>
           </h2>
           <p className="mx-auto mt-6 max-w-3xl text-lg text-cream/60 md:text-xl">
             You will not ship a cohesive product when websites, apps, APIs, and AI experiments are owned

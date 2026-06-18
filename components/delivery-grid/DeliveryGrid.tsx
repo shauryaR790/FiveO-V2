@@ -379,7 +379,7 @@ export function DeliveryGrid() {
           className="delivery-grid-title section-title text-[clamp(2.85rem,7.5vw,5.75rem)] font-normal leading-[1.02] tracking-[-0.035em] text-cream will-change-transform xl:text-[clamp(3.25rem,6.5vw,6.25rem)]"
         >
           Your stack is ambitious. Your{" "}
-          <span className="font-serif-accent font-normal italic text-cream">shipping rhythm</span> isn&apos;t.
+          <span className="text-cream">shipping rhythm</span> isn&apos;t.
         </h2>
 
         <div className="mt-12 grid grid-cols-1 gap-3 min-[480px]:grid-cols-2 sm:gap-5 lg:mt-16 lg:grid-cols-3 lg:gap-6">

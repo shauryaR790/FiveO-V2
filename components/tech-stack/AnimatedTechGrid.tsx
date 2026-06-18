@@ -46,6 +46,7 @@ function TechMarqueeCells({
       <div
         key={`${rowKey}-${item.name}-${i}`}
         data-tech-cell
+        data-tech-row={rowKey}
         className="flex shrink-0 items-center justify-center px-3 sm:px-4"
         title={item.name}
       >
@@ -102,6 +103,12 @@ export function AnimatedTechGrid({ className }: AnimatedTechGridProps) {
 
     const ctx = gsap.context(() => {
       const cells = gsap.utils.toArray<HTMLElement>(root.querySelectorAll("[data-tech-cell]"));
+      const topCells = gsap.utils.toArray<HTMLElement>(
+        root.querySelectorAll('[data-tech-row="top"]'),
+      );
+      const bottomCells = gsap.utils.toArray<HTMLElement>(
+        root.querySelectorAll('[data-tech-row="bottom"]'),
+      );
       const inners = gsap.utils.toArray<HTMLElement>(root.querySelectorAll("[data-tech-inner]"));
 
       if (reduced) {
@@ -119,12 +126,18 @@ export function AnimatedTechGrid({ className }: AnimatedTechGridProps) {
         start: "top 96%",
         once: true,
         onEnter: () => {
-          gsap.to(cells, {
+          const revealConfig = {
             opacity: 1,
             y: 0,
             duration: 0.5,
-            ease: "power2.out",
+            ease: "power2.out" as const,
             stagger: 0.03,
+          };
+          // Animate both rows in parallel (same start time) so they trigger
+          // together, while each row still staggers from its own start.
+          gsap.to(topCells, revealConfig);
+          gsap.to(bottomCells, {
+            ...revealConfig,
             onComplete: () => {
               inners.forEach((inner, i) => startFloat(inner, i));
             },

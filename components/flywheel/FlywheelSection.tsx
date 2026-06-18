@@ -32,7 +32,7 @@ export function FlywheelSection() {
             className="max-w-6xl font-heading text-[clamp(2.85rem,7.5vw,5.75rem)] font-normal leading-[1.02] tracking-[-0.035em] text-ink xl:text-[clamp(3.25rem,6.5vw,6.25rem)]"
           >
             A flywheel. not a{" "}
-            <span className="font-serif-accent font-normal italic text-ink">funnel</span>
+            <span className="text-ink">funnel</span>
           </h2>
           <p className="max-w-md text-base text-ink md:justify-self-end md:text-left md:text-lg lg:max-w-lg lg:text-xl">
             Discovery, build, and ship stay connected—each release feeds data and insight back into the next
