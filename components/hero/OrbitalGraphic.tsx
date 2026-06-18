@@ -119,7 +119,7 @@ export function OrbitalGraphic() {
 
       gsap.set(root, { autoAlpha: 0 });
       gsap.set(dots, { autoAlpha: 0, y: 10 });
-      if (star) gsap.set(star, { autoAlpha: 0, y: 8 });
+      if (star) gsap.set(star, { autoAlpha: 0 });
 
       const tl = gsap.timeline({
         paused: true,
@@ -138,11 +138,7 @@ export function OrbitalGraphic() {
           0.08,
         )
         .to(dots, { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.08 }, 0.75)
-        .to(
-          star,
-          { autoAlpha: 1, y: 0, duration: 0.55, ease: "power2.out" },
-          0.95,
-        );
+        .to(star, { autoAlpha: 1, duration: 0.55, ease: "power2.out" }, 0.85);
 
       const release = whenLoaderDone(() => tl.play());
 
@@ -223,12 +219,12 @@ export function OrbitalGraphic() {
               />
             )),
           )}
-        </g>
-        <g transform="translate(338 338)" data-orbit-star>
-          <path
-            d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"
-            fill="currentColor"
-          />
+          <g data-orbit-star transform="translate(-12 -12) scale(1.35)">
+            <path
+              d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"
+              fill="currentColor"
+            />
+          </g>
         </g>
       </svg>
     </motion.div>
