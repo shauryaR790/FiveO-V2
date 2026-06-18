@@ -13,7 +13,6 @@ export type ServiceBentoItem = {
   meta?: string;
   cta?: string;
   colSpan?: number;
-  hasPersistentHover?: boolean;
 };
 
 export const SERVICE_BENTO_ITEMS: ServiceBentoItem[] = [
@@ -22,11 +21,10 @@ export const SERVICE_BENTO_ITEMS: ServiceBentoItem[] = [
     meta: "React · Next.js · TypeScript",
     description:
       "From marketing sites to complex apps—we architect, build, and ship fast, accessible experiences your team can own and extend. You get typed components, preview deploys on every PR, and clean handoffs so nothing lives only in our heads. The goal is a codebase your engineers still trust six months after launch—not a demo that collapses the first time you scale traffic.",
-    icon: <Code2 className="size-5 text-sky-500 md:size-6" aria-hidden />,
+    icon: <Code2 className="size-5 text-cream md:size-6" aria-hidden />,
     status: "Core",
     tags: ["Engineering", "Performance", "A11y"],
     colSpan: 2,
-    hasPersistentHover: true,
     cta: "Capabilities →",
   },
   {
@@ -34,7 +32,7 @@ export const SERVICE_BENTO_ITEMS: ServiceBentoItem[] = [
     meta: "Figma → production",
     description:
       "Research-backed interfaces, design tokens, and component libraries so brand and product stay consistent as you scale.",
-    icon: <Palette className="size-5 text-violet-500 md:size-6" aria-hidden />,
+    icon: <Palette className="size-5 text-cream md:size-6" aria-hidden />,
     status: "Design",
     tags: ["Product UI", "Prototypes"],
     cta: "Process →",
@@ -44,7 +42,7 @@ export const SERVICE_BENTO_ITEMS: ServiceBentoItem[] = [
     meta: "Audits · workshops",
     description:
       "Code reviews, stack decisions, and roadmap sessions—we help you de-risk launches, tighten architecture, and plan hiring. We map integration seams before they become blockers, flag performance and security debt early, and translate options into calls your team can make this quarter. Need a one-off audit or a standing partner in the room? Either way you leave with next steps—not slides that never ship.",
-    icon: <MessagesSquare className="size-5 text-amber-500 md:size-6" aria-hidden />,
+    icon: <MessagesSquare className="size-5 text-cream md:size-6" aria-hidden />,
     status: "Advisory",
     tags: ["Architecture", "CTO-for-hire"],
     colSpan: 2,
@@ -55,7 +53,7 @@ export const SERVICE_BENTO_ITEMS: ServiceBentoItem[] = [
     meta: "SLAs available",
     description:
       "Monitoring, releases, and iterative improvements after launch—keep your site secure, fast, and aligned with the business.",
-    icon: <LifeBuoy className="size-5 text-emerald-500 md:size-6" aria-hidden />,
+    icon: <LifeBuoy className="size-5 text-cream md:size-6" aria-hidden />,
     status: "Partnership",
     tags: ["Care plans", "Roadmaps"],
     cta: "Retainers →",
@@ -90,32 +88,17 @@ export function ServicesBentoGrid({
           key={`${item.title}-${index}`}
           data-bento-card
           className={cn(
-            "group relative min-h-[15rem] overflow-hidden rounded-xl border border-white/10 bg-zinc-950 p-6 transition-all duration-300 md:min-h-[17rem] md:p-8 lg:min-h-[18rem] lg:p-9",
-            "hover:-translate-y-0.5 hover:shadow-[0_2px_12px_rgba(255,255,255,0.06)]",
-            "will-change-transform",
+            "group relative flex min-h-[15rem] flex-col overflow-hidden rounded-xl bg-zinc-900 p-6 ring-1 ring-white/10 will-change-transform md:min-h-[17rem] md:p-8 lg:min-h-[18rem] lg:p-9",
             item.colSpan === 2 ? "md:col-span-2" : "col-span-1",
-            item.hasPersistentHover &&
-              "-translate-y-0.5 shadow-[0_2px_12px_rgba(255,255,255,0.06)]",
           )}
         >
-          {/* Dot grid texture */}
-          <div
-            className={cn(
-              "absolute inset-0 transition-opacity duration-300",
-              item.hasPersistentHover ? "opacity-100" : "opacity-0 group-hover:opacity-100",
-            )}
-            aria-hidden
-          >
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[length:4px_4px]" />
-          </div>
-
-          <div className="relative flex h-full flex-col space-y-5 md:space-y-6">
+          <div className="flex h-full flex-col space-y-5 md:space-y-6">
             {/* 1 — icon + 2 — category */}
             <div className="flex items-center justify-between">
-              <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-white/[0.06] transition-all duration-300 group-hover:bg-gradient-to-br group-hover:from-white/[0.08] group-hover:to-white/[0.04] md:h-12 md:w-12">
+              <div className="flex h-11 w-11 items-center justify-center rounded-lg border border-white/10 bg-zinc-950 md:h-12 md:w-12">
                 {item.icon}
               </div>
-              <span className="rounded-lg bg-white/[0.06] px-3 py-1.5 text-sm font-medium text-cream/50 backdrop-blur-sm transition-colors duration-300 group-hover:bg-white/[0.09]">
+              <span className="rounded-lg border border-white/10 bg-zinc-950 px-3 py-1.5 text-sm font-medium text-cream/50">
                 {item.status}
               </span>
             </div>
@@ -143,7 +126,7 @@ export function ServicesBentoGrid({
                 {item.tags?.map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-md bg-white/[0.06] px-3 py-1.5 backdrop-blur-sm transition-all duration-200 hover:bg-white/[0.09] md:px-3.5 md:py-2"
+                    className="rounded-md border border-white/10 bg-zinc-950 px-3 py-1.5 md:px-3.5 md:py-2"
                   >
                     #{tag}
                   </span>
@@ -154,15 +137,6 @@ export function ServicesBentoGrid({
               </span>
             </div>
           </div>
-
-          <div
-            className={cn(
-              "pointer-events-none absolute inset-0 -z-10 rounded-xl bg-gradient-to-br from-transparent via-white/10 to-transparent p-px",
-              item.hasPersistentHover ? "opacity-100" : "opacity-0 group-hover:opacity-100",
-              "transition-opacity duration-300",
-            )}
-            aria-hidden
-          />
         </article>
       ))}
     </div>
