@@ -36,7 +36,7 @@ export function Hero() {
       <AnimatedGrid />
 
       <div
-        className="pointer-events-none absolute inset-y-0 left-6 w-px bg-cream/[0.12] md:left-10"
+        className="pointer-events-none absolute inset-y-0 left-6 hidden w-px bg-cream/[0.12] md:left-10 md:block"
         aria-hidden
       />
 
