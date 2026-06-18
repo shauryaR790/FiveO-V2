@@ -62,12 +62,12 @@ export function SplitHeadline() {
   return (
     <h1
       ref={wrapRef}
-      className="max-w-[min(100%,32ch)] overflow-hidden font-heading text-[clamp(3.75rem,11vw,9rem)] font-normal leading-[0.9] tracking-[-0.03em] text-cream md:max-w-[min(100%,36ch)] lg:max-w-[min(100%,40ch)]"
+      className="w-full max-w-none font-heading text-[clamp(3.25rem,9.5vw,7.5rem)] font-normal leading-[0.9] tracking-[-0.03em] text-cream xl:text-[clamp(3.5rem,8.5vw,8.25rem)]"
     >
       {headlineLines.map((line, lineIdx) => (
         <span
           key={`line-${lineIdx}`}
-          className="headline-line block whitespace-nowrap opacity-0 will-change-transform"
+          className="headline-line block overflow-hidden whitespace-nowrap opacity-0 will-change-transform"
         >
           {line.map((piece, idx) => (
             <Fragment key={`${piece.text}-${lineIdx}-${idx}`}>

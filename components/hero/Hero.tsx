@@ -50,7 +50,7 @@ export function Hero() {
       </div>
 
       <div className="relative z-10 mx-auto min-h-[100dvh] max-w-[1400px] px-6 pb-20 pt-32 md:px-10 lg:pb-28 lg:pt-28">
-        <div className="flex max-w-3xl flex-col gap-10 sm:gap-12 md:max-w-5xl lg:max-w-[52%] xl:max-w-[48%]">
+        <div className="flex w-full max-w-3xl flex-col gap-10 sm:gap-12 md:max-w-5xl lg:max-w-[58%] xl:max-w-[54%]">
           <SplitHeadline />
 
           {/* Mobile / tablet orbit */}
