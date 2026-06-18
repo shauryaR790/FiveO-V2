@@ -19,6 +19,7 @@ export function TechVideoSection() {
           >
           <source src={TECH_VIDEO_SRC} type="video/mp4" />
         </video>
+        </div>
       </div>
     </section>
   );
