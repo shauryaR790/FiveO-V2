@@ -313,9 +313,14 @@ html.lenis body {
   pointer-events: none;
 }
 
-/* Services hero title — same scale as other section titles, one line */
+/* Services hero title — one line on desktop, wraps on mobile */
 .services-section-title {
-  white-space: nowrap;
   max-width: none !important;
   width: 100%;
+}
+
+@media (min-width: 768px) {
+  .services-section-title {
+    white-space: nowrap;
+  }
 }

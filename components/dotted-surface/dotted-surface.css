@@ -153,6 +153,26 @@
   color: var(--dt-bg);
 }
 
+@media (max-width: 767px) {
+  .dotted {
+    min-height: min(50vh, 400px);
+  }
+
+  .dotted__content {
+    padding: 1.75rem 1.25rem 1.25rem;
+  }
+
+  .dotted__quote h2,
+  .dotted__quote p {
+    font-size: clamp(1.55rem, 7vw, 2.15rem);
+    line-height: 1.02;
+  }
+
+  .dotted__line {
+    white-space: normal;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .dotted__glow {
     filter: none;

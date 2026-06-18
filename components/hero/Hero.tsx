@@ -31,7 +31,7 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative min-h-[100dvh] overflow-x-clip bg-black text-cream"
+      className="relative min-h-0 overflow-x-clip bg-black text-cream md:min-h-[100dvh]"
     >
       <AnimatedGrid />
 
@@ -49,8 +49,8 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="relative z-10 mx-auto min-h-[100dvh] max-w-[1400px] px-6 pb-20 pt-32 md:px-10 lg:pb-28 lg:pt-28">
-        <div className="flex w-full max-w-3xl flex-col gap-10 sm:gap-12 md:max-w-5xl lg:max-w-[58%] xl:max-w-[54%]">
+      <div className="relative z-10 mx-auto min-h-0 max-w-[1400px] px-6 pb-14 pt-28 md:min-h-[100dvh] md:px-10 md:pb-20 md:pt-32 lg:pb-28 lg:pt-28">
+        <div className="flex w-full max-w-3xl flex-col gap-8 sm:gap-10 md:max-w-5xl md:gap-12 lg:max-w-[58%] xl:max-w-[54%]">
           <SplitHeadline />
 
           {/* Mobile / tablet orbit */}
