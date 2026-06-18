@@ -30,11 +30,11 @@ export function SplitHeadline() {
       if (!lines.length) return;
 
       if (reduce) {
-        gsap.set(lines, { x: 0, autoAlpha: 1, clearProps: "all" });
+        gsap.set(lines, { y: 0, autoAlpha: 1, clearProps: "all" });
         return;
       }
 
-      gsap.set(lines, { x: -120, autoAlpha: 0 });
+      gsap.set(lines, { y: 72, autoAlpha: 0 });
 
       const tl = gsap.timeline({
         paused: true,
@@ -42,10 +42,10 @@ export function SplitHeadline() {
       });
 
       tl.to(lines, {
-        x: 0,
+        y: 0,
         autoAlpha: 1,
-        duration: 1.15,
-        stagger: 0.18,
+        duration: 1.1,
+        stagger: 0.16,
       });
 
       const release = whenLoaderDone(() => tl.play());

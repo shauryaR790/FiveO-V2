@@ -75,7 +75,7 @@ function OrbitDot({
     setPos(circleXY(θ, r));
   });
 
-  return <circle r={5} fill="currentColor" cx={pos.x} cy={pos.y} />;
+  return <circle data-orbit-dot r={5} fill="currentColor" cx={pos.x} cy={pos.y} />;
 }
 
 export function OrbitalGraphic() {
@@ -92,66 +92,56 @@ export function OrbitalGraphic() {
       const svg = svgRef.current;
       if (!root || !svg) return;
 
-      const rings = svg.querySelectorAll<SVGCircleElement>("[data-orbit-ring]");
+      const rings = gsap.utils.toArray<SVGCircleElement>(
+        svg.querySelectorAll("[data-orbit-ring]"),
+      );
+      const dots = gsap.utils.toArray<SVGCircleElement>(
+        svg.querySelectorAll("[data-orbit-dot]"),
+      );
       const star = svg.querySelector<SVGElement>("[data-orbit-star]");
 
       if (reduce) {
-        gsap.set([root, rings, star], { clearProps: "all", autoAlpha: 1, scale: 1 });
+        rings.forEach((ring) => {
+          const len = 2 * Math.PI * Number(ring.getAttribute("r") ?? 0);
+          ring.style.strokeDasharray = `${len}`;
+          ring.style.strokeDashoffset = "0";
+        });
+        gsap.set([root, dots, star], { clearProps: "all", autoAlpha: 1, y: 0 });
         return;
       }
 
-      gsap.set(root, {
-        autoAlpha: 0,
-        scale: 0.78,
-        rotate: -12,
-        transformOrigin: "50% 50%",
+      // Rings trace on; dots and star fade up gently — no scale/rotate pop.
+      rings.forEach((ring) => {
+        const len = 2 * Math.PI * Number(ring.getAttribute("r") ?? 0);
+        ring.style.strokeDasharray = `${len}`;
+        ring.style.strokeDashoffset = `${len}`;
       });
-      gsap.set(rings, {
-        scale: 0,
-        autoAlpha: 0,
-        transformOrigin: "50% 50%",
-        transformBox: "fill-box",
-      });
-      if (star) {
-        gsap.set(star, {
-          scale: 0,
-          autoAlpha: 0,
-          transformOrigin: "50% 50%",
-          transformBox: "fill-box",
-        });
-      }
+
+      gsap.set(root, { autoAlpha: 0 });
+      gsap.set(dots, { autoAlpha: 0, y: 10 });
+      if (star) gsap.set(star, { autoAlpha: 0, y: 8 });
 
       const tl = gsap.timeline({
         paused: true,
-        defaults: { ease: "power3.out" },
+        defaults: { ease: "power2.out" },
       });
 
-      tl.to(root, {
-        autoAlpha: 1,
-        scale: 1,
-        rotate: 0,
-        duration: 1.35,
-      })
+      tl.to(root, { autoAlpha: 1, duration: 0.5 })
         .to(
           rings,
           {
-            scale: 1,
-            autoAlpha: 1,
-            duration: 1.05,
-            stagger: 0.14,
-            ease: "power2.out",
+            strokeDashoffset: 0,
+            duration: 1.6,
+            stagger: 0.22,
+            ease: "power2.inOut",
           },
-          0.12,
+          0.08,
         )
+        .to(dots, { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.08 }, 0.75)
         .to(
           star,
-          {
-            scale: 1,
-            autoAlpha: 1,
-            duration: 0.65,
-            ease: "back.out(1.8)",
-          },
-          0.45,
+          { autoAlpha: 1, y: 0, duration: 0.55, ease: "power2.out" },
+          0.95,
         );
 
       const release = whenLoaderDone(() => tl.play());
@@ -159,7 +149,11 @@ export function OrbitalGraphic() {
       return () => {
         release();
         tl.kill();
-        gsap.set([root, rings, star], { clearProps: "all" });
+        gsap.set([root, dots, star], { clearProps: "all" });
+        rings.forEach((ring) => {
+          ring.style.strokeDasharray = "";
+          ring.style.strokeDashoffset = "";
+        });
       };
     },
     { scope: rootRef, dependencies: [reduce] },
