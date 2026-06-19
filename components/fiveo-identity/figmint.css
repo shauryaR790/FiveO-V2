@@ -97,7 +97,7 @@
 }
 
 .figmint .figmint-anchor--tl {
-  top: clamp(3rem, 10vh, 6rem);
+  top: calc(clamp(3rem, 10vh, 6rem) - 50px);
   left: clamp(1.5rem, 5vw, 4rem);
 }
 
@@ -107,7 +107,7 @@
 }
 
 .figmint .figmint-anchor--tr {
-  top: clamp(4rem, 14vh, 8rem);
+  top: calc(clamp(4rem, 14vh, 8rem) - 50px);
   right: clamp(1.5rem, 5vw, 4rem);
   text-align: right;
 }
@@ -115,28 +115,6 @@
 .figmint .figmint-anchor--br {
   bottom: clamp(3rem, 10vh, 6rem);
   right: clamp(1.5rem, 5vw, 4rem);
-}
-
-.figmint .figmint-kicker {
-  margin: 0 0 1rem;
-  font-family: var(--fm-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.45);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.figmint .figmint-kicker--right {
-  justify-content: flex-end;
-}
-
-.figmint .figmint-kicker-arrow {
-  font-size: 0.85rem;
-  line-height: 1;
-  color: rgba(255, 255, 255, 0.7);
 }
 
 .figmint h2.figmint-title {
@@ -775,11 +753,6 @@
   .figmint .figmint-anchor--tr,
   .figmint .figmint-anchor--br {
     text-align: center;
-  }
-
-  .figmint .figmint-kicker,
-  .figmint .figmint-kicker--right {
-    justify-content: center;
   }
 
   .figmint p.lead {

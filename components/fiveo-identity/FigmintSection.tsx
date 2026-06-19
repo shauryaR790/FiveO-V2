@@ -21,12 +21,6 @@ export function FigmintSection() {
         </div>
 
         <div className="figmint-anchor figmint-anchor--tl">
-          <p className="figmint-kicker">
-            <span className="figmint-kicker-arrow" aria-hidden>
-              ↑
-            </span>
-            aesthetic text
-          </p>
           <h2 className="figmint-title" id="figmint-heading">
             <span>We are</span>
             <span className="italic">FiveO.</span>
@@ -46,12 +40,6 @@ export function FigmintSection() {
         </div>
 
         <div className="figmint-anchor figmint-anchor--tr">
-          <p className="figmint-kicker figmint-kicker--right">
-            <span className="figmint-kicker-arrow" aria-hidden>
-              ↑
-            </span>
-            buttons &amp; text
-          </p>
           <div className="cta-group">
             <a href="#cases" className="btn">
               View projects
