@@ -14,19 +14,23 @@ export function FigmintSection() {
   return (
     <section className="figmint scroll-mt-28" id="studio" aria-labelledby="figmint-heading">
       <div className="figmint-inner figmint-inner--stage">
-        <div className="figmint-anchor figmint-anchor--tl">
-          <h2 className="figmint-title" id="figmint-heading">
-            <span>We are</span>
-            <span className="italic">FiveO.</span>
-          </h2>
-        </div>
+        <div className="figmint-side figmint-side--left">
+          <div className="figmint-anchor figmint-anchor--tl">
+            <h2 className="figmint-title" id="figmint-heading">
+              <span>We are</span>
+              <span className="italic">FiveO.</span>
+            </h2>
+          </div>
 
-        <div className="figmint-anchor figmint-anchor--bl">
-          <p className="lead">
-            FIVEO. Senior web studio for teams that need creative sites and production-grade
-            engineering. We design unforgettable interfaces, ship full-stack web and AI products, and
-            own every launch end to end.
-          </p>
+          <FigmintGlobeBadge />
+
+          <div className="figmint-anchor figmint-anchor--bl">
+            <p className="lead">
+              FIVEO. Senior web studio for teams that need creative sites and production-grade
+              engineering. We design unforgettable interfaces, ship full-stack web and AI products,
+              and own every launch end to end.
+            </p>
+          </div>
         </div>
 
         <div className="figmint-center">
@@ -42,8 +46,6 @@ export function FigmintSection() {
               <div className="price-tag">OPEN / REMOTE</div>
             </div>
           </div>
-
-          <FigmintGlobeBadge />
 
           <div className="figmint-anchor figmint-anchor--br">
             <div className="specs-grid">
