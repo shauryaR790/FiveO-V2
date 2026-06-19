@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 
-import { AgencyMobileShowcase } from "@/components/scroll-showcase/AgencyMobileShowcase";
 import { ContainerScroll } from "@/components/scroll-showcase/ContainerScroll";
 
 const SHOWCASE_IMAGE = "/websites-built/agency-showcase.png";
@@ -11,7 +10,7 @@ export function AgencyScrollShowcase() {
   return (
     <section
       aria-labelledby="scroll-showcase-heading"
-      className="scroll-mt-28 bg-black pb-0 text-cream"
+      className="scroll-mt-28 hidden bg-black pb-0 text-cream md:block"
     >
       <div className="mx-auto max-w-[1400px] px-6 pt-10 md:px-10 md:pt-14">
         <h2
@@ -22,23 +21,17 @@ export function AgencyScrollShowcase() {
         </h2>
       </div>
 
-      <div className="md:hidden">
-        <AgencyMobileShowcase />
-      </div>
-
-      <div className="hidden md:block">
-        <ContainerScroll className="h-[40rem] pt-6">
-          <Image
-            src={SHOWCASE_IMAGE}
-            alt="Recent web project delivered by FiveO"
-            height={684}
-            width={1070}
-            className="mx-auto h-full w-full rounded-2xl object-cover object-left-top"
-            draggable={false}
-            sizes="1024px"
-          />
-        </ContainerScroll>
-      </div>
+      <ContainerScroll className="h-[40rem] pt-6">
+        <Image
+          src={SHOWCASE_IMAGE}
+          alt="Recent web project delivered by FiveO"
+          height={684}
+          width={1070}
+          className="mx-auto h-full w-full rounded-2xl object-cover object-left-top"
+          draggable={false}
+          sizes="1024px"
+        />
+      </ContainerScroll>
     </section>
   );
 }
