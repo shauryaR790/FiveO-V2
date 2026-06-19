@@ -13,13 +13,6 @@ export function FigmintSection() {
   return (
     <section className="figmint scroll-mt-28" id="studio" aria-labelledby="figmint-heading">
       <div className="figmint-inner figmint-inner--stage">
-        <div className="figmint-frame" aria-hidden>
-          <span className="figmint-corner figmint-corner--tl" />
-          <span className="figmint-corner figmint-corner--tr" />
-          <span className="figmint-corner figmint-corner--bl" />
-          <span className="figmint-corner figmint-corner--br" />
-        </div>
-
         <div className="figmint-anchor figmint-anchor--tl">
           <h2 className="figmint-title" id="figmint-heading">
             <span>We are</span>
