@@ -1,5 +1,6 @@
 import { FigmintComputer } from "@/components/fiveo-identity/FigmintComputer";
 import { FigmintGlobeBadge } from "@/components/fiveo-identity/FigmintGlobeBadge";
+import { FigmintSignalPanel } from "@/components/fiveo-identity/FigmintSignalPanel";
 
 import "./figmint.css";
 
@@ -46,6 +47,8 @@ export function FigmintSection() {
               <div className="price-tag">OPEN / REMOTE</div>
             </div>
           </div>
+
+          <FigmintSignalPanel />
 
           <div className="figmint-anchor figmint-anchor--br">
             <div className="specs-grid">
