@@ -859,12 +859,12 @@
   }
 
   .figmint .figmint-center {
-    max-width: min(100%, 300px);
+    max-width: min(100%, 280px);
     overflow: visible;
   }
 
   .figmint .scene-scale {
-    transform: scale(0.62);
+    transform: scale(0.52);
   }
 
   .figmint h2.figmint-title {
