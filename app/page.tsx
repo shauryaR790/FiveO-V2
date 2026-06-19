@@ -19,8 +19,8 @@ export default function Home() {
       <TechStackSection />
       <DottedSurfaceSection />
       <TechVideoSection />
-      <FigmintSection />
       <ServicesSection />
+      <FigmintSection />
       <DeliveryGrid />
       <AgencyScrollShowcase />
       <section id="manifesto" className="min-h-[1px] scroll-mt-28 bg-black" aria-label="Approach" />
