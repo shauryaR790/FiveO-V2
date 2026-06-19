@@ -21,13 +21,13 @@ export function AgencyScrollShowcase() {
         </h2>
       </div>
 
-      <ContainerScroll className="h-[26rem] pt-4 pb-0 md:h-[40rem] md:pt-6">
+      <ContainerScroll className="h-auto min-h-0 pt-4 pb-8 md:h-[40rem] md:pt-6 md:pb-0">
         <Image
           src={SHOWCASE_IMAGE}
           alt="Recent web project delivered by FiveO"
           height={684}
           width={1070}
-          className="mx-auto h-full w-full rounded-xl object-cover object-left-top md:rounded-2xl"
+          className="mx-auto h-auto w-full max-h-none rounded-xl object-contain object-center md:h-full md:max-h-full md:rounded-2xl md:object-cover md:object-left-top"
           draggable={false}
           sizes="(max-width: 768px) 100vw, 1024px"
         />
