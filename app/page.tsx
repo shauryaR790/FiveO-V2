@@ -7,7 +7,7 @@ import { FlywheelSection } from "@/components/flywheel/FlywheelSection";
 import { Hero } from "@/components/hero/Hero";
 import { PrecisionEdgeSection } from "@/components/precision-edge/PrecisionEdgeSection";
 import { SelectedWorkSection } from "@/components/selected-work/SelectedWorkSection";
-import { ServicesSection } from "@/components/services/ServicesSection";
+import { KernelBentoSection } from "@/components/kernel-bento/KernelBentoSection";
 import { TechStackSection } from "@/components/tech-stack/TechStackSection";
 import { TechVideoSection } from "@/components/tech-video/TechVideoSection";
 import { WebDevCraftSection } from "@/components/web-dev-craft/WebDevCraftSection";
@@ -19,7 +19,7 @@ export default function Home() {
       <TechStackSection />
       <DottedSurfaceSection />
       <TechVideoSection />
-      <ServicesSection />
+      <KernelBentoSection />
       <FigmintSection />
       <DeliveryGrid />
       <AgencyScrollShowcase />
