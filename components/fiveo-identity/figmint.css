@@ -31,7 +31,6 @@
   place-items: center;
   padding: clamp(2rem, 5vw, 4.5rem);
   min-height: min(100vh, 1100px);
-  --figmint-title-block-h: calc(clamp(3rem, 7vw, 5.5rem) * 0.85 * 2 + 2.75rem);
 }
 
 .figmint .figmint-frame {
@@ -76,13 +75,13 @@
 .figmint .figmint-center {
   position: absolute;
   left: 50%;
-  top: calc(clamp(3rem, 10vh, 6rem) + var(--figmint-title-block-h) * 0.52);
+  top: 50%;
   z-index: 5;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: min(100%, 980px);
-  min-height: var(--figmint-title-block-h);
+  width: min(100%, 720px);
+  min-height: min(62vh, 640px);
   transform: translate(-50%, -50%);
   pointer-events: none;
 }
@@ -266,7 +265,7 @@
 }
 
 .figmint .scene-scale {
-  transform: scale(2.2);
+  transform: scale(1.45);
   transform-origin: center center;
 }
 
@@ -822,18 +821,18 @@
   }
 
   .figmint .scene-scale {
-    transform: scale(1.45);
+    transform: scale(1.05);
   }
 }
 
 @media (max-width: 768px) {
   .figmint .figmint-center {
-    max-width: 420px;
+    max-width: 380px;
     top: 50%;
   }
 
   .figmint .scene-scale {
-    transform: scale(1.1);
+    transform: scale(0.9);
   }
 
   .figmint h2.figmint-title {
