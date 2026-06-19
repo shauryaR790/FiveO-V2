@@ -58,7 +58,7 @@
 }
 
 .figmint .figmint-anchor--tl {
-  top: calc(clamp(3rem, 10vh, 6rem) - 20px);
+  top: calc(clamp(3rem, 10vh, 6rem) - 13px);
   left: clamp(1.5rem, 5vw, 4rem);
 }
 
@@ -68,7 +68,7 @@
 }
 
 .figmint .figmint-anchor--tr {
-  top: calc(clamp(4rem, 14vh, 8rem) - 20px);
+  top: calc(clamp(4rem, 14vh, 8rem) - 30px);
   right: clamp(1.5rem, 5vw, 4rem);
   text-align: right;
 }
