@@ -1,11 +1,77 @@
 "use client";
 
+import {
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+} from "framer-motion";
+import { useCallback, useRef } from "react";
+
 import { FigmintTypewriter } from "@/components/fiveo-identity/FigmintTypewriter";
 
+const IDLE_ROTATE_Y = -16;
+const IDLE_ROTATE_X = 6;
+
 export function FigmintComputer() {
+  const reduce = useReducedMotion() === true;
+  const sceneRef = useRef<HTMLDivElement>(null);
+  const hoveredRef = useRef(false);
+
+  const rotateY = useMotionValue(IDLE_ROTATE_Y);
+  const rotateX = useMotionValue(IDLE_ROTATE_X);
+  const springY = useSpring(rotateY, { stiffness: 110, damping: 22, mass: 0.65 });
+  const springX = useSpring(rotateX, { stiffness: 110, damping: 22, mass: 0.65 });
+
+  const faceForward = useCallback(() => {
+    hoveredRef.current = true;
+    rotateY.set(0);
+    rotateX.set(0);
+  }, [rotateX, rotateY]);
+
+  const returnToIdle = useCallback(() => {
+    hoveredRef.current = false;
+    rotateY.set(IDLE_ROTATE_Y);
+    rotateX.set(IDLE_ROTATE_X);
+  }, [rotateX, rotateY]);
+
+  const onPointerMove = useCallback(
+    (event: React.PointerEvent<HTMLDivElement>) => {
+      if (reduce || !hoveredRef.current) return;
+
+      const scene = sceneRef.current;
+      if (!scene) return;
+
+      const rect = scene.getBoundingClientRect();
+      const nx = (event.clientX - rect.left) / rect.width - 0.5;
+      const ny = (event.clientY - rect.top) / rect.height - 0.5;
+
+      rotateY.set(nx * 10);
+      rotateX.set(-ny * 7);
+    },
+    [reduce, rotateX, rotateY],
+  );
+
   return (
     <div className="product-col">
-      <div className="scene" id="figmint-scene">
+      <div className="scene-scale">
+        <motion.div
+          ref={sceneRef}
+          className="scene"
+          id="figmint-scene"
+          style={
+            reduce
+              ? undefined
+              : {
+                  rotateY: springY,
+                  rotateX: springX,
+                  transformPerspective: 1400,
+                }
+          }
+          onPointerEnter={reduce ? undefined : faceForward}
+          onPointerLeave={reduce ? undefined : returnToIdle}
+          onPointerMove={reduce ? undefined : onPointerMove}
+        >
         <div className="computer-unit">
           <div className="face front">
             <div className="screen-inset">
@@ -118,6 +184,7 @@ export function FigmintComputer() {
             <div className="kb-shadow" />
           </div>
         </div>
+        </motion.div>
       </div>
     </div>
   );
