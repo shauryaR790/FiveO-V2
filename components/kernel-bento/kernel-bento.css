@@ -311,14 +311,48 @@
     grid-column: span 2;
   }
 
+  .kernel .card {
+    min-height: 0;
+    padding: 20px 16px;
+  }
+
+  .kernel .card--philosophy,
+  .kernel .card--status {
+    min-height: 200px;
+  }
+
+  .kernel .card--contact {
+    min-height: auto;
+  }
+
+  .kernel .headline {
+    font-size: clamp(0.95rem, 4.5vw, 1.2rem);
+    white-space: nowrap;
+    max-width: 100%;
+    margin-bottom: 10px;
+  }
+
   .kernel .headline-large {
     font-size: clamp(1.5rem, 6vw, 2rem);
+    white-space: normal;
+  }
+
+  .kernel .card--stat .stat-large {
+    font-size: clamp(1.75rem, 12vw, 2.5rem);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    max-width: 100%;
+    overflow: hidden;
   }
 
   .kernel .contact-display {
     flex-direction: row;
     flex-wrap: wrap;
     align-items: flex-start;
+  }
+
+  .kernel .card--contact .headline {
+    font-size: clamp(1.35rem, 7vw, 1.75rem);
   }
 }
 

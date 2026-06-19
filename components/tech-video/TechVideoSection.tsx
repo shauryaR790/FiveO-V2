@@ -14,7 +14,7 @@ export function TechVideoSection() {
             loop
             muted
             playsInline
-            className="block h-auto w-full object-contain"
+            className="block aspect-video max-h-[min(56vh,420px)] w-full object-contain md:max-h-none md:aspect-auto"
             aria-label="FiveO product showcase"
           >
           <source src={TECH_VIDEO_SRC} type="video/mp4" />

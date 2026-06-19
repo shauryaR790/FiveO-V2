@@ -96,7 +96,7 @@ export function KernelBentoSection() {
             </div>
           </a>
 
-          <div className="card card--top-head">
+          <div className="card card--top-head card--stat">
             <span className="meta-tag">Output</span>
             <h3 className="headline">Sites Shipped</h3>
             <div className="stat-large">MANY</div>
@@ -138,7 +138,7 @@ export function KernelBentoSection() {
             </p>
           </a>
 
-          <a href="#services" className="card dark">
+          <a href="#services" className="card dark card--philosophy">
             <span className="arrow-icon">↗</span>
             <span className="meta-tag">Philosophy</span>
             <h3 className="headline">LEARN BY BREAKING</h3>
@@ -147,6 +147,16 @@ export function KernelBentoSection() {
               until the system makes sense.
             </p>
           </a>
+
+          <div className="card card--status">
+            <span className="meta-tag">Status</span>
+            <h3 className="headline">Open to Work</h3>
+            <p className="copy">Projects, collabs, freelance — full-stack, design, or security consulting.</p>
+            <a href="#contact" className="newsletter-input" style={{ color: "inherit", textDecoration: "none" }}>
+              <span>Jump to contact</span>
+              <span>→</span>
+            </a>
+          </div>
 
           <a href="#contact" className="card span-2 card--top-head card--contact">
             <span className="arrow-icon">↗</span>
@@ -182,16 +192,6 @@ export function KernelBentoSection() {
               <span className="cursor" />
             </div>
           </a>
-
-          <div className="card">
-            <span className="meta-tag">Status</span>
-            <h3 className="headline">Open to Work</h3>
-            <p className="copy">Projects, collabs, freelance — full-stack, design, or security consulting.</p>
-            <a href="#contact" className="newsletter-input" style={{ color: "inherit", textDecoration: "none" }}>
-              <span>Jump to contact</span>
-              <span>→</span>
-            </a>
-          </div>
         </main>
       </div>
     </section>

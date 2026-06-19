@@ -848,22 +848,37 @@
   }
 
   .figmint .scene-scale {
-    transform: scale(1.05);
+    transform: scale(0.78);
   }
 }
 
 @media (max-width: 768px) {
+  .figmint .figmint-inner--stage {
+    overflow: visible;
+    padding-bottom: 3rem;
+  }
+
   .figmint .figmint-center {
-    max-width: 380px;
-    top: 50%;
+    max-width: min(100%, 300px);
+    overflow: visible;
   }
 
   .figmint .scene-scale {
-    transform: scale(0.9);
+    transform: scale(0.62);
   }
 
   .figmint h2.figmint-title {
-    font-size: clamp(2.5rem, 12vw, 3.5rem);
+    font-size: clamp(1.65rem, 8.5vw, 2.35rem);
+    white-space: nowrap;
+    letter-spacing: -0.03em;
+  }
+
+  .figmint h2.figmint-title span {
+    display: inline;
+  }
+
+  .figmint h2.figmint-title span.italic::before {
+    content: " ";
   }
 }
 
