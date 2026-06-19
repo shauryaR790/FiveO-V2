@@ -1,6 +1,5 @@
 import { FigmintComputer } from "@/components/fiveo-identity/FigmintComputer";
 import { FigmintGlobeBadge } from "@/components/fiveo-identity/FigmintGlobeBadge";
-import { FigmintSignalPanel } from "@/components/fiveo-identity/FigmintSignalPanel";
 
 import "./figmint.css";
 
@@ -48,7 +47,10 @@ export function FigmintSection() {
             </div>
           </div>
 
-          <FigmintSignalPanel />
+          <p className="figmint-aside">
+            Senior-only studio. We design bold interfaces, engineer full-stack products, and ship
+            every launch end to end — remote-first, production-grade, no agency theater.
+          </p>
 
           <div className="figmint-anchor figmint-anchor--br">
             <div className="specs-grid">
