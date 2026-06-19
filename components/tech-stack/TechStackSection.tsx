@@ -5,7 +5,7 @@ export function TechStackSection() {
   return (
     <section
       id="tech-stack"
-      className="relative overflow-hidden bg-black py-14 text-cream md:py-20"
+      className="relative overflow-hidden bg-black pb-14 pt-20 text-cream md:pb-20 md:pt-28 lg:pt-32"
       aria-labelledby="tech-stack-heading"
     >
       <AnimatedGrid />

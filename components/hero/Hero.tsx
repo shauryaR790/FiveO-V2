@@ -35,11 +35,6 @@ export function Hero() {
     >
       <AnimatedGrid />
 
-      <div
-        className="pointer-events-none absolute inset-y-0 left-6 hidden w-px bg-cream/[0.12] md:left-10 md:block"
-        aria-hidden
-      />
-
       <HeroNavbar />
 
       {/* Desktop orbit — GSAP entrance after loader */}
@@ -49,7 +44,7 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="relative z-10 mx-auto min-h-0 max-w-[1400px] px-6 pb-14 pt-28 md:min-h-[100dvh] md:px-10 md:pb-20 md:pt-32 lg:pb-28 lg:pt-28">
+      <div className="relative z-10 mx-auto min-h-0 max-w-[1400px] px-6 pb-24 pt-28 md:min-h-[100dvh] md:px-10 md:pb-40 md:pt-32 lg:pb-48 lg:pt-28">
         <div className="flex w-full max-w-3xl flex-col gap-8 sm:gap-10 md:max-w-5xl md:gap-12 lg:max-w-[58%] xl:max-w-[54%]">
           <SplitHeadline />
 
