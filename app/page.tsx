@@ -15,7 +15,7 @@ import { WebDevCraftSection } from "@/components/web-dev-craft/WebDevCraftSectio
 export default function Home() {
   return (
     <>
-      <div className="relative isolate bg-black">
+      <div className="relative bg-black">
         <div
           className="pointer-events-none absolute bottom-0 left-6 top-0 z-[20] hidden w-px bg-cream/[0.12] md:left-10 md:block"
           aria-hidden

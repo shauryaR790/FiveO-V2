@@ -116,7 +116,7 @@ function ScrollCard({
 }) {
   if (reduceMotion) {
     return (
-      <div className="mx-auto w-full max-w-5xl rounded-[24px] border-4 border-zinc-600 bg-zinc-900 p-2 shadow-2xl md:-mt-12 md:h-[38rem] md:rounded-[30px] md:p-4">
+      <div className="mx-auto w-full max-w-5xl rounded-[24px] border-4 border-zinc-600 bg-zinc-900 p-2 shadow-2xl md:-mt-12 md:h-[44rem] md:rounded-[30px] md:p-4">
         <div className="w-full overflow-hidden rounded-2xl bg-black md:h-full">{children}</div>
       </div>
     );
@@ -131,7 +131,7 @@ function ScrollCard({
           "0 0 #0000004d, 0 9px 20px #0000004a, 0 37px 37px #00000042, 0 84px 50px #00000026, 0 149px 60px #0000000a, 0 233px 65px #00000003",
         transformStyle: "preserve-3d",
       }}
-      className="mx-auto w-full max-w-5xl rounded-[24px] border-4 border-zinc-600 bg-zinc-900 p-2 shadow-2xl md:-mt-10 md:h-[38rem] md:rounded-[30px] md:p-4"
+      className="mx-auto w-full max-w-5xl rounded-[24px] border-4 border-zinc-600 bg-zinc-900 p-2 shadow-2xl md:-mt-10 md:h-[44rem] md:rounded-[30px] md:p-4"
     >
       <div className="w-full overflow-hidden rounded-2xl bg-black md:h-full">{children}</div>
     </motion.div>
