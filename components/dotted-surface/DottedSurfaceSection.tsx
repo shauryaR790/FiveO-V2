@@ -12,11 +12,11 @@ export function DottedSurfaceSection() {
       </svg>
 
       <div className="dotted__content">
-        <p className="dotted__label">Operator signal · FIVEO</p>
+        <p className="dotted__label">How we work · FIVEO</p>
         <blockquote className="dotted__quote">
           <h2 id="dotted-heading">
-            <span className="dotted__line">Code the stack</span>
-            <span className="dotted__line">ship it live</span>
+            <span className="dotted__line">We build the stack</span>
+            <span className="dotted__line">and ship it live</span>
           </h2>
         </blockquote>
       </div>

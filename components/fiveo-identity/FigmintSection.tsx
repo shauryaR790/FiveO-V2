@@ -26,9 +26,9 @@ export function FigmintSection() {
 
           <div className="figmint-anchor figmint-anchor--bl">
             <p className="lead">
-              FIVEO. Senior web studio for teams that need creative sites and production-grade
-              engineering. We design unforgettable interfaces, ship full-stack web and AI products,
-              and own every launch end to end.
+              FIVEO is a web development studio for founders and teams who need standout design and
+              production-grade engineering. We craft unforgettable interfaces, ship full-stack web
+              and AI products, and own every launch from first sketch to live release.
             </p>
           </div>
         </div>
@@ -41,15 +41,16 @@ export function FigmintSection() {
           <div className="figmint-anchor figmint-anchor--tr">
             <div className="cta-group">
               <a href="#cases" className="btn">
-                View projects
+                View our work
               </a>
-              <div className="price-tag">OPEN / REMOTE</div>
+              <div className="price-tag">REMOTE · WORLDWIDE</div>
             </div>
           </div>
 
           <p className="figmint-aside">
-            Senior-only studio. We design bold interfaces, engineer full-stack products, and ship
-            every launch end to end — remote-first, production-grade, no agency theater.
+            A senior team — no juniors, no hand-offs. We design bold interfaces, engineer full-stack
+            products, and ship every launch end to end. Remote-first, production-grade, and trusted
+            by founders.
           </p>
 
           <div className="figmint-anchor figmint-anchor--br">

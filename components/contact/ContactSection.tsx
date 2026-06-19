@@ -179,7 +179,7 @@ export function ContactSection() {
               viewport={{ once: true, amount: 0.4 }}
               className="mt-10 max-w-5xl font-heading text-[clamp(3rem,9vw,8rem)] font-normal uppercase leading-[0.92] tracking-[-0.03em] text-cream"
             >
-              Let&apos;s make something
+              Let&apos;s build something
             </motion.h2>
 
             <motion.p

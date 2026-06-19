@@ -15,8 +15,8 @@ export function TechStackSection() {
           id="tech-stack-heading"
           className="section-title font-heading text-[clamp(2.85rem,7.5vw,5.75rem)] font-normal leading-[1.02] tracking-[-0.035em] text-cream xl:text-[clamp(3.25rem,6.5vw,6.25rem)]"
         >
-          Technologies we{" "}
-          <span className="text-cream">work with</span>
+          The stack behind everything we{" "}
+          <span className="text-cream">ship</span>
         </h2>
 
         <AnimatedTechGrid className="mt-10 md:mt-12" />
