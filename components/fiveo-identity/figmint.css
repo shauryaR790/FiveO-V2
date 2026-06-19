@@ -27,36 +27,10 @@
 }
 
 .figmint .figmint-inner--stage {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
   padding: clamp(2rem, 5vw, 4.5rem);
   min-height: min(100vh, 1100px);
-}
-
-.figmint .figmint-row {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-  gap: clamp(1.25rem, 3.5vw, 3rem);
-  width: 100%;
-  max-width: 1380px;
-}
-
-.figmint .figmint-side {
-  flex: 1 1 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-width: 0;
-  max-width: min(360px, 32vw);
-}
-
-.figmint .figmint-side--right {
-  align-items: flex-end;
-  text-align: right;
 }
 
 .figmint .figmint-frame {
@@ -99,13 +73,16 @@
 }
 
 .figmint .figmint-center {
-  position: relative;
+  position: absolute;
+  left: 50%;
+  top: 50%;
   z-index: 5;
-  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   width: min(100%, 720px);
+  min-height: min(62vh, 640px);
+  transform: translate(-50%, -50%);
   pointer-events: none;
 }
 
@@ -114,26 +91,52 @@
 }
 
 .figmint .figmint-anchor {
-  position: relative;
+  position: absolute;
   z-index: 10;
-  max-width: 100%;
+  max-width: min(360px, 34vw);
 }
 
-.figmint .figmint-anchor--tl,
+.figmint .figmint-anchor--tl {
+  top: clamp(3rem, 10vh, 6rem);
+  left: clamp(1.5rem, 5vw, 4rem);
+}
+
 .figmint .figmint-anchor--bl {
-  left: auto;
-  right: auto;
-  top: auto;
-  bottom: auto;
+  bottom: clamp(3rem, 12vh, 7rem);
+  left: clamp(1.5rem, 5vw, 4rem);
 }
 
-.figmint .figmint-anchor--tr,
-.figmint .figmint-anchor--br {
-  left: auto;
-  right: auto;
-  top: auto;
-  bottom: auto;
+.figmint .figmint-anchor--tr {
+  top: clamp(4rem, 14vh, 8rem);
+  right: clamp(1.5rem, 5vw, 4rem);
   text-align: right;
+}
+
+.figmint .figmint-anchor--br {
+  bottom: clamp(3rem, 10vh, 6rem);
+  right: clamp(1.5rem, 5vw, 4rem);
+}
+
+.figmint .figmint-kicker {
+  margin: 0 0 1rem;
+  font-family: var(--fm-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.figmint .figmint-kicker--right {
+  justify-content: flex-end;
+}
+
+.figmint .figmint-kicker-arrow {
+  font-size: 0.85rem;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .figmint h2.figmint-title {
@@ -178,21 +181,6 @@
   justify-content: flex-end;
 }
 
-.figmint .cta-stack {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  align-items: flex-end;
-}
-
-.figmint .cta-row {
-  display: flex;
-  gap: 0.75rem;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
-
 .figmint .btn {
   display: inline-block;
   background: var(--fm-fg);
@@ -224,13 +212,6 @@
   color: var(--fm-fg);
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  text-decoration: none;
-  transition: background 0.15s ease, color 0.15s ease;
-}
-
-.figmint a.price-tag:hover {
-  background: var(--fm-fg);
-  color: var(--fm-bg);
 }
 
 .figmint .specs-grid {
@@ -774,23 +755,10 @@
   .figmint .figmint-inner--stage {
     min-height: auto;
     padding: 2.5rem 1.5rem 3rem;
-  }
-
-  .figmint .figmint-row {
+    display: flex;
     flex-direction: column;
     align-items: center;
     gap: 2rem;
-  }
-
-  .figmint .figmint-side {
-    max-width: 100%;
-    width: 100%;
-    gap: 2rem;
-  }
-
-  .figmint .figmint-side--right {
-    align-items: center;
-    text-align: center;
   }
 
   .figmint .figmint-frame {
@@ -798,6 +766,8 @@
   }
 
   .figmint .figmint-anchor {
+    position: static;
+    max-width: 100%;
     width: 100%;
     text-align: center;
   }
@@ -807,15 +777,18 @@
     text-align: center;
   }
 
+  .figmint .figmint-kicker,
+  .figmint .figmint-kicker--right {
+    justify-content: center;
+  }
+
   .figmint p.lead {
     margin-left: auto;
     margin-right: auto;
   }
 
-  .figmint .cta-stack,
-  .figmint .cta-row {
+  .figmint .cta-group {
     justify-content: center;
-    align-items: center;
   }
 
   .figmint .specs-grid {
@@ -823,8 +796,28 @@
   }
 
   .figmint .figmint-center {
+    position: static;
+    order: 2;
+    min-height: auto;
     width: 100%;
     max-width: 440px;
+    transform: none;
+  }
+
+  .figmint .figmint-anchor--tl {
+    order: 1;
+  }
+
+  .figmint .figmint-anchor--bl {
+    order: 3;
+  }
+
+  .figmint .figmint-anchor--tr {
+    order: 4;
+  }
+
+  .figmint .figmint-anchor--br {
+    order: 5;
   }
 
   .figmint .scene-scale {
@@ -835,6 +828,7 @@
 @media (max-width: 768px) {
   .figmint .figmint-center {
     max-width: 380px;
+    top: 50%;
   }
 
   .figmint .scene-scale {

@@ -20,58 +20,54 @@ export function FigmintSection() {
           <span className="figmint-corner figmint-corner--br" />
         </div>
 
-        <div className="figmint-row">
-          <div className="figmint-side figmint-side--left">
-            <div className="figmint-anchor figmint-anchor--tl">
-              <h2 className="figmint-title" id="figmint-heading">
-                <span>We are</span>
-                <span className="italic">FiveO.</span>
-              </h2>
-            </div>
+        <div className="figmint-anchor figmint-anchor--tl">
+          <p className="figmint-kicker">
+            <span className="figmint-kicker-arrow" aria-hidden>
+              ↑
+            </span>
+            aesthetic text
+          </p>
+          <h2 className="figmint-title" id="figmint-heading">
+            <span>We are</span>
+            <span className="italic">FiveO.</span>
+          </h2>
+        </div>
 
-            <div className="figmint-anchor figmint-anchor--bl">
-              <p className="lead">
-                FIVEO. Senior web studio for teams that need creative sites and production-grade
-                engineering. We design unforgettable interfaces, ship full-stack web and AI products,
-                and own every launch end to end.
-              </p>
-            </div>
+        <div className="figmint-anchor figmint-anchor--bl">
+          <p className="lead">
+            FIVEO. Senior web studio for teams that need creative sites and production-grade
+            engineering. We design unforgettable interfaces, ship full-stack web and AI products, and
+            own every launch end to end.
+          </p>
+        </div>
+
+        <div className="figmint-center">
+          <FigmintComputer />
+        </div>
+
+        <div className="figmint-anchor figmint-anchor--tr">
+          <p className="figmint-kicker figmint-kicker--right">
+            <span className="figmint-kicker-arrow" aria-hidden>
+              ↑
+            </span>
+            buttons &amp; text
+          </p>
+          <div className="cta-group">
+            <a href="#cases" className="btn">
+              View projects
+            </a>
+            <div className="price-tag">OPEN / REMOTE</div>
           </div>
+        </div>
 
-          <div className="figmint-center">
-            <FigmintComputer />
-          </div>
-
-          <div className="figmint-side figmint-side--right">
-            <div className="figmint-anchor figmint-anchor--tr">
-              <div className="cta-stack">
-                <div className="cta-row">
-                  <a href="#cases" className="btn">
-                    View projects
-                  </a>
-                  <span className="price-tag">OPEN / REMOTE</span>
-                </div>
-                <div className="cta-row">
-                  <a href="#contact" className="btn">
-                    Get in touch
-                  </a>
-                  <a href="#services" className="price-tag">
-                    See services
-                  </a>
-                </div>
+        <div className="figmint-anchor figmint-anchor--br">
+          <div className="specs-grid">
+            {SPECS.map((spec) => (
+              <div key={spec.label} className="spec-item">
+                <h4>{spec.label}</h4>
+                <p>{spec.value}</p>
               </div>
-            </div>
-
-            <div className="figmint-anchor figmint-anchor--br">
-              <div className="specs-grid">
-                {SPECS.map((spec) => (
-                  <div key={spec.label} className="spec-item">
-                    <h4>{spec.label}</h4>
-                    <p>{spec.value}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
